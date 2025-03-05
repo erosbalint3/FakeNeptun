@@ -1,0 +1,32 @@
+<div class="main-container">
+  <div class="title-container">
+
+  </div>
+  <div class="button-container">
+
+  </div>
+  <div class="table-container">
+    <p-table [value]="courses" [tableStyleClass]="'course-list-table'">
+      <ng-template #header>
+        <tr>
+          <th>Name</th>
+          <th>Course code</th>
+          <th>Credit</th>
+          <th>Number of students</th>
+          <th>Max number of students</th>
+          <th>Teacher</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-course>
+        <tr>
+          <td>{{ course.name }}</td>
+          <td>{{ course.code }}</td>
+          <td>{{ course.credit }}</td>
+          <td>{{ course.numberOfStudents }}</td>
+          <td>{{ course.maxNumberOfStudents }}</td>
+          <td>{{ course.teacher }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

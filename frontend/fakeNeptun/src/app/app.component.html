@@ -1,0 +1,8 @@
+<nav>
+  <ng-container *ngFor="let route of routeList;">
+    <ng-container *ngIf="route.path != ''">
+      <a routerLink='/{{route.path}}'>{{ route.title }}</a>
+    </ng-container>
+  </ng-container>
+</nav>
+<router-outlet />

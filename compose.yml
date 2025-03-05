@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo-init:/docker-entrypoint-initdb.d
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: progr
+      MONGO_INITDB_ROOT_PASSWORD: progr
+      MONGO_INITDB_DATABASE: fakeNeptun
+    restart: always
