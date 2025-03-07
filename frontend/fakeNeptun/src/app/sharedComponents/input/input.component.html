@@ -1,0 +1,10 @@
+<div class="input-group">
+  <label for="{{ id }}">{{ label }}</label>
+  <input
+    [type]="inputType"
+    [value]="value"
+    (input)="updateValue($event)"
+    [disabled]="isDisabled"
+    [id]="id"
+  />
+</div>

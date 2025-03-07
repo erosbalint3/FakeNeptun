@@ -1,0 +1,64 @@
+.register-course-container {
+  padding: 20px;
+
+  span {
+    font-size: 25px;
+  }
+
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+}
+
+.action-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+  button {
+    border-radius: 8px;
+    box-shadow: #007BFF 10px 5px;
+    transition: 0.1s;
+  }
+}
+
+
+
+.mat-row {
+  height: 70px;
+}
+
+.action-button {
+  float: right;
+  border-radius: 8px;
+  box-shadow: #007BFF 10px 5px;
+  transition: 0.1s;
+}
+
+.table-container {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container th {
+  position: sticky;
+  top: 0;
+  background: #f5f5f5;
+  z-index: 2;
+}
+
+/* Optional: Styling for better appearance */
+.mat-checkbox {
+  margin-left: 8px;
+}

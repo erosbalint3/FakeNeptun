@@ -1,0 +1,33 @@
+<div class="container">
+  <mat-card class="profile-card">
+    <mat-card class="profile-card">
+      <mat-card-header>
+        <div class="avatar-container">
+          <mat-icon class="avatar-icon">person</mat-icon>
+        </div>
+        <mat-card-title>{{ user.name }}</mat-card-title>
+        <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="info-row">
+          <mat-icon class="info-icon">email</mat-icon>
+          <span>{{ user.email }}</span>
+        </div>
+        <div class="info-row">
+          <mat-icon class="info-icon">phone</mat-icon>
+          <span>{{ user.phone }}</span>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions align="end" class="button-container">
+        <button mat-raised-button color="primary" (click)="openEditProfileDialog()">
+          <mat-icon>edit</mat-icon> Edit Profile
+        </button>
+        <button mat-raised-button color="accent" (click)="openChangePasswordDialog()">
+          Change Password
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-card>
+</div>

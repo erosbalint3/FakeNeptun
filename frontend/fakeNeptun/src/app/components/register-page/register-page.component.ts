@@ -33,7 +33,7 @@ export class RegisterPageComponent {
     } else {
       control.get('confirmPassword')?.setErrors(null);
     }
-    
+
     return null;
   }
 

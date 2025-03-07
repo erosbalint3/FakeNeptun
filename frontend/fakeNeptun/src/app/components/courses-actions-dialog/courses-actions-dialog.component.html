@@ -1,0 +1,90 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="main-dialog-container">
+  <h1 mat-dialog-title>Course details</h1>
+  <div mat-dialog-content>
+    <mat-tab-group>
+      <mat-tab label="Calendar">
+        <ng-container [ngTemplateOutlet]="calendarTemplate"/>
+      </mat-tab>
+      <mat-tab label="Details">
+        <ng-container [ngTemplateOutlet]="detailsTemplate" />
+      </mat-tab>
+      <mat-tab label="Actions">
+        <ng-container [ngTemplateOutlet]="actionsTemplate" />
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Close</button>
+  </div>
+</div>
+
+
+<ng-template #calendarTemplate>
+  <div class="calendar-template">
+    <div class="presence-info">
+      <span class="missed">Missed classes: {{ details.calendar.missedClassesCount }}</span>
+      <span class="present">Visited classes: {{ details.calendar.presentClassesCount }}</span>
+    </div>
+    <div class="info-container">
+      <ng-container *ngFor="let data of details.calendar.classDates" >
+        <div class="class-date-item {{ data.presence ? 'present-presence' : 'missed-presence' }}">
+          <div class="infos">
+            <span><b>Start date:</b> {{ data.startDate.toLocaleString() }}</span>
+            <span><b>End date:</b> {{ data.endDate.toLocaleString() }}</span>
+            <span><b>Length:</b> {{ data.length }} hours</span>
+          </div>
+          <div class="icon">
+            <ng-container *ngIf="data.presence">
+              <mat-icon>sentiment_satisfied_alt</mat-icon>
+            </ng-container>
+            <ng-container *ngIf="!data.presence">
+              <mat-icon>sentiment_dissatisfied_alt</mat-icon>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #detailsTemplate>
+  <div class="details-template">
+    <div class="info-item">
+      <span class="info-title">Course name:</span>
+      <span class="info-value">{{ details.details.courseName }}</span>
+    </div>
+    <div class="info-item">
+      <span class="info-title">Course code:</span>
+      <span class="info-value">{{ details.details.courseCode }}</span>
+    </div>
+    <div class="info-item">
+      <span class="info-title">Course credit:</span>
+      <span class="info-value">{{ details.details.courseCredit }}</span>
+    </div>
+    <div class="info-item">
+      <span class="info-title">Course student number limit:</span>
+      <span class="info-value">{{ details.details.courseStudentCountLimit }}</span>
+    </div>
+    <div class="info-item">
+      <span class="info-title">Course student number:</span>
+      <span class="info-value">{{ details.details.courseStudentCount }}</span>
+    </div>
+    <div class="info-item">
+      <span class="info-title">Teacher:</span>
+      <span class="info-value">{{ details.details.courseTeacher }}</span>
+    </div>
+    <div class="info-item">
+      <span class="info-title">Course status:</span>
+      <span class="info-value">{{ details.details.courseCompletionStatus }}</span>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #actionsTemplate>
+  <div class="action-template">
+    <button mat-flat-button>Abandon course</button>
+  </div>
+</ng-template>
+
+

@@ -1,0 +1,92 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="main-dialog-container">
+  <h1 mat-dialog-title>Course details</h1>
+  <div mat-dialog-content>
+    <mat-tab-group>
+      <mat-tab label="Details">
+        <ng-container *ngTemplateOutlet="detailsTemplate" />
+      </mat-tab>
+      <mat-tab label="Calendar">
+        <ng-container *ngTemplateOutlet="calendarTemplate" />
+      </mat-tab>
+      <mat-tab label="Actions">
+        <ng-container *ngTemplateOutlet="actionsTemplate" />
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Close</button>
+  </div>
+</div>
+
+<ng-template #calendarTemplate>
+  <form *ngIf="form" [formGroup]="form">
+    <app-input
+      [label]="'Course start date'"
+      [inputType]="InputType.DATETIME"
+      [errorMessage]="'The field is required'"
+      formControlName="courseStartDate"
+    />
+    <app-input
+      [label]="'Course end date'"
+      [inputType]="InputType.DATETIME"
+      [errorMessage]="'The field is required'"
+      formControlName="courseEndDate"
+    />
+    <app-input
+      [label]="'Course occurrence frequency'"
+      [inputType]="InputType.NUMBER"
+      [errorMessage]="'The field is required'"
+      formControlName="occurrenceFrequencyValue"
+    />
+    <app-input
+      [label]="'Course occurrence type'"
+      [inputType]="InputType.TEXT"
+      [errorMessage]="'The field is required'"
+      formControlName="occurrenceFrequencyType"
+    />
+  </form>
+</ng-template>
+
+<ng-template #detailsTemplate>
+  <form *ngIf="form" [formGroup]="form">
+    <app-input
+      [label]="'Course name'"
+      [inputType]="InputType.TEXT"
+      [errorMessage]="'The field is required'"
+      formControlName="courseName"
+    />
+    <app-input
+      [label]="'Course credit'"
+      [inputType]="InputType.NUMBER"
+      [errorMessage]="'The field is required'"
+      formControlName="courseCredit"
+    />
+    <app-input
+      [label]="'Limit of student count'"
+      [inputType]="InputType.NUMBER"
+      [errorMessage]="'The field is required'"
+      formControlName="studentCountLimit"
+    />
+    <app-input
+      [label]="'Course requirements'"
+      [inputType]="InputType.TEXT"
+      [errorMessage]="'The field is required'"
+      formControlName="requirements"
+    />
+    <app-input
+      [label]="'Description'"
+      [inputType]="InputType.TEXT"
+      [errorMessage]="'The field is required'"
+      formControlName="courseDescription"
+    />
+  </form>
+</ng-template>
+
+<ng-template #actionsTemplate>
+  <div class="action-container">
+    <button mat-flat-button class="green">Create course</button>
+    <button mat-flat-button>Save as draft</button>
+    <button mat-flat-button class="red">Cancel</button>
+  </div>
+</ng-template>
