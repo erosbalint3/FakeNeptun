@@ -6,6 +6,7 @@ import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { InputComponent } from '../../sharedComponents/input/input.component';
 import { InputType } from '../../enums/input-type.enum';
+import { ButtonComponent } from '../../sharedComponents/button/button.component';
 
 @Component({
   selector: 'app-change-password-dialog',
@@ -17,7 +18,8 @@ import { InputType } from '../../enums/input-type.enum';
     MatDialogActions,
     MatButton,
     MatLabel,
-    InputComponent
+    InputComponent,
+    ButtonComponent
   ],
   standalone: true,
   templateUrl: './change-password-dialog.component.html',

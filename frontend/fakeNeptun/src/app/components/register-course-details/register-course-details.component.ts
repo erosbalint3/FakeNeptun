@@ -6,35 +6,34 @@ import {
   MatDialogRef,
   MatDialogTitle
 } from '@angular/material/dialog';
-import { MatButton } from '@angular/material/button';
-import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { CourseDetailsModel } from '../../models/course-details.model';
-import { NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
+import { MatTab, MatTabGroup } from '@angular/material/tabs';
+import { NgForOf, NgTemplateOutlet } from '@angular/common';
+import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { ButtonComponent } from '../../sharedComponents/button/button.component';
 
 @Component({
-  selector: 'app-courses-actions-dialog',
+  selector: 'app-register-course-details',
   imports: [
-    MatDialogTitle,
-    MatDialogContent,
-    MatDialogActions,
-    MatButton,
     MatTabGroup,
     MatTab,
+    MatDialogTitle,
+    MatDialogContent,
     NgTemplateOutlet,
-    NgForOf,
+    MatDialogActions,
+    MatButton,
     MatIcon,
-    NgIf,
+    NgForOf,
     ButtonComponent
   ],
-  templateUrl: './courses-actions-dialog.component.html',
   standalone: true,
-  styleUrl: './courses-actions-dialog.component.scss'
+  templateUrl: './register-course-details.component.html',
+  styleUrl: './register-course-details.component.scss'
 })
-export class CoursesActionsDialogComponent {
+export class RegisterCourseDetailsComponent {
   constructor(
-    public dialogRef: MatDialogRef<CoursesActionsDialogComponent>,
+    public dialogRef: MatDialogRef<RegisterCourseDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public details: CourseDetailsModel
   ) {}
 

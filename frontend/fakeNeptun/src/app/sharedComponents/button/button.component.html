@@ -1,0 +1,4 @@
+<button mat-raised-button (click)="onClick($event)" [ngClass]="{
+  'red-shadow': color == 'red',
+  'blue-shadow': color == 'blue'
+}">{{ label }}</button>

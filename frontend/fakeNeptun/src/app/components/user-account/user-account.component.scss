@@ -70,6 +70,10 @@ button {
   box-shadow: #007BFF 10px 5px;
 }
 
+button:focus {
+  outline: none;
+}
+
 button mat-icon {
   margin-right: 5px;
 }

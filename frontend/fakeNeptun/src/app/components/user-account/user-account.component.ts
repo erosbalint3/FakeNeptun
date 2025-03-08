@@ -19,6 +19,7 @@ import { MatIcon } from '@angular/material/icon';
 import { ChangePasswordDialogComponent } from '../change-password-dialog/change-password-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { EditProfileDialogComponent } from '../edit-profile-dialog/edit-profile-dialog.component';
+import { ButtonComponent } from '../../sharedComponents/button/button.component';
 
 @Component({
   selector: 'app-user-account',
@@ -38,7 +39,8 @@ import { EditProfileDialogComponent } from '../edit-profile-dialog/edit-profile-
     MatIconButton,
     MatCardContent,
     MatCardSubtitle,
-    MatCardHeader
+    MatCardHeader,
+    ButtonComponent
   ],
   standalone: true,
   templateUrl: './user-account.component.html',

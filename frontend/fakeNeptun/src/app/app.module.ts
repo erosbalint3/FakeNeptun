@@ -8,10 +8,11 @@ import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from "@ang
 import { CommonModule } from "@angular/common";
 import { AppRoutingModule } from "./app.routes";
 import { MatAnchor, MatButton } from '@angular/material/button';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
     declarations: [AppComponent],
-  imports: [ HttpClientModule, BrowserModule, RegisterPageComponent, HomePageComponent, RouterOutlet, RouterLink, RouterLinkActive, CommonModule, AppRoutingModule, MatButton, MatAnchor ],
+  imports: [ HttpClientModule, BrowserModule, RegisterPageComponent, HomePageComponent, RouterOutlet, RouterLink, RouterLinkActive, CommonModule, AppRoutingModule, MatButton, MatAnchor, StoreModule.forRoot({}, {}) ],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

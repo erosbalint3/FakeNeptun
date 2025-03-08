@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
-import { LoginRequest } from '../../models/login.request';
+import { LoginRequest } from '../../models/Requests/login.request';
+import { UserModel } from '../../models/user.model';
 
 @Component({
   selector: 'app-login-page',
@@ -27,7 +28,7 @@ export class LoginPageComponent {
         email: this.loginForm.get('email')?.value,
         password: this.loginForm.get('password')?.value
       };
-      this.userService.loginUser(user).subscribe((response: string) => {
+      this.userService.loginUser(user).subscribe((response: UserModel) => {
         console.log(response);
       });
     }

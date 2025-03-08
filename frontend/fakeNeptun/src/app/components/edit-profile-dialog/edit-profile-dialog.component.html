@@ -6,7 +6,7 @@
   <app-input [inputType]="InputType.TEXT" [label]="'Phone'" formControlName="phone" />
 
   <mat-dialog-actions align="end">
-    <button mat-button type="button" (click)="closeDialog()">Cancel</button>
-    <button mat-raised-button color="primary" type="submit">Save</button>
+    <app-button [label]="'Cancel'" [color]="'red'" (clicked)="closeDialog()" />
+    <app-button [label]="'Save'" [color]="'blue'" />
   </mat-dialog-actions>
 </form>

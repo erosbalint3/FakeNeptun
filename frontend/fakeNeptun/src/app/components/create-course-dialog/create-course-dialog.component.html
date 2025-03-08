@@ -15,7 +15,7 @@
     </mat-tab-group>
   </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Close</button>
+    <app-button [label]="'Close'" (clicked)="onNoClick()" [color]="'red'" />
   </div>
 </div>
 

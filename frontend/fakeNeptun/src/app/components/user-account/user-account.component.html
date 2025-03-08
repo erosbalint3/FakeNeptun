@@ -21,12 +21,8 @@
       </mat-card-content>
 
       <mat-card-actions align="end" class="button-container">
-        <button mat-raised-button color="primary" (click)="openEditProfileDialog()">
-          <mat-icon>edit</mat-icon> Edit Profile
-        </button>
-        <button mat-raised-button color="accent" (click)="openChangePasswordDialog()">
-          Change Password
-        </button>
+        <app-button [label]="'Edit Profile'" [color]="'blue'" (clicked)="openEditProfileDialog()" />
+        <app-button [label]="'Change Password'" [color]="'blue'" (clicked)="openChangePasswordDialog()" />
       </mat-card-actions>
     </mat-card>
   </mat-card>

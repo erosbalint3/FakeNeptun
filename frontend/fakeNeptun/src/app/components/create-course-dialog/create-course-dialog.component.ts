@@ -14,6 +14,7 @@ import { FrequencyType } from '../../enums/frequency-type.enum';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 import { InputComponent } from '../../sharedComponents/input/input.component';
 import { InputType } from '../../enums/input-type.enum';
+import { ButtonComponent } from '../../sharedComponents/button/button.component';
 
 @Component({
   selector: 'app-create-course-dialog',
@@ -28,7 +29,8 @@ import { InputType } from '../../enums/input-type.enum';
     ReactiveFormsModule,
     NgIf,
     InputComponent,
-    NgTemplateOutlet
+    NgTemplateOutlet,
+    ButtonComponent
   ],
   templateUrl: './create-course-dialog.component.html',
   styleUrl: './create-course-dialog.component.scss'

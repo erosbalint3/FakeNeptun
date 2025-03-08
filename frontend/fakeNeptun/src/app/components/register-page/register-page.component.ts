@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
-import { UserSaveRequest } from '../../models/UserSaveRequest';
+import { UserSaveRequest } from '../../models/Requests/UserSaveRequest';
 import { UserService } from '../../services/user.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 

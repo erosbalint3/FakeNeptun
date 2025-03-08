@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { TableModule } from 'primeng/table';
 import {
   MatCell,
   MatCellDef,
@@ -29,7 +28,6 @@ import { RegisterForCourseDialogComponent } from '../register-for-course-dialog/
   selector: 'app-courses-list',
   standalone: true,
   imports: [
-    TableModule,
     MatTable,
     MatColumnDef,
     MatHeaderCell,

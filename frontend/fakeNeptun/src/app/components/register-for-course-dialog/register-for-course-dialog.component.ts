@@ -11,7 +11,11 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 import { MatButton } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogActions, MatDialogRef } from '@angular/material/dialog';
+import { CourseDetailsModel } from '../../models/course-details.model';
+import { CompletionStatus } from '../../enums/completion-status.enum';
+import { RegisterCourseDetailsComponent } from '../register-course-details/register-course-details.component';
+import { ButtonComponent } from '../../sharedComponents/button/button.component';
 
 export interface User {
   id: number;
@@ -32,6 +36,25 @@ const USERS_DATA: User[] = [
   { id: 3, name: 'Charlie', email: 'charlie@example.com' },
 ];
 
+const courses = [
+  {
+    name: 'test',
+    code: 'test',
+    credit: 5,
+    numberOfStudents: 30,
+    maxNumberOfStudents: 50,
+    teacher: 'tesztelek'
+  },
+  {
+    name: 'test',
+    code: 'test',
+    credit: 5,
+    numberOfStudents: 30,
+    maxNumberOfStudents: 50,
+    teacher: 'tesztelek'
+  }
+];
+
 @Component({
   selector: 'app-register-for-course-dialog',
   imports: [
@@ -49,7 +72,8 @@ const USERS_DATA: User[] = [
     MatHeaderRowDef,
     NgTemplateOutlet,
     MatButton,
-    MatDialogActions
+    MatDialogActions,
+    ButtonComponent
   ],
   standalone: true,
   templateUrl: './register-for-course-dialog.component.html',
@@ -62,6 +86,7 @@ export class RegisterForCourseDialogComponent {
   allSelected = false;
 
   constructor(
+    public dialog: MatDialog,
     public dialogRef: MatDialogRef<RegisterForCourseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public details: {}
   ) {}
@@ -93,5 +118,50 @@ export class RegisterForCourseDialogComponent {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  openDetailsDialog(element: any) {
+    const courseDetails: CourseDetailsModel = {
+      calendar: {
+        missedClassesCount: 1,
+        presentClassesCount: 2,
+        classDates: [
+          {
+            startDate: new Date(2025, 3, 5, 14, 0),
+            endDate: new Date(2025, 3, 5, 15, 30),
+            length: 1.5,
+            presence: true
+          },
+          {
+            startDate: new Date(2025, 3, 6, 14, 0),
+            endDate: new Date(2025, 3, 6, 15, 30),
+            length: 1.5,
+            presence: true
+          },
+          {
+            startDate: new Date(2025, 3, 7, 14, 0),
+            endDate: new Date(2025, 3, 7, 15, 30),
+            length: 1.5,
+            presence: false
+          },
+        ]
+      },
+      details: {
+        courseCode: courses[0].code,
+        courseName: courses[0].name,
+        courseCredit: courses[0].credit,
+        courseStudentCount: courses[0].numberOfStudents,
+        courseTeacher: courses[0].teacher,
+        courseCompletionStatus: CompletionStatus.IN_PROGRESS,
+        courseStudentCountLimit: courses[0].maxNumberOfStudents
+      }
+    }
+
+    this.dialog.open(RegisterCourseDetailsComponent, {
+      width: '1500px',
+      data: courseDetails,
+      enterAnimationDuration: '200ms',
+      exitAnimationDuration: '100ms'
+    });
   }
 }

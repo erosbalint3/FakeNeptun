@@ -15,31 +15,20 @@
     </mat-tab-group>
   </div>
   <div mat-dialog-actions>
-    <app-button [label]="'Close'" [color]="'red'" (clicked)="onNoClick()" />
+    <app-button [label]="'Close'" (clicked)="onNoClick()" [color]="'red'" />
   </div>
 </div>
 
+
 <ng-template #calendarTemplate>
   <div class="calendar-template">
-    <div class="presence-info">
-      <span class="missed">Missed classes: {{ details.calendar.missedClassesCount }}</span>
-      <span class="present">Visited classes: {{ details.calendar.presentClassesCount }}</span>
-    </div>
     <div class="info-container">
       <ng-container *ngFor="let data of details.calendar.classDates" >
-        <div class="class-date-item {{ data.presence ? 'present-presence' : 'missed-presence' }}">
+        <div class="class-date-item">
           <div class="infos">
             <span><b>Start date:</b> {{ data.startDate.toLocaleString() }}</span>
             <span><b>End date:</b> {{ data.endDate.toLocaleString() }}</span>
             <span><b>Length:</b> {{ data.length }} hours</span>
-          </div>
-          <div class="icon">
-            <ng-container *ngIf="data.presence">
-              <mat-icon>sentiment_satisfied_alt</mat-icon>
-            </ng-container>
-            <ng-container *ngIf="!data.presence">
-              <mat-icon>sentiment_dissatisfied_alt</mat-icon>
-            </ng-container>
           </div>
         </div>
       </ng-container>
@@ -82,7 +71,8 @@
 
 <ng-template #actionsTemplate>
   <div class="action-template">
-    <button mat-flat-button>Abandon course</button>
+    <button mat-flat-button class="green">Register for course</button>
+    <button mat-flat-button>Save for draft</button>
   </div>
 </ng-template>
 

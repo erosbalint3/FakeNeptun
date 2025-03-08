@@ -1,0 +1,96 @@
+.calendar-template {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.presence-info {
+  display: flex;
+  flex-direction: row;
+  font-size: 15px;
+  gap: 10px;
+
+  span {
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+  }
+  .missed {
+    background-color: red;
+  }
+
+  .present {
+    background-color: green;
+  }
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+}
+
+.class-date-item {
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+  background-color: #cccccc;
+
+  .infos {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    span {
+      padding: 10px;
+      background-color: white;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+  }
+}
+
+.details-template {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 10px;
+
+  .info-item {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    background-color: rgba(207, 207, 207, 0.55);
+    font-size: 15px;
+
+    .info-title {
+      font-weight: bold;
+    }
+  }
+}
+
+.action-template {
+  height: 300px;
+
+  button {
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .green {
+    background-color: green;
+  }
+}
+
+
