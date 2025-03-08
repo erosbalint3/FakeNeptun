@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -23,6 +23,10 @@ import { CourseDetailsModel } from '../../models/course-details.model';
 import { CompletionStatus } from '../../enums/completion-status.enum';
 import { CreateCourseDialogComponent } from '../create-course-dialog/create-course-dialog.component';
 import { RegisterForCourseDialogComponent } from '../register-for-course-dialog/register-for-course-dialog.component';
+import { Store } from '@ngrx/store';
+import { CourseModel } from '../../models/course.model';
+import { CourseActions } from '../../store/actions/courses.actions';
+import { courseList$ } from '../../store/selectors/course.selectors';
 
 @Component({
   selector: 'app-courses-list',
@@ -53,62 +57,57 @@ import { RegisterForCourseDialogComponent } from '../register-for-course-dialog/
   templateUrl: './courses-list.component.html',
   styleUrl: './courses-list.component.scss'
 })
-export class CoursesListComponent {
+export class CoursesListComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) {
+  courses: CourseModel[] = [];
+
+  listCourses$ = this.store.select(courseList$);
+
+  constructor(
+    public dialog: MatDialog,
+    private store: Store
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(CourseActions.coursesList());
+    this.listCourses$.subscribe((courses) => {
+      this.courses = courses;
+    });
   }
 
   protected readonly ColumnType = ColumnType;
 
-  courses = [
-    {
-      name: 'test',
-      code: 'test',
-      credit: 5,
-      numberOfStudents: 30,
-      maxNumberOfStudents: 50,
-      teacher: 'tesztelek'
-    },
-    {
-      name: 'test',
-      code: 'test',
-      credit: 5,
-      numberOfStudents: 30,
-      maxNumberOfStudents: 50,
-      teacher: 'tesztelek'
-    }
-  ];
-
-  displayedColumns: string[] = ['name', 'code', 'credit', 'numberOfStudents', 'maxNumberOfStudents', 'teacher', 'actions'];
+  displayedColumns: string[] = ['courseName', 'courseCode', 'courseCredit', 'courseStudentCount', 'courseStudentCountLimit', 'courseTeacher', 'actions'];
 
   columns = [
     {
-      name: 'name',
+      name: 'courseName',
       title: 'Name',
       columnType: ColumnType.NORMAL
     },
     {
-      name: 'code',
+      name: 'courseCode',
       title: 'Code',
       columnType: ColumnType.NORMAL
     },
     {
-      name: 'credit',
+      name: 'courseCredit',
       title: 'Credit',
       columnType: ColumnType.NORMAL
     },
     {
-      name: 'numberOfStudents',
+      name: 'courseStudentCount',
       title: 'Number of Students',
       columnType: ColumnType.NORMAL
     },
     {
-      name: 'maxNumberOfStudents',
+      name: 'courseStudentCountLimit',
       title: 'Max number of Students',
       columnType: ColumnType.NORMAL
     },
     {
-      name: 'teacher',
+      name: 'courseTeacher',
       title: 'Teacher',
       columnType: ColumnType.NORMAL
     },
@@ -145,13 +144,13 @@ export class CoursesListComponent {
         ]
       },
       details: {
-        courseCode: this.courses[0].code,
-        courseName: this.courses[0].name,
-        courseCredit: this.courses[0].credit,
-        courseStudentCount: this.courses[0].numberOfStudents,
-        courseTeacher: this.courses[0].teacher,
+        courseCode: this.courses[0].courseCode,
+        courseName: this.courses[0].courseName,
+        courseCredit: this.courses[0].courseCredit,
+        courseStudentCount: this.courses[0].courseStudentCount,
+        courseTeacher: this.courses[0].courseTeacher,
         courseCompletionStatus: CompletionStatus.IN_PROGRESS,
-        courseStudentCountLimit: this.courses[0].maxNumberOfStudents
+        courseStudentCountLimit: this.courses[0].courseStudentCountLimit
       }
     }
 

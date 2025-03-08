@@ -7,7 +7,7 @@
     <button mat-raised-button class="new-course-button" (click)="openNewCourseDialog()">Create new course</button>
   </div>
   <div class="table-container">
-    <table mat-table [dataSource]="courses" class="mat-elevation-z8 course-list-table">
+    <table mat-table *ngIf="courses" [dataSource]="courses" class="mat-elevation-z8 course-list-table">
       <ng-container *ngFor="let column of columns">
         <ng-container [ngSwitch]="column.columnType">
           <ng-container *ngSwitchCase="ColumnType.NORMAL">

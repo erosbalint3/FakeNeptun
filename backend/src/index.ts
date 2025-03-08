@@ -1,6 +1,7 @@
 import bodyParser from 'body-parser';
 import express, { Request, Response } from 'express';
-import router from './routes/users';
+import userRouter from './routes/users';
+import courseRouter from './routes/courses';
 import mongoose from 'mongoose';
 var cors = require('cors');
 
@@ -21,7 +22,7 @@ app.use(
     extended: true,
   })
 );
-app.use("/api", router);
+app.use("/api", [userRouter, courseRouter]);
 
 
 app.listen(port, () => {
