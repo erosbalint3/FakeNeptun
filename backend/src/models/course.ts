@@ -8,12 +8,14 @@ const CourseSchema = new Schema({
     courseStudentCountLimit: Number,
     courseTeacher: String,
     courseDescription: String,
+    courseRequirements: String,
     courseStatus: String,
-    courseCalendar: {
+    courseCalendar: [{
         startDate: Date,
         endDate: Date,
         length: Number
-    }
+    }],
+    students: [String]
 });
 
 const Course = model('courses', CourseSchema);

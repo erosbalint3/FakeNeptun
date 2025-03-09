@@ -1,16 +1,13 @@
 import { FrequencyType } from '../../enums/frequency-type.enum';
 
-export interface CourseSaveRequestModel {
-  details: CourseSaveDetailsModel;
-  calendar: CourseSaveCalendarModel;
-}
-
-export interface CourseSaveDetailsModel {
+export interface CourseSaveModel {
   courseName: string;
   courseCredit: number;
   courseStudentCountLimit: number;
   courseRequirements: File | string;
-  courseDescription: string
+  courseDescription: string;
+  courseTeacher: string;
+  courseCalendar: CourseSaveCalendarModel;
 }
 
 export interface CourseSaveCalendarModel {
@@ -18,4 +15,5 @@ export interface CourseSaveCalendarModel {
   courseEndDate: Date;
   courseOccurrenceFrequencyValue: number;
   courseOccurrenceFrequencyType: FrequencyType;
+  courseLastDate: Date;
 }

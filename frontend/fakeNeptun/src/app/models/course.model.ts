@@ -5,4 +5,13 @@ export interface CourseModel {
   courseStudentCount: number;
   courseStudentCountLimit: number;
   courseTeacher: string;
+  courseCalendar: CourseListCalendarModel[];
+  missedClasses: number;
+}
+
+export interface CourseListCalendarModel {
+  startDate: Date;
+  endDate: Date;
+  length: number;
+  presence: boolean;
 }

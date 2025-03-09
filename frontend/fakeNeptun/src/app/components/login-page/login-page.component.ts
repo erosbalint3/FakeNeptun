@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { LoginRequest } from '../../models/Requests/login.request';
 import { UserModel } from '../../models/user.model';
+import { Store } from '@ngrx/store';
+import { UserActions } from '../../store/actions/user.actions';
 
 @Component({
   selector: 'app-login-page',
@@ -15,7 +17,7 @@ import { UserModel } from '../../models/user.model';
 export class LoginPageComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor(private fb: FormBuilder, private store: Store) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
@@ -28,9 +30,7 @@ export class LoginPageComponent {
         email: this.loginForm.get('email')?.value,
         password: this.loginForm.get('password')?.value
       };
-      this.userService.loginUser(user).subscribe((response: UserModel) => {
-        console.log(response);
-      });
+      this.store.dispatch(UserActions.userLogin({ loginRequest: user }));
     }
   }
 }

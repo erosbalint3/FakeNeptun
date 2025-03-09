@@ -5,12 +5,44 @@ const courseService = new CourseService();
 
 const listCourses = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const response = await courseService.listCourses();
+        const studentEmail = req.query.studentEmail?.toString();
+
+        if (!studentEmail) {
+            res.status(400).json({ errorMessage: 'Student email is undefined' });
+            return;
+        }
+        const response = await courseService.listCourses(studentEmail);
         res.status(200).json(response);
     } catch(error) {
         next(error);
     }
 }
 
+const createCourse = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const response = await courseService.createCourse(req.body);
+        res.status(200);
+    } catch(error) {
+        next(error);
+    }
+}
 
-export default { listCourses };
+const listCoursesForRegistration = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const response = await courseService.listCoursesForRegistration();
+        res.status(200).json(response);
+    } catch(error) {
+        next(error);
+    }
+}
+
+const registerForCourse = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const response = await courseService.registerForCourse(req.body);
+        res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+}
+
+export default { listCourses, createCourse, listCoursesForRegistration, registerForCourse };

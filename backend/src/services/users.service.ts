@@ -16,8 +16,8 @@ export class UserService {
         return Promise.resolve(response);
     }
 
-    async checkPassword(data: LoginRequest) {
-        const response = await User.findOne({ email: data.email }).exec();
-        console.log(data.password == response?.password)
+    async login(data: LoginRequest) {
+        const response = await User.findOne({ email: data.email });
+        return response;
     }
 }

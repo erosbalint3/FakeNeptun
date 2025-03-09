@@ -27,6 +27,8 @@ import { Store } from '@ngrx/store';
 import { CourseModel } from '../../models/course.model';
 import { CourseActions } from '../../store/actions/courses.actions';
 import { courseList$ } from '../../store/selectors/course.selectors';
+import { loggedInUser$ } from '../../store/selectors/user.selectors';
+import { SessionManagementService } from '../../services/session-management.service';
 
 @Component({
   selector: 'app-courses-list',
@@ -65,12 +67,14 @@ export class CoursesListComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private store: Store
+    private store: Store,
+    private sessionService: SessionManagementService
   ) {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(CourseActions.coursesList());
+    const user = this.sessionService.getSession();
+    this.store.dispatch(CourseActions.coursesList({ studentEmail: user.email}));
     this.listCourses$.subscribe((courses) => {
       this.courses = courses;
     });
@@ -120,37 +124,18 @@ export class CoursesListComponent implements OnInit {
   openDetailsDialog(element: any) {
     const courseDetails: CourseDetailsModel = {
       calendar: {
-        missedClassesCount: 1,
-        presentClassesCount: 2,
-        classDates: [
-          {
-            startDate: new Date(2025, 3, 5, 14, 0),
-            endDate: new Date(2025, 3, 5, 15, 30),
-            length: 1.5,
-            presence: true
-          },
-          {
-            startDate: new Date(2025, 3, 6, 14, 0),
-            endDate: new Date(2025, 3, 6, 15, 30),
-            length: 1.5,
-            presence: true
-          },
-          {
-            startDate: new Date(2025, 3, 7, 14, 0),
-            endDate: new Date(2025, 3, 7, 15, 30),
-            length: 1.5,
-            presence: false
-          },
-        ]
+        missedClassesCount: element.missedClasses,
+        presentClassesCount: element.courseCalendar.length - element.missedClasses,
+        classDates: element.courseCalendar
       },
       details: {
-        courseCode: this.courses[0].courseCode,
-        courseName: this.courses[0].courseName,
-        courseCredit: this.courses[0].courseCredit,
-        courseStudentCount: this.courses[0].courseStudentCount,
-        courseTeacher: this.courses[0].courseTeacher,
+        courseCode: element.courseCode,
+        courseName: element.courseName,
+        courseCredit: element.courseCredit,
+        courseStudentCount: element.courseStudentCount,
+        courseTeacher: element.courseTeacher,
         courseCompletionStatus: CompletionStatus.IN_PROGRESS,
-        courseStudentCountLimit: this.courses[0].courseStudentCountLimit
+        courseStudentCountLimit: element.courseStudentCountLimit
       }
     }
 

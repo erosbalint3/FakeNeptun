@@ -34,6 +34,12 @@
       formControlName="courseEndDate"
     />
     <app-input
+      [label]="'Course last date'"
+      [inputType]="InputType.DATETIME"
+      [errorMessage]="'The field is required'"
+      formControlName="courseLastDate"
+    />
+    <app-input
       [label]="'Course occurrence frequency'"
       [inputType]="InputType.NUMBER"
       [errorMessage]="'The field is required'"
@@ -85,7 +91,7 @@
 
 <ng-template #actionsTemplate>
   <div class="action-container">
-    <button mat-flat-button class="green">Create course</button>
+    <button mat-flat-button class="green" (click)="onCreate()">Create course</button>
     <button mat-flat-button>Save as draft</button>
     <button mat-flat-button class="red">Cancel</button>
   </div>

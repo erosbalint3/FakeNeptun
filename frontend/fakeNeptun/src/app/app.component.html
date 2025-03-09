@@ -1,11 +1,21 @@
 <nav>
   <ng-container *ngFor="let route of routeList;">
-    <ng-container *ngIf="route.path != '' && route.title !== 'User Account'">
+    <ng-container *ngIf="loggedInUser && route.path != '' && route.title !== 'User Account' && route.title !== 'Register' && route.title !== 'Login'">
       <a mat-raised-button routerLink='/{{route.path}}'>{{ route.title }}</a>
     </ng-container>
   </ng-container>
 </nav>
-<a mat-raised-button class="user-account-button" routerLink="/user-account">
-  User account
-</a>
+<ng-container *ngIf="loggedInUser">
+  <div class="user-buttons">
+    <a mat-raised-button class="user-account-button" routerLink="/user-account">
+      User account
+    </a>
+  </div>
+</ng-container>
+<ng-container *ngIf="!loggedInUser">
+  <div class="user-buttons">
+    <a mat-raised-button class="user-account-button" routerLink="/register">Register</a>
+    <a mat-raised-button class="user-account-button" routerLink="/login">Login</a>
+  </div>
+</ng-container>
 <router-outlet />

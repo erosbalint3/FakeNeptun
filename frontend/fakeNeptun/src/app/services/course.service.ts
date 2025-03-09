@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CourseModel } from '../models/course.model';
-import { CourseSaveRequestModel } from '../models/Requests/course-save-request.model';
+import { CourseSaveModel } from '../models/Requests/course-save-request.model';
 import { CourseDetailsModel } from '../models/course-details.model';
 
 @Injectable({
@@ -11,16 +11,20 @@ import { CourseDetailsModel } from '../models/course-details.model';
 export class CourseService {
   constructor(private readonly http: HttpClient) {}
 
-  listCourses(): Observable<CourseModel[]> {
-    return this.http.get<CourseModel[]>('http://localhost:3000/api/courses');
+  listCourses(studentEmail: string): Observable<CourseModel[]> {
+    return this.http.get<CourseModel[]>('http://localhost:3000/api/courses', { params: { studentEmail: studentEmail }});
   }
 
-  createCourse(courseSaveRequest: CourseSaveRequestModel): Observable<void> {
+  listCoursesForRegistration(): Observable<CourseModel[]> {
+    return this.http.get<CourseModel[]>('http://localhost:3000/api/courses/registerList');
+  }
+
+  createCourse(courseSaveRequest: CourseSaveModel): Observable<void> {
     return this.http.post<void>('http://localhost:3000/api/courses', courseSaveRequest);
   }
 
   registerForCourse(courseCode: string, userEmail: string): Observable<void> {
-    return this.http.post<void>('http://localhost:3000/api/courses/register', { courseCode: courseCode, userEmail: userEmail });
+    return this.http.put<void>('http://localhost:3000/api/courses/register', { courseCode: courseCode, studentEmail: userEmail });
   }
 
   abandonCourse(courseCode: string, userEmail: string): Observable<void> {

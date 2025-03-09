@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { CourseModel } from '../../models/course.model';
-import { CourseSaveRequestModel } from '../../models/Requests/course-save-request.model';
+import { CourseSaveModel } from '../../models/Requests/course-save-request.model';
 import { CourseDetailsModel } from '../../models/course-details.model';
 
 export enum CoursesEventEnums {
@@ -13,6 +13,9 @@ export enum CoursesEventEnums {
   COURSE_REGISTER = 'Course register',
   COURSE_REGISTER_SUCCESS = 'Course register success',
   COURSE_REGISTER_FAILED = 'Course register failed',
+  COURSE_REGISTER_LIST = 'Course register list',
+  COURSE_REGISTER_LIST_SUCCESS = 'Course register list success',
+  COURSE_REGISTER_LIST_FAILED = 'Course register list failed',
   COURSE_ABANDON = 'Course abandon',
   COURSE_ABANDON_SUCCESS = 'Course abandon success',
   COURSE_ABANDON_FAILED = 'Course abandon failed',
@@ -29,19 +32,22 @@ export enum CoursesEventEnums {
 export const CourseActions = createActionGroup({
   source: 'Courses',
   events: {
-    [CoursesEventEnums.COURSE_LIST]: emptyProps(),
+    [CoursesEventEnums.COURSE_LIST]: props<{ studentEmail: string}>(),
     [CoursesEventEnums.COURSE_LIST_SUCCESS]: props<{ courses: CourseModel[]}>(),
     [CoursesEventEnums.COURSE_LIST_FAILED]: props<{ errorMessage: string }>(),
-    [CoursesEventEnums.COURSE_SAVE]: props<{ courseSaveRequest: CourseSaveRequestModel}>(),
+    [CoursesEventEnums.COURSE_SAVE]: props<{ courseSaveRequest: CourseSaveModel}>(),
     [CoursesEventEnums.COURSE_SAVE_SUCCESS]: emptyProps(),
     [CoursesEventEnums.COURSE_SAVE_FAILED]: props<{ errorMessage: string }>(),
     [CoursesEventEnums.COURSE_REGISTER]: props<{ courseCode: string, userEmail: string }>(),
     [CoursesEventEnums.COURSE_REGISTER_SUCCESS]: emptyProps(),
     [CoursesEventEnums.COURSE_REGISTER_FAILED]: props<{ errorMessage: string }>(),
+    [CoursesEventEnums.COURSE_REGISTER_LIST]: emptyProps(),
+    [CoursesEventEnums.COURSE_REGISTER_LIST_SUCCESS]: props<{ courses: CourseModel[] }>(),
+    [CoursesEventEnums.COURSE_REGISTER_LIST_FAILED]: props<{ errorMessage: string }>(),
     [CoursesEventEnums.COURSE_ABANDON]: props<{ courseCode: string, userEmail: string }>(),
     [CoursesEventEnums.COURSE_ABANDON_SUCCESS]: emptyProps(),
     [CoursesEventEnums.COURSE_ABANDON_FAILED]: props<{ errorMessage: string }>(),
-    [CoursesEventEnums.COURSE_SAVE_DRAFT]: props<{ courseSaveRequest: CourseSaveRequestModel }>(),
+    [CoursesEventEnums.COURSE_SAVE_DRAFT]: props<{ courseSaveRequest: CourseSaveModel }>(),
     [CoursesEventEnums.COURSE_DELETE]: props<{ courseCode: string }>(),
     [CoursesEventEnums.COURSE_DELETE_SUCCESS]: emptyProps(),
     [CoursesEventEnums.COURSE_DELETE_FAILED]: props<{ errorMessage: string }>(),

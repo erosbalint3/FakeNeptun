@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -9,13 +9,19 @@ import {
 } from '@angular/material/table';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
-import { NgTemplateOutlet } from '@angular/common';
+import { NgForOf, NgSwitch, NgSwitchCase, NgTemplateOutlet } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogActions, MatDialogRef } from '@angular/material/dialog';
 import { CourseDetailsModel } from '../../models/course-details.model';
 import { CompletionStatus } from '../../enums/completion-status.enum';
 import { RegisterCourseDetailsComponent } from '../register-course-details/register-course-details.component';
 import { ButtonComponent } from '../../sharedComponents/button/button.component';
+import { Store } from '@ngrx/store';
+import { courseList$, registerCourseList$ } from '../../store/selectors/course.selectors';
+import { CourseModel } from '../../models/course.model';
+import { CourseActions } from '../../store/actions/courses.actions';
+import { ColumnType } from '../../enums/column-type.enum';
+import { loggedInUser$ } from '../../store/selectors/user.selectors';
 
 export interface User {
   id: number;
@@ -23,37 +29,6 @@ export interface User {
   email: string;
   selected?: boolean;
 }
-
-const USERS_DATA: User[] = [
-  { id: 1, name: 'Alice', email: 'alice@example.com' },
-  { id: 2, name: 'Bob', email: 'bob@example.com' },
-  { id: 3, name: 'Charlie', email: 'charlie@example.com' },
-  { id: 4, name: 'Alice', email: 'alice@example.com' },
-  { id: 5, name: 'Bob', email: 'bob@example.com' },
-  { id: 6, name: 'Charlie', email: 'charlie@example.com' },
-  { id: 1, name: 'Alice', email: 'alice@example.com' },
-  { id: 2, name: 'Bob', email: 'bob@example.com' },
-  { id: 3, name: 'Charlie', email: 'charlie@example.com' },
-];
-
-const courses = [
-  {
-    name: 'test',
-    code: 'test',
-    credit: 5,
-    numberOfStudents: 30,
-    maxNumberOfStudents: 50,
-    teacher: 'tesztelek'
-  },
-  {
-    name: 'test',
-    code: 'test',
-    credit: 5,
-    numberOfStudents: 30,
-    maxNumberOfStudents: 50,
-    teacher: 'tesztelek'
-  }
-];
 
 @Component({
   selector: 'app-register-for-course-dialog',
@@ -73,43 +48,74 @@ const courses = [
     NgTemplateOutlet,
     MatButton,
     MatDialogActions,
-    ButtonComponent
+    ButtonComponent,
+    NgForOf,
+    NgSwitchCase,
+    NgSwitch
   ],
   standalone: true,
   templateUrl: './register-for-course-dialog.component.html',
   styleUrl: './register-for-course-dialog.component.scss'
 })
-export class RegisterForCourseDialogComponent {
-  displayedColumns: string[] = ['select', 'id', 'name', 'email', 'actions'];
-  dataSource = new MatTableDataSource<User>(USERS_DATA);
+export class RegisterForCourseDialogComponent implements OnInit {
+  courses$ = this.store.select(registerCourseList$);
+
+  courseList: CourseModel[] = [];
+
+  displayedColumns: string[] = ['select', 'courseName', 'courseCode', 'courseCredit', 'courseStudentCount', 'courseStudentCountLimit', 'courseTeacher', 'actions'];
+  dataSource = new MatTableDataSource<CourseModel>(this.courseList);
   selectedUsers: User[] = [];
   allSelected = false;
+
+  columns = [
+    {
+      name: 'courseName',
+      title: 'Name',
+      columnType: ColumnType.NORMAL
+    },
+    {
+      name: 'courseCode',
+      title: 'Code',
+      columnType: ColumnType.NORMAL
+    },
+    {
+      name: 'courseCredit',
+      title: 'Credit',
+      columnType: ColumnType.NORMAL
+    },
+    {
+      name: 'courseStudentCount',
+      title: 'Number of Students',
+      columnType: ColumnType.NORMAL
+    },
+    {
+      name: 'courseStudentCountLimit',
+      title: 'Max number of Students',
+      columnType: ColumnType.NORMAL
+    },
+    {
+      name: 'courseTeacher',
+      title: 'Teacher',
+      columnType: ColumnType.NORMAL
+    },
+    {
+      name: 'actions',
+      columnType: ColumnType.ACTIONS
+    }
+  ];
 
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<RegisterForCourseDialogComponent>,
+    private store: Store,
     @Inject(MAT_DIALOG_DATA) public details: {}
   ) {}
 
-  toggleAllSelection(isChecked: boolean) {
-    this.dataSource.data.forEach(user => user.selected = isChecked);
-    this.allSelected = isChecked;
-    this.updateSelectedUsers();
-  }
-
-  isIndeterminate(): boolean {
-    const selectedCount = this.dataSource.data.filter(user => user.selected).length;
-    return selectedCount > 0 && selectedCount < this.dataSource.data.length;
-  }
-
-  toggleSelection(user: User, isChecked: boolean) {
-    user.selected = isChecked;
-    this.allSelected = this.dataSource.data.every(user => user.selected);
-    this.updateSelectedUsers();
-  }
-
-  updateSelectedUsers() {
-    this.selectedUsers = this.dataSource.data.filter(user => user.selected);
+  ngOnInit(): void {
+    this.store.dispatch(CourseActions.courseRegisterList());
+    this.courses$.subscribe((courses) => {
+      this.courseList = courses;
+    });
   }
 
   submit() {
@@ -118,42 +124,26 @@ export class RegisterForCourseDialogComponent {
 
   onNoClick(): void {
     this.dialogRef.close();
+    this.store.select(loggedInUser$).subscribe((user) => {
+      this.store.dispatch(CourseActions.coursesList({ studentEmail: user?.email ?? ''}));
+    });
   }
 
-  openDetailsDialog(element: any) {
+  openDetailsDialog(element: CourseModel) {
     const courseDetails: CourseDetailsModel = {
       calendar: {
         missedClassesCount: 1,
         presentClassesCount: 2,
-        classDates: [
-          {
-            startDate: new Date(2025, 3, 5, 14, 0),
-            endDate: new Date(2025, 3, 5, 15, 30),
-            length: 1.5,
-            presence: true
-          },
-          {
-            startDate: new Date(2025, 3, 6, 14, 0),
-            endDate: new Date(2025, 3, 6, 15, 30),
-            length: 1.5,
-            presence: true
-          },
-          {
-            startDate: new Date(2025, 3, 7, 14, 0),
-            endDate: new Date(2025, 3, 7, 15, 30),
-            length: 1.5,
-            presence: false
-          },
-        ]
+        classDates: element.courseCalendar
       },
       details: {
-        courseCode: courses[0].code,
-        courseName: courses[0].name,
-        courseCredit: courses[0].credit,
-        courseStudentCount: courses[0].numberOfStudents,
-        courseTeacher: courses[0].teacher,
+        courseCode: element.courseCode,
+        courseName: element.courseName,
+        courseCredit: element.courseCredit,
+        courseStudentCount: element.courseStudentCount,
+        courseTeacher: element.courseTeacher,
         courseCompletionStatus: CompletionStatus.IN_PROGRESS,
-        courseStudentCountLimit: courses[0].maxNumberOfStudents
+        courseStudentCountLimit: element.courseStudentCountLimit
       }
     }
 
@@ -164,4 +154,6 @@ export class RegisterForCourseDialogComponent {
       exitAnimationDuration: '100ms'
     });
   }
+
+  protected readonly ColumnType = ColumnType;
 }
