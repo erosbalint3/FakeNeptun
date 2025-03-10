@@ -28,7 +28,7 @@ export class CourseService {
   }
 
   abandonCourse(courseCode: string, userEmail: string): Observable<void> {
-    return this.http.post<void>('http://localhost:3000/api/courses/abandon', { courseCode: courseCode, userEmail: userEmail });
+    return this.http.post<void>('http://localhost:3000/api/courses/abandon', { courseCode: courseCode, studentEmail: userEmail });
   }
 
   deleteCourse(courseCode: string): Observable<void> {

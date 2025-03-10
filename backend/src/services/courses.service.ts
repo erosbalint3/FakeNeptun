@@ -63,6 +63,24 @@ export class CourseService {
         course.save();
     }
 
+    async abandonCourse(abandonRequest: RegisterRequest) {
+        const course = await Course.findOne({ courseCode: abandonRequest.courseCode });
+
+        if (!course) {
+            return {
+                message: 'Course not found'
+            };
+        }
+
+        console.log(abandonRequest.studentEmail);
+
+        console.log(course.students.filter((c) => c != abandonRequest.studentEmail));
+        course.students = course.students.filter((c) => c != abandonRequest.studentEmail);
+        course.courseStudentCount! -= 1;
+
+        course.save();
+    }
+
     async createCourse(course: CourseSaveRequest) {
         const occurrences = this.generateOccurrences(
             course.courseCalendar.courseStartDate,

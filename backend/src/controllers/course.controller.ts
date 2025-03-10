@@ -45,4 +45,13 @@ const registerForCourse = async (req: Request, res: Response, next: NextFunction
     }
 }
 
-export default { listCourses, createCourse, listCoursesForRegistration, registerForCourse };
+const abandonCourse = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const response = await courseService.abandonCourse(req.body);
+        res.status(200).json(response);
+    } catch (error) {
+        next(error);
+    }
+}
+
+export default { listCourses, createCourse, listCoursesForRegistration, registerForCourse, abandonCourse };

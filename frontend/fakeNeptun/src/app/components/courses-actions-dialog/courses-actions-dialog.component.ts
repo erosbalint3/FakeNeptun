@@ -12,6 +12,9 @@ import { CourseDetailsModel } from '../../models/course-details.model';
 import { NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { ButtonComponent } from '../../sharedComponents/button/button.component';
+import { Store } from '@ngrx/store';
+import { SessionManagementService } from '../../services/session-management.service';
+import { CourseActions } from '../../store/actions/courses.actions';
 
 @Component({
   selector: 'app-courses-actions-dialog',
@@ -35,11 +38,20 @@ import { ButtonComponent } from '../../sharedComponents/button/button.component'
 export class CoursesActionsDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<CoursesActionsDialogComponent>,
+    private store: Store,
+    private sessionService: SessionManagementService,
     @Inject(MAT_DIALOG_DATA) public details: CourseDetailsModel
   ) {}
 
+  // Zuba
+
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onAbandon() {
+    const user = this.sessionService.getSession();
+    this.store.dispatch(CourseActions.courseAbandon({ courseCode: this.details.details.courseCode, userEmail: user.email }));
   }
 
   protected readonly Object = Object;

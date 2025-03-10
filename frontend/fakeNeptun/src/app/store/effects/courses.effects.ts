@@ -83,4 +83,22 @@ export class CoursesEffects {
       )
     )
   );
+
+  readonly abandonCourse$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CourseActions.courseAbandon),
+      switchMap(({ courseCode, userEmail }) =>
+        this.courseService.abandonCourse(courseCode, userEmail).pipe(
+          map(() => CourseActions.courseAbandonSuccess()),
+          catchError((error: HttpErrorResponse) =>
+            of(
+              CourseActions.courseAbandonFailed({
+                errorMessage: error.message
+              })
+            )
+          )
+        )
+      )
+    )
+  );
 }
