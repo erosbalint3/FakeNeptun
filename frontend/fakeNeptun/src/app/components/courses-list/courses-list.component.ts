@@ -27,8 +27,9 @@ import { Store } from '@ngrx/store';
 import { CourseModel } from '../../models/course.model';
 import { CourseActions } from '../../store/actions/courses.actions';
 import { courseList$ } from '../../store/selectors/course.selectors';
-import { loggedInUser$ } from '../../store/selectors/user.selectors';
 import { SessionManagementService } from '../../services/session-management.service';
+import { UserModel } from '../../models/user.model';
+import { UserRole } from '../../enums/user-role.enum';
 
 @Component({
   selector: 'app-courses-list',
@@ -65,6 +66,8 @@ export class CoursesListComponent implements OnInit {
 
   listCourses$ = this.store.select(courseList$);
 
+  loggedInUser: UserModel | undefined;
+
   constructor(
     public dialog: MatDialog,
     private store: Store,
@@ -78,6 +81,7 @@ export class CoursesListComponent implements OnInit {
     this.listCourses$.subscribe((courses) => {
       this.courses = courses;
     });
+    this.loggedInUser = user;
   }
 
   protected readonly ColumnType = ColumnType;
@@ -165,4 +169,6 @@ export class CoursesListComponent implements OnInit {
       panelClass: 'custom-dialog-container'
     });
   }
+
+  protected readonly UserRole = UserRole;
 }

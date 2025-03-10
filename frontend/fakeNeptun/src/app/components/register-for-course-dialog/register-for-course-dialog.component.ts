@@ -5,7 +5,6 @@ import {
   MatColumnDef,
   MatHeaderCell, MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
   MatTable,
-  MatTableDataSource
 } from '@angular/material/table';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
@@ -17,11 +16,11 @@ import { CompletionStatus } from '../../enums/completion-status.enum';
 import { RegisterCourseDetailsComponent } from '../register-course-details/register-course-details.component';
 import { ButtonComponent } from '../../sharedComponents/button/button.component';
 import { Store } from '@ngrx/store';
-import { courseList$, registerCourseList$ } from '../../store/selectors/course.selectors';
+import { registerCourseList$ } from '../../store/selectors/course.selectors';
 import { CourseModel } from '../../models/course.model';
 import { CourseActions } from '../../store/actions/courses.actions';
 import { ColumnType } from '../../enums/column-type.enum';
-import { loggedInUser$ } from '../../store/selectors/user.selectors';
+import { SessionManagementService } from '../../services/session-management.service';
 
 export interface User {
   id: number;
@@ -62,8 +61,7 @@ export class RegisterForCourseDialogComponent implements OnInit {
 
   courseList: CourseModel[] = [];
 
-  displayedColumns: string[] = ['select', 'courseName', 'courseCode', 'courseCredit', 'courseStudentCount', 'courseStudentCountLimit', 'courseTeacher', 'actions'];
-  dataSource = new MatTableDataSource<CourseModel>(this.courseList);
+  displayedColumns: string[] = [ 'select', 'courseName', 'courseCode', 'courseCredit', 'courseStudentCount', 'courseStudentCountLimit', 'courseTeacher', 'actions' ];
   selectedUsers: User[] = [];
   allSelected = false;
 
@@ -108,8 +106,10 @@ export class RegisterForCourseDialogComponent implements OnInit {
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<RegisterForCourseDialogComponent>,
     private store: Store,
+    private sessionService: SessionManagementService,
     @Inject(MAT_DIALOG_DATA) public details: {}
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.store.dispatch(CourseActions.courseRegisterList());
@@ -124,9 +124,8 @@ export class RegisterForCourseDialogComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
-    this.store.select(loggedInUser$).subscribe((user) => {
-      this.store.dispatch(CourseActions.coursesList({ studentEmail: user?.email ?? ''}));
-    });
+    const user = this.sessionService.getSession();
+    this.store.dispatch(CourseActions.coursesList({studentEmail: user.email}));
   }
 
   openDetailsDialog(element: CourseModel) {

@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../services/user.service';
 import { LoginRequest } from '../../models/Requests/login.request';
-import { UserModel } from '../../models/user.model';
 import { Store } from '@ngrx/store';
 import { UserActions } from '../../store/actions/user.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -17,7 +16,7 @@ import { UserActions } from '../../store/actions/user.actions';
 export class LoginPageComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private store: Store) {
+  constructor(private fb: FormBuilder, private store: Store, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
@@ -31,6 +30,7 @@ export class LoginPageComponent {
         password: this.loginForm.get('password')?.value
       };
       this.store.dispatch(UserActions.userLogin({ loginRequest: user }));
+      this.router.navigate(['/','home']);
     }
   }
 }

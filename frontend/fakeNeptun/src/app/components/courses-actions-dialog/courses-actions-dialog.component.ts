@@ -43,8 +43,6 @@ export class CoursesActionsDialogComponent {
     @Inject(MAT_DIALOG_DATA) public details: CourseDetailsModel
   ) {}
 
-  // Zuba
-
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -52,6 +50,8 @@ export class CoursesActionsDialogComponent {
   onAbandon() {
     const user = this.sessionService.getSession();
     this.store.dispatch(CourseActions.courseAbandon({ courseCode: this.details.details.courseCode, userEmail: user.email }));
+    this.store.dispatch(CourseActions.coursesList({ studentEmail: user.email }));
+    this.dialogRef.close();
   }
 
   protected readonly Object = Object;

@@ -4,7 +4,9 @@
   </div>
   <div class="button-container">
     <button mat-raised-button class="new-course-button" (click)="openRegisterCourseDialog()">Register for subject</button>
-    <button mat-raised-button class="new-course-button" (click)="openNewCourseDialog()">Create new course</button>
+    <ng-container *ngIf="loggedInUser?.role === UserRole.TEACHER">
+      <button mat-raised-button class="new-course-button" (click)="openNewCourseDialog()">Create new course</button>
+    </ng-container>
   </div>
   <div class="table-container">
     <table mat-table *ngIf="courses" [dataSource]="courses" class="mat-elevation-z8 course-list-table">

@@ -10,6 +10,9 @@
     <a mat-raised-button class="user-account-button" routerLink="/user-account">
       User account
     </a>
+    <button mat-raised-button class="user-account-button" (click)="logOut()">
+      Log out
+    </button>
   </div>
 </ng-container>
 <ng-container *ngIf="!loggedInUser">
