@@ -10,12 +10,9 @@ import { CourseDetailsModel } from '../../models/course-details.model';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { NgForOf, NgTemplateOutlet } from '@angular/common';
 import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 import { ButtonComponent } from '../../sharedComponents/button/button.component';
 import { Store } from '@ngrx/store';
 import { CourseActions } from '../../store/actions/courses.actions';
-import { UserModel } from '../../models/user.model';
-import { loggedInUser$ } from '../../store/selectors/user.selectors';
 import { SessionManagementService } from '../../services/session-management.service';
 
 @Component({
@@ -28,7 +25,6 @@ import { SessionManagementService } from '../../services/session-management.serv
     NgTemplateOutlet,
     MatDialogActions,
     MatButton,
-    MatIcon,
     NgForOf,
     ButtonComponent
   ],
@@ -43,8 +39,6 @@ export class RegisterCourseDetailsComponent implements OnInit {
     private sessionService: SessionManagementService,
     @Inject(MAT_DIALOG_DATA) public details: CourseDetailsModel
   ) {}
-
-  loggedInUser: UserModel | undefined;
 
   ngOnInit(): void {
 

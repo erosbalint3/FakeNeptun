@@ -3,10 +3,10 @@
 <form [formGroup]="editProfileForm" (ngSubmit)="saveProfile()">
   <app-input [inputType]="InputType.TEXT" [label]="'Name'" formControlName="name" />
   <app-input [inputType]="InputType.EMAIL" [label]="'Email'" formControlName="email" />
-  <app-input [inputType]="InputType.TEXT" [label]="'Phone'" formControlName="phone" />
+  <app-input [inputType]="InputType.TEXT" [label]="'Phone'" formControlName="telephone" />
 
   <mat-dialog-actions align="end">
     <app-button [label]="'Cancel'" [color]="'red'" (clicked)="closeDialog()" />
-    <app-button [label]="'Save'" [color]="'blue'" />
+    <app-button [label]="'Save'" [color]="'blue'" (clicked)="saveProfile()" />
   </mat-dialog-actions>
 </form>

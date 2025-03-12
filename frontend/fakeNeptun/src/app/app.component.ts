@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.actions$.pipe(ofType(UserActions.userLoginSuccess)).subscribe(() => this.setUser());
+    this.actions$.pipe(ofType(UserActions.userChangeProfileDataSuccess)).subscribe(() => this.setUser());
     this.setUser();
   }
 

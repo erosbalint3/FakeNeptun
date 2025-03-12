@@ -14,11 +14,8 @@ import {
 import { MatButton } from '@angular/material/button';
 import { NgForOf, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { ColumnType } from '../../enums/column-type.enum';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { CdkCell, CdkCellDef } from '@angular/cdk/table';
 import { MatDialog } from '@angular/material/dialog';
 import { CoursesActionsDialogComponent } from '../courses-actions-dialog/courses-actions-dialog.component';
-import { MatIcon } from '@angular/material/icon';
 import { CourseDetailsModel } from '../../models/course-details.model';
 import { CompletionStatus } from '../../enums/completion-status.enum';
 import { CreateCourseDialogComponent } from '../create-course-dialog/create-course-dialog.component';
@@ -40,7 +37,6 @@ import { UserRole } from '../../enums/user-role.enum';
     MatHeaderCell,
     MatHeaderCellDef,
     MatCell,
-    MatIcon,
     MatCellDef,
     MatHeaderRow,
     MatHeaderRowDef,
@@ -49,13 +45,8 @@ import { UserRole } from '../../enums/user-role.enum';
     MatButton,
     NgForOf,
     NgIf,
-    MatMenu,
-    CdkCell,
-    CdkCellDef,
     NgSwitch,
     NgSwitchCase,
-    MatMenuItem,
-    MatMenuTrigger
   ],
   templateUrl: './courses-list.component.html',
   styleUrl: './courses-list.component.scss'

@@ -20,23 +20,16 @@ import { ChangePasswordDialogComponent } from '../change-password-dialog/change-
 import { MatDialog } from '@angular/material/dialog';
 import { EditProfileDialogComponent } from '../edit-profile-dialog/edit-profile-dialog.component';
 import { ButtonComponent } from '../../sharedComponents/button/button.component';
+import {SessionManagementService} from "../../services/session-management.service";
 
 @Component({
   selector: 'app-user-account',
   imports: [
     MatCard,
-    MatToolbar,
     MatCardTitle,
-    NgIf,
-    MatButton,
     ReactiveFormsModule,
-    MatFormField,
-    MatInput,
-    MatLabel,
-    InputComponent,
     MatIcon,
     MatCardActions,
-    MatIconButton,
     MatCardContent,
     MatCardSubtitle,
     MatCardHeader,
@@ -47,15 +40,9 @@ import { ButtonComponent } from '../../sharedComponents/button/button.component'
   styleUrl: './user-account.component.scss'
 })
 export class UserAccountComponent {
-  user = {
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    phone: '+1234567890',
-  };
+  user = this.sessionService.getSession();
 
-  editMode = false;
-
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private sessionService: SessionManagementService) {}
 
   openChangePasswordDialog() {
     this.dialog.open(ChangePasswordDialogComponent, {
@@ -71,7 +58,10 @@ export class UserAccountComponent {
 
     dialogRef.afterClosed().subscribe((updatedUser) => {
       if (updatedUser) {
-        this.user = updatedUser; // Update user data after dialog is closed
+        this.user = {
+          ...this.user,
+          ...updatedUser,
+        }; // Update user data after dialog is closed
       }
     });
   }

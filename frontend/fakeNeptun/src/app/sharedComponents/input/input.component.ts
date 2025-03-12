@@ -7,7 +7,6 @@ import { InputType } from '../../enums/input-type.enum';
   selector: 'app-input',
   imports: [
     FormsModule,
-    NgIf,
     ReactiveFormsModule
   ],
   standalone: true,

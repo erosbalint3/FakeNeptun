@@ -29,4 +29,40 @@ export class UserEffects {
       )
     )
   );
+
+  readonly changePassword$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.userChangePassword),
+      switchMap(({ changePasswordRequest }) =>
+        this.userService.changePassword(changePasswordRequest).pipe(
+          map(() => UserActions.userChangePasswordSuccess()),
+          catchError((error: HttpErrorResponse) =>
+            of(
+              UserActions.userChangePasswordFailed({
+                errorMessage: error.message
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  readonly changeProfileData$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.userChangeProfileData),
+      switchMap(({ changeProfileDataRequest }) =>
+        this.userService.changeProfileData(changeProfileDataRequest).pipe(
+          map((response) => UserActions.userChangeProfileDataSuccess({ user: response })),
+          catchError((error: HttpErrorResponse) =>
+            of(
+              UserActions.userChangeProfileDataFailed({
+                errorMessage: error.message
+              })
+            )
+          )
+        )
+      )
+    )
+  );
 }
