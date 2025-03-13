@@ -3,8 +3,9 @@ import Course from "../models/course";
 import { FrequencyType } from "../enums/frequency-type.enum";
 import { CourseStatus } from "../enums/course-status.enum";
 import { CourseEnrollment } from "../models/course-enrollment";
-import { RegisterRequest } from "models/PostRequests/RegisterRequest";
+import { RegisterRequest } from "../models/PostRequests/RegisterRequest";
 import { CourseApproveRequest, CourseRejectRequest } from "../models/PostRequests/CourseApproveRequest";
+import User from "../models/user";
 
 export class CourseService {
     constructor() {}
@@ -121,6 +122,20 @@ export class CourseService {
     async rejectCourse(courseRequest: CourseRejectRequest) {
       await Course.deleteOne({ courseCode: courseRequest.courseCode });
       return Promise.resolve();
+    }
+
+    async getCourseUsers(courseCode: string) {
+      const course = await Course.findOne({ courseCode: courseCode });
+
+      const users: any = [];
+
+      if (course) {
+        course.students.forEach(async (us) => {
+          const user = await User.findOne({ email: us });
+          users.push(user);
+        });
+        return Promise.resolve(users);
+      }
     }
 
     private generateCourseCode() {

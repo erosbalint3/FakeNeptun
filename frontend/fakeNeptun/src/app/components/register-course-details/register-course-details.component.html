@@ -30,6 +30,7 @@
             <span><b>End date:</b> {{ data.endDate.toLocaleString() }}</span>
             <span><b>Length:</b> {{ data.length }} hours</span>
           </div>
+          <app-button [label]="'Participations'" (clicked)="openParticipationsDialog()" [color]="'blue'" />
         </div>
       </ng-container>
     </div>

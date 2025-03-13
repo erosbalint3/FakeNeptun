@@ -21,7 +21,7 @@ const listCourses = async (req: Request, res: Response, next: NextFunction): Pro
 const createCourse = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const response = await courseService.createCourse(req.body);
-        res.status(200);
+        res.status(200).json(response);
     } catch(error) {
         next(error);
     }
@@ -72,4 +72,13 @@ const rejectCourse = async (req: Request, res: Response, next: NextFunction): Pr
     }
 }
 
-export default { listCourses, createCourse, listCoursesForRegistration, registerForCourse, abandonCourse, approveCourse, rejectCourse };
+const courseUsers = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const response = await courseService.getCourseUsers(req.body.courseCode);
+        res.status(200).json(response);
+    } catch(error) {
+        next(error);
+    }
+}
+
+export default { listCourses, createCourse, listCoursesForRegistration, registerForCourse, abandonCourse, approveCourse, rejectCourse, courseUsers };

@@ -123,8 +123,7 @@ export class RegisterForCourseDialogComponent implements OnInit {
     private store: Store,
     private sessionService: SessionManagementService,
     @Inject(MAT_DIALOG_DATA) public details: {}
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(CourseActions.courseRegisterList());
@@ -135,10 +134,6 @@ export class RegisterForCourseDialogComponent implements OnInit {
         this.courseList = courses;
       }
     });
-  }
-
-  submit() {
-    console.log('Selected Users:', this.selectedUsers);
   }
 
   onNoClick(): void {

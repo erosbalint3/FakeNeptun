@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {
-  MAT_DIALOG_DATA,
+  MAT_DIALOG_DATA, MatDialog,
   MatDialogActions,
   MatDialogContent,
   MatDialogRef,
@@ -41,6 +41,7 @@ export class RegisterCourseDetailsComponent implements OnInit {
     public dialogRef: MatDialogRef<RegisterCourseDetailsComponent>,
     private store: Store,
     private sessionService: SessionManagementService,
+    private matDialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public details: CourseDetailsModel
   ) {}
 
