@@ -26,7 +26,10 @@ export enum CoursesEventEnums {
   COURSE_DETAILS = 'Course details',
   COURSE_DETAILS_SUCCESS = 'Course details success',
   COURSE_DETAILS_FAILED = 'Course details failed',
-  CLEAR_STATE = 'Clear state'
+  CLEAR_STATE = 'Clear state',
+  COURSE_APPROVE = 'Course approve',
+  COURSE_APPROVE_SUCCESS = 'Course approve success',
+  COURSE_APPROVE_FAILED = 'Course approve failed'
 }
 
 export const CourseActions = createActionGroup({
@@ -54,6 +57,9 @@ export const CourseActions = createActionGroup({
     [CoursesEventEnums.COURSE_DETAILS]: props<{ courseCode: string }>(),
     [CoursesEventEnums.COURSE_DETAILS_SUCCESS]: props<{ courseDetails: CourseDetailsModel }>(),
     [CoursesEventEnums.COURSE_DETAILS_FAILED]: props<{ errorMessage: string }>(),
-    [CoursesEventEnums.CLEAR_STATE]: emptyProps()
+    [CoursesEventEnums.CLEAR_STATE]: emptyProps(),
+    [CoursesEventEnums.COURSE_APPROVE]: props<{ courseCode: string }>(),
+    [CoursesEventEnums.COURSE_APPROVE_SUCCESS]: emptyProps(),
+    [CoursesEventEnums.COURSE_APPROVE_FAILED]: props<{ errorMessage: string }>()
   }
 });

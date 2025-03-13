@@ -1,26 +1,34 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {
   MatCell,
   MatCellDef,
   MatColumnDef,
-  MatHeaderCell, MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { MatCheckbox } from '@angular/material/checkbox';
-import { FormsModule } from '@angular/forms';
-import { NgForOf, NgSwitch, NgSwitchCase, NgTemplateOutlet } from '@angular/common';
-import { MatButton } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogActions, MatDialogRef } from '@angular/material/dialog';
-import { CourseDetailsModel } from '../../models/course-details.model';
-import { CompletionStatus } from '../../enums/completion-status.enum';
-import { RegisterCourseDetailsComponent } from '../register-course-details/register-course-details.component';
-import { ButtonComponent } from '../../sharedComponents/button/button.component';
-import { Store } from '@ngrx/store';
-import { registerCourseList$ } from '../../store/selectors/course.selectors';
-import { CourseModel } from '../../models/course.model';
-import { CourseActions } from '../../store/actions/courses.actions';
-import { ColumnType } from '../../enums/column-type.enum';
-import { SessionManagementService } from '../../services/session-management.service';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {FormsModule} from '@angular/forms';
+import {NgForOf, NgSwitch, NgSwitchCase, NgTemplateOutlet} from '@angular/common';
+import {MatButton} from '@angular/material/button';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogActions, MatDialogRef} from '@angular/material/dialog';
+import {CourseDetailsModel} from '../../models/course-details.model';
+import {CompletionStatus} from '../../enums/completion-status.enum';
+import {RegisterCourseDetailsComponent} from '../register-course-details/register-course-details.component';
+import {ButtonComponent} from '../../sharedComponents/button/button.component';
+import {Store} from '@ngrx/store';
+import {registerCourseList$} from '../../store/selectors/course.selectors';
+import {CourseModel} from '../../models/course.model';
+import {CourseActions} from '../../store/actions/courses.actions';
+import {ColumnType} from '../../enums/column-type.enum';
+import {SessionManagementService} from '../../services/session-management.service';
+import {UserModel} from "../../models/user.model";
+import {UserRole} from "../../enums/user-role.enum";
+import {CourseStatus} from "../../enums/course-status.enum";
 
 export interface User {
   id: number;
@@ -61,9 +69,11 @@ export class RegisterForCourseDialogComponent implements OnInit {
 
   courseList: CourseModel[] = [];
 
-  displayedColumns: string[] = [ 'select', 'courseName', 'courseCode', 'courseCredit', 'courseStudentCount', 'courseStudentCountLimit', 'courseTeacher', 'actions' ];
+  displayedColumns: string[] = [ 'select', 'courseName', 'courseCode', 'courseCredit', 'courseStudentCount', 'courseStudentCountLimit', 'courseTeacher', 'courseStatus', 'actions' ];
   selectedUsers: User[] = [];
   allSelected = false;
+
+  user: UserModel = this.sessionService.getSession();
 
   columns = [
     {
@@ -97,6 +107,11 @@ export class RegisterForCourseDialogComponent implements OnInit {
       columnType: ColumnType.NORMAL
     },
     {
+      name: 'courseStatus',
+      title: 'Course status',
+      columnType: ColumnType.NORMAL
+    },
+    {
       name: 'actions',
       columnType: ColumnType.ACTIONS
     }
@@ -114,7 +129,11 @@ export class RegisterForCourseDialogComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(CourseActions.courseRegisterList());
     this.courses$.subscribe((courses) => {
-      this.courseList = courses;
+      if (this.user.role === UserRole.STUDENT) {
+        this.courseList = courses.filter((course) => course.courseStatus === CourseStatus.AVAILABLE);
+      } else {
+        this.courseList = courses;
+      }
     });
   }
 

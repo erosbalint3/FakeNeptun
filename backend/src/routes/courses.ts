@@ -8,5 +8,7 @@ router.get('/courses/registerList', courseController.listCoursesForRegistration)
 router.put('/courses/register', courseController.registerForCourse);
 router.post('/courses', courseController.createCourse);
 router.post('/courses/abandon', courseController.abandonCourse);
+router.put('/courses/approve', courseController.approveCourse);
+router.delete('/courses/reject', courseController.rejectCourse);
 
 export default router;

@@ -71,8 +71,49 @@
 
 <ng-template #actionsTemplate>
   <div class="action-template">
-    <button mat-flat-button class="green" (click)="onRegister()">Register for course</button>
-    <button mat-flat-button>Save for draft</button>
+
+    <ng-container *ngIf="user.role !== UserRole.ADMIN">
+      <ng-container *ngIf="disabled">
+        <span class="warning">*Only students can register for courses</span>
+      </ng-container>
+      <button
+        mat-flat-button
+        class="green"
+        [ngClass]="{
+        'disabled': disabled
+      }"
+        (click)="onRegister()"
+        [disabled]="disabled"
+      >
+        Register for course
+      </button>
+      <button
+        mat-flat-button
+        [disabled]="disabled"
+        [ngClass]="{
+      'disabled': disabled
+      }"
+      >
+        Save for draft
+      </button>
+    </ng-container>
+    <ng-container *ngIf="user.role === UserRole.ADMIN">
+      <button
+        mat-flat-button
+        class="green"
+        (click)="onApprove()"
+      >
+        Approve course
+      </button>
+      <button
+        mat-flat-button
+        class="red"
+        (click)="onReject()"
+      >
+        Reject/Delete course
+      </button>
+    </ng-container>
+
   </div>
 </ng-template>
 

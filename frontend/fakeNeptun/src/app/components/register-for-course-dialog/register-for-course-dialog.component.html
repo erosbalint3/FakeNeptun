@@ -1,28 +1,14 @@
 <div class="register-course-container">
   <span>Register for course</span>
   <div class="main-container">
-    <div class="action-row">
-      <ng-container *ngTemplateOutlet="actionTemplate" />
-    </div>
     <div class="course-list-table">
       <ng-container *ngTemplateOutlet="tableTemplate" />
-    </div>
-    <div class="save-and-cancel-row">
-
     </div>
   </div>
   <div mat-dialog-actions>
     <app-button [label]="'Close'" (clicked)="onNoClick()" [color]="'red'" />
   </div>
 </div>
-
-<ng-template #actionTemplate>
-  <div class="action-container">
-    <button mat-raised-button (click)="submit()">Test Button</button>
-    <button mat-raised-button (click)="submit()">Test Button</button>
-    <button mat-raised-button (click)="submit()">Test Button</button>
-  </div>
-</ng-template>
 
 <ng-template #tableTemplate>
   <div class="table-container">

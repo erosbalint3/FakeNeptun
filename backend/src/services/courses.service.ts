@@ -4,6 +4,7 @@ import { FrequencyType } from "../enums/frequency-type.enum";
 import { CourseStatus } from "../enums/course-status.enum";
 import { CourseEnrollment } from "../models/course-enrollment";
 import { RegisterRequest } from "models/PostRequests/RegisterRequest";
+import { CourseApproveRequest, CourseRejectRequest } from "../models/PostRequests/CourseApproveRequest";
 
 export class CourseService {
     constructor() {}
@@ -106,6 +107,21 @@ export class CourseService {
         return Promise.resolve();
     }
 
+    async approveCourse(courseRequest: CourseApproveRequest) {
+      const course = await Course.findOne({ courseCode: courseRequest.courseCode });
+
+      if (course) {
+        course.courseStatus = CourseStatus.AVAILABLE;
+        course.save();
+      }
+
+      return Promise.resolve();
+    }
+
+    async rejectCourse(courseRequest: CourseRejectRequest) {
+      await Course.deleteOne({ courseCode: courseRequest.courseCode });
+      return Promise.resolve();
+    }
 
     private generateCourseCode() {
         const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -120,38 +136,38 @@ export class CourseService {
     }
 
     private generateOccurrences = (
-        startDate: Date,
-        endDate: Date,
-        frequency: number,
-        frequencyType: FrequencyType,
-        lastDate: Date
-      ) => {
-        let occurrences = [];
-        let currentStart = new Date(startDate);
-        let currentEnd = new Date(endDate);
-        let lastCourseDate = new Date(lastDate);
-      
-        while (currentStart <= lastCourseDate) {
-          occurrences.push({
-            startDate: new Date(currentStart),
-            endDate: new Date(currentEnd),
-            length: (currentEnd.getTime() - currentStart.getTime()) / (1000 * 60 * 60), // Length in minutes
-          });
+      startDate: Date,
+      endDate: Date,
+      frequency: number,
+      frequencyType: FrequencyType,
+      lastDate: Date
+    ) => {
+      let occurrences = [];
+      let currentStart = new Date(startDate);
+      let currentEnd = new Date(endDate);
+      let lastCourseDate = new Date(lastDate);
+    
+      while (currentStart <= lastCourseDate) {
+        occurrences.push({
+          startDate: new Date(currentStart),
+          endDate: new Date(currentEnd),
+          length: (currentEnd.getTime() - currentStart.getTime()) / (1000 * 60 * 60), // Length in minutes
+        });
 
-          
-          if (frequencyType === FrequencyType.DAILY) {
-            currentStart.setDate(currentStart.getDate() + frequency);
-            currentEnd.setDate(currentEnd.getDate() + frequency);
-          } else if (frequencyType === FrequencyType.WEEKLY) {
-            currentStart.setDate(currentStart.getDate() + frequency * 7);
-            currentEnd.setDate(currentEnd.getDate() + frequency * 7);
-          } else if (frequencyType === FrequencyType.MONTHLY) {
-            currentStart.setMonth(currentStart.getMonth() + frequency);
-            currentEnd.setMonth(currentEnd.getMonth() + frequency);
-          }
+        
+        if (frequencyType === FrequencyType.DAILY) {
+          currentStart.setDate(currentStart.getDate() + frequency);
+          currentEnd.setDate(currentEnd.getDate() + frequency);
+        } else if (frequencyType === FrequencyType.WEEKLY) {
+          currentStart.setDate(currentStart.getDate() + frequency * 7);
+          currentEnd.setDate(currentEnd.getDate() + frequency * 7);
+        } else if (frequencyType === FrequencyType.MONTHLY) {
+          currentStart.setMonth(currentStart.getMonth() + frequency);
+          currentEnd.setMonth(currentEnd.getMonth() + frequency);
         }
-      
-        return occurrences;
-      };
+      }
+    
+      return occurrences;
+    };
 }
 

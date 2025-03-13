@@ -8,12 +8,14 @@ import {
 } from '@angular/material/dialog';
 import { CourseDetailsModel } from '../../models/course-details.model';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
-import { NgForOf, NgTemplateOutlet } from '@angular/common';
+import {NgClass, NgForOf, NgIf, NgTemplateOutlet} from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { ButtonComponent } from '../../sharedComponents/button/button.component';
 import { Store } from '@ngrx/store';
 import { CourseActions } from '../../store/actions/courses.actions';
 import { SessionManagementService } from '../../services/session-management.service';
+import {UserModel} from "../../models/user.model";
+import {UserRole} from "../../enums/user-role.enum";
 
 @Component({
   selector: 'app-register-course-details',
@@ -26,7 +28,9 @@ import { SessionManagementService } from '../../services/session-management.serv
     MatDialogActions,
     MatButton,
     NgForOf,
-    ButtonComponent
+    ButtonComponent,
+    NgClass,
+    NgIf
   ],
   standalone: true,
   templateUrl: './register-course-details.component.html',
@@ -40,8 +44,11 @@ export class RegisterCourseDetailsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public details: CourseDetailsModel
   ) {}
 
-  ngOnInit(): void {
+  user: UserModel = this.sessionService.getSession();
+  disabled: boolean = false;
 
+  ngOnInit(): void {
+    this.disabled = this.user.role !== UserRole.STUDENT;
   }
 
   onNoClick(): void {
@@ -54,5 +61,16 @@ export class RegisterCourseDetailsComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  onApprove(): void {
+    this.store.dispatch(CourseActions.courseApprove({ courseCode: this.details.details.courseCode }));
+    this.dialogRef.close();
+  }
+
+  onReject(): void {
+    this.store.dispatch(CourseActions.courseDelete({ courseCode: this.details.details.courseCode }));
+    this.dialogRef.close();
+  }
+
   protected readonly Object = Object;
+  protected readonly UserRole = UserRole;
 }

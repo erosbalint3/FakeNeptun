@@ -54,4 +54,22 @@ const abandonCourse = async (req: Request, res: Response, next: NextFunction): P
     }
 }
 
-export default { listCourses, createCourse, listCoursesForRegistration, registerForCourse, abandonCourse };
+const approveCourse = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const response = await courseService.approveCourse(req.body);
+        res.status(200).json(response);
+    } catch(error) {
+        next(error);
+    }
+}
+
+const rejectCourse = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const response = await courseService.rejectCourse(req.body);
+        res.status(200).json(response);
+    } catch(error) {
+        next(error);
+    }
+}
+
+export default { listCourses, createCourse, listCoursesForRegistration, registerForCourse, abandonCourse, approveCourse, rejectCourse };

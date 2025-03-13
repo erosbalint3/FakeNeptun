@@ -32,10 +32,14 @@ export class CourseService {
   }
 
   deleteCourse(courseCode: string): Observable<void> {
-    return this.http.delete<void>(`http://localhost:3000/api/courses/${courseCode}`);
+    return this.http.delete<void>(`http://localhost:3000/api/courses/reject`, { body: { courseCode: courseCode }});
   }
 
   courseDetails(courseCode: string): Observable<CourseDetailsModel> {
     return this.http.get<CourseDetailsModel>(`http://localhost:3000/api/courses/${courseCode}`);
+  }
+
+  approveCourse(courseCode: string): Observable<void> {
+    return this.http.put<void>(`http://localhost:3000/api/courses/approve`, { courseCode: courseCode });
   }
 }

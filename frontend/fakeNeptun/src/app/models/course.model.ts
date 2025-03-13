@@ -1,3 +1,5 @@
+import {CourseStatus} from "../enums/course-status.enum";
+
 export interface CourseModel {
   courseName: string;
   courseCode: string;
@@ -7,6 +9,7 @@ export interface CourseModel {
   courseTeacher: string;
   courseCalendar: CourseListCalendarModel[];
   missedClasses: number;
+  courseStatus: CourseStatus;
 }
 
 export interface CourseListCalendarModel {

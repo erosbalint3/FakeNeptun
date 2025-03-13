@@ -101,4 +101,40 @@ export class CoursesEffects {
       )
     )
   );
+
+  readonly approveCourse$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CourseActions.courseApprove),
+      switchMap(({ courseCode }) =>
+        this.courseService.approveCourse(courseCode).pipe(
+          map(() => CourseActions.courseApproveSuccess()),
+          catchError((error: HttpErrorResponse) =>
+            of(
+              CourseActions.courseApproveFailed({
+                errorMessage: error.message
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  readonly deleteCourse$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CourseActions.courseDelete),
+      switchMap(({ courseCode }) =>
+        this.courseService.deleteCourse(courseCode).pipe(
+          map(() => CourseActions.courseDeleteSuccess()),
+          catchError((error: HttpErrorResponse) =>
+            of(
+              CourseActions.courseDeleteFailed({
+                errorMessage: error.message
+              })
+            )
+          )
+        )
+      )
+    )
+  );
 }
