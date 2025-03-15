@@ -74,7 +74,8 @@ const rejectCourse = async (req: Request, res: Response, next: NextFunction): Pr
 
 const courseUsers = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const response = await courseService.getCourseUsers(req.body.courseCode);
+        const response = await courseService.getCourseUsers(req.query?.courseCode?.toString() ?? '');
+        console.log(response);
         res.status(200).json(response);
     } catch(error) {
         next(error);

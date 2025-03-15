@@ -7,3 +7,7 @@ export interface UserModel {
   role: UserRole;
   telephone: string;
 }
+
+export interface UserSelectionModel extends UserModel {
+  selected: boolean;
+}

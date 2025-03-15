@@ -18,6 +18,7 @@ export class RegisterPageComponent {
 
   constructor(private fb: FormBuilder, private userService: UserService) {
     this.registerForm = this.fb.group({
+      name: ['', [Validators.required]],
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -40,6 +41,7 @@ export class RegisterPageComponent {
   onSubmit() {
     if (this.registerForm.valid) {
       const user: UserSaveRequest = {
+        name: this.registerForm.get('name')?.value,
         email: this.registerForm.get('email')?.value,
         password: this.registerForm.get('password')?.value,
         username: this.registerForm.get('username')?.value

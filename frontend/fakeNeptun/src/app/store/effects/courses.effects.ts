@@ -137,4 +137,22 @@ export class CoursesEffects {
       )
     )
   );
+
+  readonly courseUsers$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CourseActions.courseUsers),
+      switchMap(({ courseCode }) =>
+        this.courseService.courseParticipations(courseCode).pipe(
+          map((users) => CourseActions.courseUsersSuccess({ courseUsers: users })),
+          catchError((error: HttpErrorResponse) =>
+            of(
+              CourseActions.courseUsersFailed({
+                errorMessage: error.message
+              })
+            )
+          )
+        )
+      )
+    )
+  );
 }

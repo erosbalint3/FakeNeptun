@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { CourseModel } from '../models/course.model';
 import { CourseSaveModel } from '../models/Requests/course-save-request.model';
 import { CourseDetailsModel } from '../models/course-details.model';
+import {UserModel} from "../models/user.model";
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +42,9 @@ export class CourseService {
 
   approveCourse(courseCode: string): Observable<void> {
     return this.http.put<void>(`http://localhost:3000/api/courses/approve`, { courseCode: courseCode });
+  }
+
+  courseParticipations(courseCode: string): Observable<UserModel[]> {
+    return this.http.get<UserModel[]>('http://localhost:3000/api/courses/users', { params: { courseCode: courseCode }})
   }
 }

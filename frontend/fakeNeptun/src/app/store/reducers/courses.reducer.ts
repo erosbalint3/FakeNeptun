@@ -3,6 +3,7 @@ import { CourseDetailsModel } from '../../models/course-details.model';
 import { ActionReducer, createReducer, on } from '@ngrx/store';
 import { CourseActions } from '../actions/courses.actions';
 import { CourseSaveModel } from '../../models/Requests/course-save-request.model';
+import {UserModel} from "../../models/user.model";
 
 export const courseFeatureKey = 'courses';
 
@@ -12,6 +13,7 @@ export interface CourseState {
   registerCourseList: CourseModel[];
   courseDetail?: CourseDetailsModel;
   courseSaveDraft?: CourseSaveModel;
+  courseUsers?: UserModel[];
 }
 
 const initialState: CourseState = {
@@ -19,7 +21,8 @@ const initialState: CourseState = {
   courseList: [],
   registerCourseList: [],
   courseDetail: undefined,
-  courseSaveDraft: undefined
+  courseSaveDraft: undefined,
+  courseUsers: []
 }
 
 export const courseReducer: ActionReducer<CourseState> = createReducer(
@@ -34,5 +37,8 @@ export const courseReducer: ActionReducer<CourseState> = createReducer(
   on(CourseActions.clearState, (_state) => ({ isLoading: false, courseList: [], registerCourseList: [], courseDetail: undefined, courseSaveDraft: undefined })),
   on(CourseActions.courseRegisterList, (_state) => ({ ..._state, isLoading: true })),
   on(CourseActions.courseRegisterListSuccess, (_state, { courses }) => ({ ..._state, isLoading: false, registerCourseList: courses })),
-  on(CourseActions.courseRegisterListFailed, (_state) => ({ ..._state, isLoading: false }))
+  on(CourseActions.courseRegisterListFailed, (_state) => ({ ..._state, isLoading: false })),
+  on(CourseActions.courseUsers, (_state) => ({ ..._state, isLoading: true })),
+  on(CourseActions.courseUsersSuccess, (_state, { courseUsers }) => ({ ..._state, courseUsers, isLoading: false })),
+  on(CourseActions.courseUsersFailed, (_state) => ({ ..._state, isLoading: false }))
 );

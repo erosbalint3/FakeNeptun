@@ -2,6 +2,13 @@
     <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <h2>Register</h2>
         <div class="input-group">
+          <label for="name">Name</label>
+          <input type="name" id="name" name="name" formControlName="name" required />
+          <small *ngIf="registerForm.controls['name'].invalid && registerForm.controls['name'].touched">
+            Enter a name
+          </small>
+        </div>
+        <div class="input-group">
             <label for="username">Username</label>
             <input type="username" id="username" name="username" formControlName="username" required />
             <small *ngIf="registerForm.controls['username'].invalid && registerForm.controls['username'].touched">

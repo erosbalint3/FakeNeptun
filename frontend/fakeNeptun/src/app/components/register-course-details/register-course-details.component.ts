@@ -16,6 +16,7 @@ import { CourseActions } from '../../store/actions/courses.actions';
 import { SessionManagementService } from '../../services/session-management.service';
 import {UserModel} from "../../models/user.model";
 import {UserRole} from "../../enums/user-role.enum";
+import {ParticipationsListComponent} from "../participations-list/participations-list.component";
 
 @Component({
   selector: 'app-register-course-details',
@@ -41,7 +42,7 @@ export class RegisterCourseDetailsComponent implements OnInit {
     public dialogRef: MatDialogRef<RegisterCourseDetailsComponent>,
     private store: Store,
     private sessionService: SessionManagementService,
-    private matDialog: MatDialog,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public details: CourseDetailsModel
   ) {}
 
@@ -72,6 +73,19 @@ export class RegisterCourseDetailsComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  protected readonly Object = Object;
+
+  openParticipationsDialog(element: any) {
+    this.store.dispatch(CourseActions.courseUsers({ courseCode: this.details.details.courseCode}));
+    this.dialog.open(ParticipationsListComponent, {
+      width: '1500px',
+      data: {
+        courseCode: this.details.details.courseCode,
+        startDate: element.startDate
+      },
+      enterAnimationDuration: '200ms',
+      exitAnimationDuration: '100ms'
+    });
+  }
+
   protected readonly UserRole = UserRole;
 }

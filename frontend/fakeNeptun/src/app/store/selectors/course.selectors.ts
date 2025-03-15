@@ -10,3 +10,5 @@ export const registerCourseList$ = createSelector(selectFeature, ({ registerCour
 export const courseDetails$ = createSelector(selectFeature, ({ courseDetail}) => courseDetail);
 
 export const courseSaveDraft$ = createSelector(selectFeature, ({ courseSaveDraft }) => courseSaveDraft);
+
+export const courseUsers$ = createSelector(selectFeature, ({ courseUsers }) => courseUsers);

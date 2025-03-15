@@ -29,6 +29,7 @@ import {SessionManagementService} from '../../services/session-management.servic
 import {UserModel} from "../../models/user.model";
 import {UserRole} from "../../enums/user-role.enum";
 import {CourseStatus} from "../../enums/course-status.enum";
+import {ParticipationsListComponent} from "../participations-list/participations-list.component";
 
 export interface User {
   id: number;
@@ -70,7 +71,6 @@ export class RegisterForCourseDialogComponent implements OnInit {
   courseList: CourseModel[] = [];
 
   displayedColumns: string[] = [ 'select', 'courseName', 'courseCode', 'courseCredit', 'courseStudentCount', 'courseStudentCountLimit', 'courseTeacher', 'courseStatus', 'actions' ];
-  selectedUsers: User[] = [];
   allSelected = false;
 
   user: UserModel = this.sessionService.getSession();

@@ -1,0 +1,44 @@
+.main-container {
+  padding: 20px;
+}
+
+.course-info {
+  margin-bottom: 16px;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  span {
+    padding: 10px;
+    width: 45%;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+  }
+
+  .green {
+    background-color: green;
+  }
+
+  .red {
+    background-color: red;
+  }
+}
+
+table {
+  width: 100%;
+  margin-bottom: 16px;
+
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: right;
+}

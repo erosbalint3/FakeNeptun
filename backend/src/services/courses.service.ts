@@ -130,11 +130,11 @@ export class CourseService {
       const users: any = [];
 
       if (course) {
-        course.students.forEach(async (us) => {
+        return Promise.all(course.students.map(async (us) => {
           const user = await User.findOne({ email: us });
-          users.push(user);
-        });
-        return Promise.resolve(users);
+          return Promise.resolve(user);
+        }));
+      
       }
     }
 
