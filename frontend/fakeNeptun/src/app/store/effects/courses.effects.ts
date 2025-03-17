@@ -155,4 +155,22 @@ export class CoursesEffects {
       )
     )
   );
+
+  readonly courseUsersSave$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CourseActions.courseUsersSave),
+      switchMap(({ request }) =>
+        this.courseService.saveCourseParticipations(request).pipe(
+          map(() => CourseActions.courseUsersSaveSuccess()),
+          catchError((error: HttpErrorResponse) =>
+            of(
+              CourseActions.courseUsersSaveFailed({
+                errorMessage: error.message
+              })
+            )
+          )
+        )
+      )
+    )
+  );
 }

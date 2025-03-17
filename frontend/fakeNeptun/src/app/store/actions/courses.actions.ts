@@ -3,6 +3,7 @@ import { CourseModel } from '../../models/course.model';
 import { CourseSaveModel } from '../../models/Requests/course-save-request.model';
 import { CourseDetailsModel } from '../../models/course-details.model';
 import {UserModel} from "../../models/user.model";
+import {ParticipationSaveRequestModel} from "../../models/Requests/participation-save-request.model";
 
 export enum CoursesEventEnums {
   COURSE_LIST = 'Courses list',
@@ -33,7 +34,10 @@ export enum CoursesEventEnums {
   COURSE_APPROVE_FAILED = 'Course approve failed',
   COURSE_USERS = 'Course users',
   COURSE_USERS_SUCCESS = 'Course users success',
-  COURSE_USERS_FAILED = 'Course users failed'
+  COURSE_USERS_FAILED = 'Course users failed',
+  COURSE_USERS_SAVE = 'Course users save',
+  COURSE_USERS_SAVE_SUCCESS = 'Course users save success',
+  COURSE_USERS_SAVE_FAILED = 'Course users save failed'
 }
 
 export const CourseActions = createActionGroup({
@@ -67,6 +71,9 @@ export const CourseActions = createActionGroup({
     [CoursesEventEnums.COURSE_APPROVE_FAILED]: props<{ errorMessage: string }>(),
     [CoursesEventEnums.COURSE_USERS]: props<{ courseCode: string }>(),
     [CoursesEventEnums.COURSE_USERS_SUCCESS]: props<{ courseUsers: UserModel[] }>(),
-    [CoursesEventEnums.COURSE_USERS_FAILED]: props<{ errorMessage: string }>()
+    [CoursesEventEnums.COURSE_USERS_FAILED]: props<{ errorMessage: string }>(),
+    [CoursesEventEnums.COURSE_USERS_SAVE]: props<{ request: ParticipationSaveRequestModel }>(),
+    [CoursesEventEnums.COURSE_USERS_SAVE_SUCCESS]: emptyProps(),
+    [CoursesEventEnums.COURSE_USERS_SAVE_FAILED]: props<{ errorMessage: string }>()
   }
 });

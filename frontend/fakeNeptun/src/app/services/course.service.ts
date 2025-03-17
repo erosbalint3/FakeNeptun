@@ -5,6 +5,7 @@ import { CourseModel } from '../models/course.model';
 import { CourseSaveModel } from '../models/Requests/course-save-request.model';
 import { CourseDetailsModel } from '../models/course-details.model';
 import {UserModel} from "../models/user.model";
+import {ParticipationSaveRequestModel} from "../models/Requests/participation-save-request.model";
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +47,9 @@ export class CourseService {
 
   courseParticipations(courseCode: string): Observable<UserModel[]> {
     return this.http.get<UserModel[]>('http://localhost:3000/api/courses/users', { params: { courseCode: courseCode }})
+  }
+
+  saveCourseParticipations(participationSaveRequest: ParticipationSaveRequestModel): Observable<void> {
+    return this.http.post<void>('http://localhost:3000/api/courses/users', participationSaveRequest);
   }
 }

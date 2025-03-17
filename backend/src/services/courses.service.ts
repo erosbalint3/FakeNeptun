@@ -6,6 +6,7 @@ import { CourseEnrollment } from "../models/course-enrollment";
 import { RegisterRequest } from "../models/PostRequests/RegisterRequest";
 import { CourseApproveRequest, CourseRejectRequest } from "../models/PostRequests/CourseApproveRequest";
 import User from "../models/user";
+import { CourseParticipationsSaveRequest } from "../models/PostRequests/CourseParticipationsSaveRequest";
 
 export class CourseService {
     constructor() {}
@@ -15,12 +16,11 @@ export class CourseService {
         const studentEnrollments = await CourseEnrollment.find({ studentEmail });
 
         const courseListWithPresence = courses.map((course) => {
-            
             const enrollments = studentEnrollments.filter((enr) => enr.courseCode === course.courseCode);
             const attendedClasses = new Set(
                 enrollments.map((enrollment) => enrollment.classDate?.toISOString())
             );
-            const missedClasses = course.courseCalendar.filter((cal) => attendedClasses.has(cal.startDate?.toISOString())).length;
+            const missedClasses = course.courseCalendar.length - course.courseCalendar.filter((cal) => attendedClasses.has(cal.startDate?.toISOString())).length;
 
             return {
               courseName: course.courseName,
@@ -36,7 +36,7 @@ export class CourseService {
                 startDate: classSession.startDate,
                 endDate: classSession.endDate,
                 length: classSession.length,
-                presence: attendedClasses.has(classSession?.startDate?.toISOString()) // Check if student attended
+                presence: attendedClasses.has(classSession?.startDate?.toISOString())
               })),
               missedClasses: missedClasses
             };
@@ -136,6 +136,19 @@ export class CourseService {
         }));
       
       }
+    }
+
+    async saveCourseParticipations(request: CourseParticipationsSaveRequest) {
+      request.courseStudentEmails.forEach((email: string) => {
+        const saveRequest = {
+          courseCode: request.courseCode,
+          studentEmail: email,
+          classDate: request.courseStartDate
+        };
+
+        CourseEnrollment.insertOne(saveRequest);
+      });
+      return Promise.resolve();
     }
 
     private generateCourseCode() {

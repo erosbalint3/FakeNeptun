@@ -18,6 +18,7 @@ import {Store} from "@ngrx/store";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {courseUsers$} from "../../store/selectors/course.selectors";
 import {UserSelectionModel} from "../../models/user.model";
+import {CourseActions} from "../../store/actions/courses.actions";
 
 @Component({
   selector: 'app-participations-list',
@@ -83,10 +84,12 @@ export class ParticipationsListComponent implements OnInit {
   saveParticipation() {
     const selectedUsers = this.users.filter(user => user.selected);
 
-    const request = selectedUsers.map((u) => ({
-      classDate: this.courseStartDate,
-      studentEmail: u.email,
+    const request = {
+      courseStartDate: this.details.startDate,
+      courseStudentEmails: selectedUsers.map((u) => u.email),
       courseCode: this.details.courseCode
-    }))
+    };
+
+    this.store.dispatch(CourseActions.courseUsersSave({ request: request }));
   }
 }

@@ -1,3 +1,0 @@
-const getCourses = async () => {
-    return;
-}

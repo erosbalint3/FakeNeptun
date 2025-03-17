@@ -75,11 +75,19 @@ const rejectCourse = async (req: Request, res: Response, next: NextFunction): Pr
 const courseUsers = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const response = await courseService.getCourseUsers(req.query?.courseCode?.toString() ?? '');
-        console.log(response);
         res.status(200).json(response);
     } catch(error) {
         next(error);
     }
 }
 
-export default { listCourses, createCourse, listCoursesForRegistration, registerForCourse, abandonCourse, approveCourse, rejectCourse, courseUsers };
+const saveCourseParticipations = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const response = await courseService.saveCourseParticipations(req.body);
+        res.status(200).json(response);
+    } catch(error) {
+        next(error);
+    }
+}
+
+export default { listCourses, createCourse, listCoursesForRegistration, registerForCourse, abandonCourse, approveCourse, rejectCourse, courseUsers, saveCourseParticipations };
