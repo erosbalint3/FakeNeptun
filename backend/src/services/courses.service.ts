@@ -84,28 +84,31 @@ export class CourseService {
     }
 
     async createCourse(course: CourseSaveRequest) {
-        const occurrences = this.generateOccurrences(
-            course.courseCalendar.courseStartDate,
-            course.courseCalendar.courseEndDate,
-            course.courseCalendar.courseOccurrenceFrequencyValue,
-            course.courseCalendar.courseOccurrenceFrequencyType,
-            course.courseCalendar.courseLastDate
-        );
-        const saveRequest = {
-            courseName: course.courseName,
-            courseCredit: course.courseCredit,
-            courseStudentCountLimit: course.courseStudentCountLimit,
-            courseTeacher: course.courseTeacher,
-            courseDescription: course.courseDescription,
-            courseRequirements: course.courseRequirements,
-            courseStudentCount: 0,
-            courseCode: this.generateCourseCode(),
-            courseStatus: CourseStatus.PENDING,
-            courseCalendar: occurrences,
-            students: []
-        };
-        await Course.insertOne(saveRequest);
-        return Promise.resolve();
+      if (!course.courseName || !course.courseCredit || !course.courseDescription || !course.courseRequirements || !course.courseStudentCountLimit) {
+        throw new Error("Can't create course without necessary data!");
+      }
+      const occurrences = this.generateOccurrences(
+          course.courseCalendar.courseStartDate,
+          course.courseCalendar.courseEndDate,
+          course.courseCalendar.courseOccurrenceFrequencyValue,
+          course.courseCalendar.courseOccurrenceFrequencyType,
+          course.courseCalendar.courseLastDate
+      );
+      const saveRequest = {
+          courseName: course.courseName,
+          courseCredit: course.courseCredit,
+          courseStudentCountLimit: course.courseStudentCountLimit,
+          courseTeacher: course.courseTeacher,
+          courseDescription: course.courseDescription,
+          courseRequirements: course.courseRequirements,
+          courseStudentCount: 0,
+          courseCode: this.generateCourseCode(),
+          courseStatus: CourseStatus.PENDING,
+          courseCalendar: occurrences,
+          students: []
+      };
+      await Course.insertOne(saveRequest);
+      return Promise.resolve();
     }
 
     async approveCourse(courseRequest: CourseApproveRequest) {
@@ -171,30 +174,29 @@ export class CourseService {
       lastDate: Date
     ) => {
       let occurrences = [];
-      let currentStart = new Date(startDate);
-      let currentEnd = new Date(endDate);
-      let lastCourseDate = new Date(lastDate);
-    
-      while (currentStart <= lastCourseDate) {
-        occurrences.push({
-          startDate: new Date(currentStart),
-          endDate: new Date(currentEnd),
-          length: (currentEnd.getTime() - currentStart.getTime()) / (1000 * 60 * 60), // Length in minutes
-        });
 
-        
-        if (frequencyType === FrequencyType.DAILY) {
-          currentStart.setDate(currentStart.getDate() + frequency);
-          currentEnd.setDate(currentEnd.getDate() + frequency);
-        } else if (frequencyType === FrequencyType.WEEKLY) {
-          currentStart.setDate(currentStart.getDate() + frequency * 7);
-          currentEnd.setDate(currentEnd.getDate() + frequency * 7);
-        } else if (frequencyType === FrequencyType.MONTHLY) {
-          currentStart.setMonth(currentStart.getMonth() + frequency);
-          currentEnd.setMonth(currentEnd.getMonth() + frequency);
+      if (startDate && endDate && lastDate) {
+        console.log('fsfsafsdfasdf');
+        while (startDate <= lastDate) {
+          occurrences.push({
+            startDate: new Date(startDate),
+            endDate: new Date(endDate),
+            length: (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60), // Length in minutes
+          });
+  
+          
+          if (frequencyType === FrequencyType.DAILY) {
+            startDate.setDate(startDate.getDate() + frequency);
+            endDate.setDate(endDate.getDate() + frequency);
+          } else if (frequencyType === FrequencyType.WEEKLY) {
+            startDate.setDate(startDate.getDate() + frequency * 7);
+            endDate.setDate(endDate.getDate() + frequency * 7);
+          } else if (frequencyType === FrequencyType.MONTHLY) {
+            startDate.setMonth(startDate.getMonth() + frequency);
+            endDate.setMonth(endDate.getMonth() + frequency);
+          }
         }
       }
-    
       return occurrences;
     };
 }

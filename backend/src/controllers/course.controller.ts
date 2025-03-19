@@ -22,7 +22,10 @@ const createCourse = async (req: Request, res: Response, next: NextFunction): Pr
     try {
         const response = await courseService.createCourse(req.body);
         res.status(200).json(response);
-    } catch(error) {
+    } catch(error: any) {
+        res.status(500).json({
+            message: error.message
+        });
         next(error);
     }
 }
@@ -40,7 +43,10 @@ const registerForCourse = async (req: Request, res: Response, next: NextFunction
     try {
         const response = await courseService.registerForCourse(req.body);
         res.status(200).json(response);
-    } catch (error) {
+    } catch (error: any) {
+        res.status(500).json({
+            message: error.message
+        });
         next(error);
     }
 }
@@ -49,7 +55,10 @@ const abandonCourse = async (req: Request, res: Response, next: NextFunction): P
     try {
         const response = await courseService.abandonCourse(req.body);
         res.status(200).json(response);
-    } catch (error) {
+    } catch (error: any) {
+        res.status(500).json({
+            message: error.message
+        });
         next(error);
     }
 }
@@ -58,7 +67,10 @@ const approveCourse = async (req: Request, res: Response, next: NextFunction): P
     try {
         const response = await courseService.approveCourse(req.body);
         res.status(200).json(response);
-    } catch(error) {
+    } catch(error: any) {
+        res.status(500).json({
+            message: error.message
+        });
         next(error);
     }
 }
@@ -85,7 +97,10 @@ const saveCourseParticipations = async (req: Request, res: Response, next: NextF
     try {
         const response = await courseService.saveCourseParticipations(req.body);
         res.status(200).json(response);
-    } catch(error) {
+    } catch(error: any) {
+        res.status(500).json({
+            message: error.message
+        });
         next(error);
     }
 }

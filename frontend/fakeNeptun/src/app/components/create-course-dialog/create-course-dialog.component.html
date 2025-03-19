@@ -92,7 +92,6 @@
 <ng-template #actionsTemplate>
   <div class="action-container">
     <button mat-flat-button class="green" (click)="onCreate()">Create course</button>
-    <button mat-flat-button>Save as draft</button>
-    <button mat-flat-button class="red">Cancel</button>
+    <button mat-flat-button class="red" (click)="onNoClick()">Cancel</button>
   </div>
 </ng-template>

@@ -30,7 +30,9 @@
             <span><b>End date:</b> {{ data.endDate.toLocaleString() }}</span>
             <span><b>Length:</b> {{ data.length }} hours</span>
           </div>
-          <app-button [label]="'Participations'" (clicked)="openParticipationsDialog(data)" [color]="'blue'" />
+          <ng-container *ngIf="user.role === UserRole.TEACHER">
+            <app-button [label]="'Participations'" (clicked)="openParticipationsDialog(data)" [color]="'blue'" />
+          </ng-container>
         </div>
       </ng-container>
     </div>

@@ -1,5 +1,4 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {User} from "../register-for-course-dialog/register-for-course-dialog.component";
 import {
   MatCell,
   MatCellDef,
@@ -11,7 +10,6 @@ import {
 } from "@angular/material/table";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {FormsModule} from "@angular/forms";
-import {MatButton} from "@angular/material/button";
 import {DatePipe} from "@angular/common";
 import {ButtonComponent} from "../../sharedComponents/button/button.component";
 import {Store} from "@ngrx/store";
@@ -49,14 +47,15 @@ export class ParticipationsListComponent implements OnInit {
       courseCode: string;
       startDate: Date;
     }
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.courseUsers$.subscribe((u) => {
       if (u !== undefined) {
         this.users = u.map((value) => ({
-            ...value,
-            selected: false
+          ...value,
+          selected: false
         }))
       }
     })
@@ -90,6 +89,6 @@ export class ParticipationsListComponent implements OnInit {
       courseCode: this.details.courseCode
     };
 
-    this.store.dispatch(CourseActions.courseUsersSave({ request: request }));
+    this.store.dispatch(CourseActions.courseUsersSave({request: request}));
   }
 }

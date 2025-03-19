@@ -12,6 +12,7 @@ import { StoreModule } from '@ngrx/store';
 import { EFFECTS, REDUCERS } from './store/store-config';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
     declarations: [AppComponent],
@@ -27,6 +28,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
       AppRoutingModule,
       MatButton,
       MatAnchor,
+      MatSnackBarModule,
       StoreModule.forRoot({
         ...REDUCERS
       }, {}),

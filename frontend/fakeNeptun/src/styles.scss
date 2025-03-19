@@ -3,3 +3,23 @@ body {
   background-image: url('assets/register-background.webp');
   background-size: cover;
 }
+
+.custom-snackbar {
+  font-size: 16px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.mat-mdc-snack-bar-container {
+  &.success-snackbar {
+    background-color: #4caf50 !important; /* Green */
+    color: white !important;
+  }
+}
+
+.mat-mdc-snack-bar-container {
+  &.error-snackbar {
+    background-color: #f44336 !important; /* Red */
+    color: white !important;
+  }
+}

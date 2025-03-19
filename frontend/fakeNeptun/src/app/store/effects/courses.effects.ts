@@ -4,12 +4,14 @@ import { CourseService } from '../../services/course.service';
 import { CourseActions } from '../actions/courses.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import {ToastService} from "../../services/toast.service";
 
 @Injectable()
 export class CoursesEffects {
   constructor(
     private readonly actions$: Actions,
-    private readonly courseService: CourseService
+    private readonly courseService: CourseService,
+    private readonly toastService: ToastService
   ) {}
 
   readonly listCourses$ = createEffect(() =>
@@ -53,13 +55,17 @@ export class CoursesEffects {
       ofType(CourseActions.courseSave),
       switchMap(({courseSaveRequest}) =>
         this.courseService.createCourse(courseSaveRequest).pipe(
-          map(() => CourseActions.courseSaveSuccess()),
-          catchError((error: HttpErrorResponse) =>
-            of(
+          map(() => {
+            this.toastService.showSuccess('Successfully created the course');
+            return CourseActions.courseSaveSuccess()
+          }),
+          catchError((error: HttpErrorResponse) => {
+            this.toastService.showError(error.error.message);
+            return of(
               CourseActions.courseSaveFailed({
                 errorMessage: error.message
               })
-            )
+            )}
           )
         )
       )
@@ -71,13 +77,18 @@ export class CoursesEffects {
       ofType(CourseActions.courseRegister),
       switchMap(({ courseCode, userEmail }) =>
         this.courseService.registerForCourse(courseCode, userEmail).pipe(
-          map(() => CourseActions.courseRegisterSuccess()),
-          catchError((error: HttpErrorResponse) =>
-            of(
-              CourseActions.courseRegisterFailed({
-                errorMessage: error.message
-              })
-            )
+          map(() => {
+            this.toastService.showSuccess('Successfully registered for course!');
+            return CourseActions.courseRegisterSuccess()
+          }),
+          catchError((error: HttpErrorResponse) => {
+            this.toastService.showError('Course registration failed!');
+            return of(
+                CourseActions.courseRegisterFailed({
+                  errorMessage: error.message
+                })
+              )
+            }
           )
         )
       )
@@ -89,13 +100,17 @@ export class CoursesEffects {
       ofType(CourseActions.courseAbandon),
       switchMap(({ courseCode, userEmail }) =>
         this.courseService.abandonCourse(courseCode, userEmail).pipe(
-          map(() => CourseActions.courseAbandonSuccess()),
-          catchError((error: HttpErrorResponse) =>
-            of(
+          map(() => {
+            this.toastService.showSuccess('Successfully abandoned the course!');
+            return CourseActions.courseAbandonSuccess()
+          }),
+          catchError((error: HttpErrorResponse) => {
+            this.toastService.showError('Course abandonment failed!');
+            return of(
               CourseActions.courseAbandonFailed({
                 errorMessage: error.message
               })
-            )
+            )}
           )
         )
       )
@@ -107,13 +122,18 @@ export class CoursesEffects {
       ofType(CourseActions.courseApprove),
       switchMap(({ courseCode }) =>
         this.courseService.approveCourse(courseCode).pipe(
-          map(() => CourseActions.courseApproveSuccess()),
-          catchError((error: HttpErrorResponse) =>
-            of(
-              CourseActions.courseApproveFailed({
-                errorMessage: error.message
-              })
-            )
+          map(() => {
+            this.toastService.showSuccess('Successfully approved course!');
+            return CourseActions.courseApproveSuccess()
+          }),
+          catchError((error: HttpErrorResponse) => {
+            this.toastService.showError('Course approval failed!');
+            return of(
+                CourseActions.courseApproveFailed({
+                  errorMessage: error.message
+                })
+              )
+            }
           )
         )
       )
@@ -125,13 +145,18 @@ export class CoursesEffects {
       ofType(CourseActions.courseDelete),
       switchMap(({ courseCode }) =>
         this.courseService.deleteCourse(courseCode).pipe(
-          map(() => CourseActions.courseDeleteSuccess()),
-          catchError((error: HttpErrorResponse) =>
-            of(
-              CourseActions.courseDeleteFailed({
-                errorMessage: error.message
-              })
-            )
+          map(() => {
+            this.toastService.showSuccess('Successfully deleted course!');
+            return CourseActions.courseDeleteSuccess()
+          }),
+          catchError((error: HttpErrorResponse) => {
+            this.toastService.showError('Course deletion failed!');
+            return of(
+                CourseActions.courseDeleteFailed({
+                  errorMessage: error.message
+                })
+              )
+            }
           )
         )
       )
@@ -161,13 +186,18 @@ export class CoursesEffects {
       ofType(CourseActions.courseUsersSave),
       switchMap(({ request }) =>
         this.courseService.saveCourseParticipations(request).pipe(
-          map(() => CourseActions.courseUsersSaveSuccess()),
-          catchError((error: HttpErrorResponse) =>
-            of(
-              CourseActions.courseUsersSaveFailed({
-                errorMessage: error.message
-              })
-            )
+          map(() => {
+            this.toastService.showSuccess('Successfully saved the participations!');
+            return CourseActions.courseUsersSaveSuccess()
+          }),
+          catchError((error: HttpErrorResponse) => {
+            this.toastService.showError('Participatons save failed!');
+            return of(
+                CourseActions.courseUsersSaveFailed({
+                  errorMessage: error.message
+                })
+              )
+            }
           )
         )
       )
