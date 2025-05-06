@@ -1,0 +1,73 @@
+<div class="main-container">
+  <ng-container *ngIf="user.role === UserRole.TEACHER" [ngTemplateOutlet]="teacherTemplate" />
+  <ng-container *ngIf="user.role === UserRole.STUDENT" [ngTemplateOutlet]="studentTemplate" />
+</div>
+
+
+<ng-template #teacherTemplate>
+  <div class="section-container">
+    <ng-container *ngIf="courses$ | async as courses">
+      <div class="courses-container">
+        <mat-accordion [multi]="false">
+          <mat-expansion-panel *ngFor="let course of courses" (opened)="getCourseUsers(course)" class="accordion">
+            <mat-expansion-panel-header class="header">
+              <mat-panel-title>{{ course.courseName }}</mat-panel-title>
+            </mat-expansion-panel-header>
+            <ng-container *ngIf="courseUsers$ | async as courseUsers">
+              <div class="user-list">
+                <ng-container *ngFor="let courseUser of courseUsers">
+                  <div class="course-user">
+                    <span>{{ courseUser.name }}</span>
+                    <div class="button-container">
+                      <app-button [label]="'Add grade'" [color]="'blue'" [matMenuTriggerFor]="gradeMenu" (clicked)="selectCourseAndUser(courseUser, course)" />
+                      <app-button [label]="'Add final grade'" [color]="'red'" [matMenuTriggerFor]="finalGradeMenu" (clicked)="selectCourseAndUser(courseUser, course)" />
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </ng-container>
+  </div>
+</ng-template>
+
+<mat-menu #gradeMenu="matMenu" class="grade-menu">
+  <div class="mat-menu">
+    <app-button *ngFor="let num of [1,2,3,4,5]" (click)="selectGrade(num)" [label]="num.toString()" />
+  </div>
+</mat-menu>
+
+<mat-menu #finalGradeMenu="matMenu" class="grade-menu">
+  <div class="mat-menu">
+    <app-button *ngFor="let num of [1,2,3,4,5]" (click)="selectFinalGrade(num)" [label]="num.toString()" />
+  </div>
+</mat-menu>
+
+<ng-template #studentTemplate>
+  <div class="section-container">
+    <ng-container *ngIf="studentCourses$ | async as courses">
+      <div class="courses-container">
+        <mat-accordion [multi]="false">
+          <mat-expansion-panel *ngFor="let course of courses" class="accordion" (opened)="getCourseUsers(course)">
+            <mat-expansion-panel-header class="header">
+              <mat-panel-title>{{ course.courseName }}</mat-panel-title>
+              <mat-panel-description>Final grade:  <b class="grade">{{ course.finalGrade ?? '-' }}</b></mat-panel-description>
+            </mat-expansion-panel-header>
+            <ng-container *ngIf="grades$ | async as grades">
+              <div class="grade-list">
+                <ng-container *ngFor="let grade of grades">
+                  <div class="course-grade">
+                    <span>{{ grade }}</span>
+                    <span>{{ grade | gradePipe}}</span>
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </ng-container>
+  </div>
+</ng-template>

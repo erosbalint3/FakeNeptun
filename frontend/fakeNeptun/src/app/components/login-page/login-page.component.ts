@@ -5,6 +5,7 @@ import { LoginRequest } from '../../models/Requests/login.request';
 import { Store } from '@ngrx/store';
 import { UserActions } from '../../store/actions/user.actions';
 import { Router } from '@angular/router';
+import {SessionManagementService} from "../../services/session-management.service";
 
 @Component({
   selector: 'app-login-page',
@@ -16,7 +17,12 @@ import { Router } from '@angular/router';
 export class LoginPageComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private store: Store, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+    private router: Router,
+    private sessionService: SessionManagementService
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
@@ -30,7 +36,9 @@ export class LoginPageComponent {
         password: this.loginForm.get('password')?.value
       };
       this.store.dispatch(UserActions.userLogin({ loginRequest: user }));
-      this.router.navigate(['/','home']);
+      if (this.sessionService.isAuthenticated()) {
+        this.router.navigate(['/','home']);
+      }
     }
   }
 }

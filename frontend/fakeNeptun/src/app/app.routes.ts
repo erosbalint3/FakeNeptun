@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { CoursesListComponent } from './components/courses-list/courses-list.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { UserAccountComponent } from './components/user-account/user-account.component';
+import {GradesComponent} from "./components/grades/grades.component";
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -12,7 +13,8 @@ export const routes: Routes = [
   { path: 'register', component: RegisterPageComponent, title: 'Register' },
   { path: 'courses-list', component: CoursesListComponent, title: 'Courses' },
   { path: 'login', component: LoginPageComponent, title: 'Login' },
-  { path: 'user-account', component: UserAccountComponent, title: 'User Account' }
+  { path: 'user-account', component: UserAccountComponent, title: 'User Account' },
+  { path: 'grades', component: GradesComponent, title: 'Grades' }
 ];
 
 @NgModule({

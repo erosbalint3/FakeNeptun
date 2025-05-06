@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import express, { Request, Response } from 'express';
 import userRouter from './routes/users';
 import courseRouter from './routes/courses';
+import gradeRouter from './routes/grades';
 import mongoose from 'mongoose';
 var cors = require('cors');
 
@@ -22,9 +23,9 @@ app.use(
     extended: true,
   })
 );
-app.use("/api", [userRouter, courseRouter]);
+app.use("/api", [userRouter, courseRouter, gradeRouter]);
 
 
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
-  });
+  console.log(`Server running at http://localhost:${port}`);
+});
