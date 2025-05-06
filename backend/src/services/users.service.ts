@@ -19,8 +19,25 @@ export class UserService {
     }
 
     async login(data: LoginRequest) {
-        const response = await User.findOne({ email: data.email });
-        return response;
+        const user = await User.findOne({ email: data.email });
+
+        if (!user) {
+            throw new Error("Can't find user with that email!");
+        }
+
+        if (user && data.password) {
+            if (user?.password !== data.password || user.email !== data.email) {
+                throw new Error('Wrong email or password');
+            }
+        }
+
+        return {
+            email: user?.email,
+            name: user?.name,
+            role: user?.role,
+            username: user?.username,
+            telephone: user?.telephone
+        };
     }
 
     async changePassword(data: ChangePasswordRequest) {

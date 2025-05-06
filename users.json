@@ -1,0 +1,33 @@
+[{
+  "_id": {
+    "$oid": "681a294f9b044e1bbff2475f"
+  },
+  "name": "Admin",
+  "username": "admin",
+  "email": "admin@fakeneptun.hu",
+  "password": "admin",
+  "role": "ADMIN",
+  "telephone": "+36201234567"
+},
+{
+  "_id": {
+    "$oid": "681a29bc9b044e1bbff24760"
+  },
+  "name": "Dr. Jánki Zoltán Richárd",
+  "email": "janki.zoli@fakeneptun.hu",
+  "username": "JankiZoli",
+  "password": "JankiZoli123",
+  "role": "TEACHER",
+  "telephone": "+36209876543"
+},
+{
+  "_id": {
+    "$oid": "681a2a779b044e1bbff24762"
+  },
+  "name": "Dr. Bilicki Vilmos",
+  "username": "BilickiVilmos",
+  "email": "bilicki.vilmos@fakeneptun.hu",
+  "password": "BilickiVilmos123",
+  "role": "TEACHER",
+  "telephone": "+36123456789"
+}]
