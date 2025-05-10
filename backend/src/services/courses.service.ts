@@ -174,26 +174,28 @@ export class CourseService {
       lastDate: Date
     ) => {
       let occurrences = [];
+      const startD = new Date(startDate);
+      const endD = new Date(endDate);
+      const lastD = new Date(lastDate);
 
-      if (startDate && endDate && lastDate) {
-        console.log('fsfsafsdfasdf');
-        while (startDate <= lastDate) {
+      if (startD && endD && lastD) {
+        while (startD <= lastD) {
           occurrences.push({
-            startDate: new Date(startDate),
-            endDate: new Date(endDate),
-            length: (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60), // Length in minutes
+            startDate: new Date(startD),
+            endDate: new Date(endD),
+            length: (endD.getTime() - startD.getTime()) / (1000 * 60 * 60), // Length in minutes
           });
   
           
           if (frequencyType === FrequencyType.DAILY) {
-            startDate.setDate(startDate.getDate() + frequency);
-            endDate.setDate(endDate.getDate() + frequency);
+            startD.setDate(startD.getDate() + frequency);
+            endD.setDate(endD.getDate() + frequency);
           } else if (frequencyType === FrequencyType.WEEKLY) {
-            startDate.setDate(startDate.getDate() + frequency * 7);
-            endDate.setDate(endDate.getDate() + frequency * 7);
+            startD.setDate(startD.getDate() + frequency * 7);
+            endD.setDate(endD.getDate() + frequency * 7);
           } else if (frequencyType === FrequencyType.MONTHLY) {
-            startDate.setMonth(startDate.getMonth() + frequency);
-            endDate.setMonth(endDate.getMonth() + frequency);
+            startD.setMonth(startD.getMonth() + frequency);
+            endD.setMonth(endD.getMonth() + frequency);
           }
         }
       }

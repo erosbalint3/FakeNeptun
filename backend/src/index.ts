@@ -6,7 +6,7 @@ import gradeRouter from './routes/grades';
 import mongoose from 'mongoose';
 var cors = require('cors');
 
-mongoose.connect('mongodb://progr:progr@localhost:27017');
+mongoose.connect('mongodb://progr:progr@localhost:27017/fakeNeptun?authSource=admin');
 
 const app = express();
 const port = process.env.PORT || 3000;

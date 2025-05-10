@@ -1,0 +1,26 @@
+{
+  "type": "Compass Connections",
+  "version": {
+    "$numberInt": "1"
+  },
+  "connections": [
+    {
+      "id": "0e01015e-ac77-4b11-afa2-0ac730dfb65b",
+      "lastUsed": {
+        "$date": {
+          "$numberLong": "1746866856456"
+        }
+      },
+      "favorite": {
+        "name": "fakeNeptun"
+      },
+      "savedConnectionType": "recent",
+      "connectionOptions": {
+        "connectionString": "mongodb://progr:progr@localhost:27017/",
+        "oidc": {
+          "serializedState": "eyJvaWRjUGx1Z2luU3RhdGVWZXJzaW9uIjowLCJzdGF0ZSI6W119"
+        }
+      }
+    }
+  ]
+}
