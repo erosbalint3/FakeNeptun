@@ -55,11 +55,13 @@ You can connect and browse the database using tools like **MongoDB Compass**.
     From the frontend root directory, run:
 
     npm install -f
+    
     npm start
 
 3. **Start Backend Application**
     From the backend root directory, run:
 
     npm install -f
+
     npm start
 
