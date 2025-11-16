@@ -29,39 +29,39 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Install Backend Dependencies
-        working-directory: FakeNeptun/backend
+        working-directory: backend
         run: npm install
 
       - name: Install Frontend Dependencies
-        working-directory: FakeNeptun/frontend/fakeNeptun
+        working-directory: frontend/fakeNeptun
         run: npm install
 
       - name: Run ESLint on Backend
-        working-directory: FakeNeptun/backend
+        working-directory: backend
         run: npm run lint
         continue-on-error: true
 
       - name: Run ESLint on Frontend
-        working-directory: FakeNeptun/frontend/fakeNeptun
+        working-directory: frontend/fakeNeptun
         run: npm run lint
         continue-on-error: true
 
       - name: Run Prettier Check on Backend
-        working-directory: FakeNeptun/backend
+        working-directory: backend
         run: npm run format:check
         continue-on-error: true
 
       - name: Run Prettier Check on Frontend
-        working-directory: FakeNeptun/frontend/fakeNeptun
+        working-directory: frontend/fakeNeptun
         run: npm run format:check
         continue-on-error: true
 
       - name: TypeScript Type Check - Backend
-        working-directory: FakeNeptun/backend
+        working-directory: backend
         run: npm run type-check
 
       - name: TypeScript Type Check - Frontend
-        working-directory: FakeNeptun/frontend/fakeNeptun
+        working-directory: frontend/fakeNeptun
         run: npm run type-check
 
   build-and-test:
@@ -94,15 +94,15 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Install Backend Dependencies
-        working-directory: FakeNeptun/backend
+        working-directory: backend
         run: npm install
 
       - name: Build Backend
-        working-directory: FakeNeptun/backend
+        working-directory: backend
         run: npm run build
 
       - name: Test Backend
-        working-directory: FakeNeptun/backend
+        working-directory: backend
         run: npm run test:coverage
         env:
           MONGO_URI: mongodb://progr:progr@localhost:27017/fakeNeptun?authSource=admin
@@ -111,27 +111,27 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./FakeNeptun/backend/coverage/lcov.info
+          files: ./backend/coverage/lcov.info
           flags: backend
           name: backend-coverage
 
       - name: Install Frontend Dependencies
-        working-directory: FakeNeptun/frontend/fakeNeptun
+        working-directory: frontend/fakeNeptun
         run: npm install
 
       - name: Build Frontend
-        working-directory: FakeNeptun/frontend/fakeNeptun
+        working-directory: frontend/fakeNeptun
         run: npm run build
 
       - name: Test Frontend
-        working-directory: FakeNeptun/frontend/fakeNeptun
+        working-directory: frontend/fakeNeptun
         run: npm run test:ci
 
       - name: Upload Frontend Coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./FakeNeptun/frontend/fakeNeptun/coverage/lcov.info
+          files: ./frontend/fakeNeptun/coverage/lcov.info
           flags: frontend
           name: frontend-coverage
 
@@ -139,13 +139,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: backend-dist
-          path: FakeNeptun/backend/dist
+          path: backend/dist
 
       - name: Upload Frontend Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: frontend-dist
-          path: FakeNeptun/frontend/fakeNeptun/dist
+          path: frontend/fakeNeptun/dist
 
   sonarcloud-analysis:
     name: SonarCloud Analysis
@@ -199,8 +199,8 @@ jobs:
       - name: Build and push Backend image
         uses: docker/build-push-action@v5
         with:
-          context: FakeNeptun/backend
-          file: FakeNeptun/backend/Dockerfile
+          context: backend
+          file: backend/Dockerfile
           push: true
           tags: ${{ steps.backend-meta.outputs.tags }}
           labels: ${{ steps.backend-meta.outputs.labels }}
@@ -220,8 +220,8 @@ jobs:
       - name: Build and push Frontend image
         uses: docker/build-push-action@v5
         with:
-          context: FakeNeptun/frontend/fakeNeptun
-          file: FakeNeptun/frontend/fakeNeptun/Dockerfile
+          context: frontend/fakeNeptun
+          file: frontend/fakeNeptun/Dockerfile
           push: true
           tags: ${{ steps.frontend-meta.outputs.tags }}
           labels: ${{ steps.frontend-meta.outputs.labels }}
