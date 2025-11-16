@@ -1,4 +1,4 @@
 export interface RegisterRequest {
-    courseCode: string;
-    studentEmail: string;
+  courseCode: string;
+  studentEmail: string;
 }

@@ -11,11 +11,13 @@ mongoose.connect('mongodb://progr:progr@localhost:27017/fakeNeptun?authSource=ad
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors({
-  origin: true,
-  credentials: true,
-  methods: 'POST,GET,PUT,OPTIONS,DELETE'
-}));
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+    methods: 'POST,GET,PUT,OPTIONS,DELETE',
+  })
+);
 
 app.use(bodyParser.json());
 app.use(
@@ -23,7 +25,7 @@ app.use(
     extended: true,
   })
 );
-app.use("/api", [userRouter, courseRouter, gradeRouter]);
+app.use('/api', [userRouter, courseRouter, gradeRouter]);
 
 // Health check endpoint
 app.get('/health', (req: Request, res: Response) => {
@@ -31,7 +33,7 @@ app.get('/health', (req: Request, res: Response) => {
     uptime: process.uptime(),
     message: 'OK',
     timestamp: Date.now(),
-    database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
+    database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
   };
   res.status(200).json(healthcheck);
 });

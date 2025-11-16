@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -41,12 +41,11 @@ import { SessionManagementService } from '../../services/session-management.serv
   styleUrl: './create-course-dialog.component.scss'
 })
 export class CreateCourseDialogComponent implements OnInit {
-  constructor(
-    public dialogRef: MatDialogRef<CreateCourseDialogComponent>,
-    private readonly store: Store,
-    private readonly sessionService: SessionManagementService,
-    @Inject(MAT_DIALOG_DATA) public details: CourseDetailsModel
-  ) {}
+  dialogRef = inject<MatDialogRef<CreateCourseDialogComponent>>(MatDialogRef);
+  private readonly store = inject(Store);
+  private readonly sessionService = inject(SessionManagementService);
+  details = inject<CourseDetailsModel>(MAT_DIALOG_DATA);
+
 
   form: FormGroup | undefined = undefined;
 

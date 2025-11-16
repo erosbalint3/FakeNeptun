@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -29,7 +29,6 @@ import {SessionManagementService} from '../../services/session-management.servic
 import {UserModel} from "../../models/user.model";
 import {UserRole} from "../../enums/user-role.enum";
 import {CourseStatus} from "../../enums/course-status.enum";
-import {ParticipationsListComponent} from "../participations-list/participations-list.component";
 
 export interface User {
   id: number;
@@ -66,6 +65,12 @@ export interface User {
   styleUrl: './register-for-course-dialog.component.scss'
 })
 export class RegisterForCourseDialogComponent implements OnInit {
+  dialog = inject(MatDialog);
+  dialogRef = inject<MatDialogRef<RegisterForCourseDialogComponent>>(MatDialogRef);
+  private readonly store = inject(Store);
+  private readonly sessionService = inject(SessionManagementService);
+  details = inject(MAT_DIALOG_DATA);
+
   courses$ = this.store.select(registerCourseList$);
 
   courseList: CourseModel[] = [];
@@ -116,14 +121,6 @@ export class RegisterForCourseDialogComponent implements OnInit {
       columnType: ColumnType.ACTIONS
     }
   ];
-
-  constructor(
-    public dialog: MatDialog,
-    public dialogRef: MatDialogRef<RegisterForCourseDialogComponent>,
-    private store: Store,
-    private sessionService: SessionManagementService,
-    @Inject(MAT_DIALOG_DATA) public details: {}
-  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(CourseActions.courseRegisterList());

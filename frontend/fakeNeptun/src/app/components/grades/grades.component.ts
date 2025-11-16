@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {UserModel} from "../../models/user.model";
 import {SessionManagementService} from "../../services/session-management.service";
 import {AsyncPipe, NgForOf, NgIf, NgTemplateOutlet} from "@angular/common";
@@ -42,6 +42,9 @@ import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
   styleUrl: './grades.component.scss'
 })
 export class GradesComponent implements OnInit {
+  private readonly sessionService = inject(SessionManagementService);
+  private readonly store = inject(Store);
+
 
   user: UserModel = this.sessionService.getSession();
   selectedCourseUser?: UserModel;
@@ -51,11 +54,6 @@ export class GradesComponent implements OnInit {
   courseUsers$: Observable<UserModel[] | undefined> = this.store.select(courseUsers$);
   studentCourses$: Observable<FinalGrade[]> = this.store.select(finalGradeList$);
   grades$: Observable<number[]> = this.store.select(gradeList$);
-
-  constructor(
-    private readonly sessionService: SessionManagementService,
-    private readonly store: Store
-  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(CourseActions.courseRegisterList());

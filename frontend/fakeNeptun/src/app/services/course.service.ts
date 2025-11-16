@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CourseModel } from '../models/course.model';
@@ -11,7 +11,8 @@ import {ParticipationSaveRequestModel} from "../models/Requests/participation-sa
   providedIn: 'root'
 })
 export class CourseService {
-  constructor(private readonly http: HttpClient) {}
+  private readonly http = inject(HttpClient);
+
 
   listCourses(studentEmail: string): Observable<CourseModel[]> {
     return this.http.get<CourseModel[]>('http://localhost:3000/api/courses', { params: { studentEmail: studentEmail }});

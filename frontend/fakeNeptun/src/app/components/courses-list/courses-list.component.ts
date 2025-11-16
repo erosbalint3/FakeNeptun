@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -52,19 +52,16 @@ import { UserRole } from '../../enums/user-role.enum';
   styleUrl: './courses-list.component.scss'
 })
 export class CoursesListComponent implements OnInit {
+  dialog = inject(MatDialog);
+  private store = inject(Store);
+  private sessionService = inject(SessionManagementService);
+
 
   courses: CourseModel[] = [];
 
   listCourses$ = this.store.select(courseList$);
 
   loggedInUser: UserModel | undefined;
-
-  constructor(
-    public dialog: MatDialog,
-    private store: Store,
-    private sessionService: SessionManagementService
-  ) {
-  }
 
   ngOnInit(): void {
     const user = this.sessionService.getSession();

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { routes } from './app.routes';
 import { SessionManagementService } from './services/session-management.service';
@@ -9,11 +9,13 @@ import { UserActions } from './store/actions/user.actions';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  standalone: false
+  standalone: true
 })
 export class AppComponent implements OnInit {
-  constructor(private sessionService: SessionManagementService, private router: Router, private actions$: Actions) {
-  }
+  private readonly sessionService = inject(SessionManagementService);
+  private readonly router = inject(Router);
+  private readonly actions$ = inject(Actions);
+
 
   title = 'fakeNeptun';
   loggedInUser: any;

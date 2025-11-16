@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { InputComponent } from '../../sharedComponents/input/input.component';
@@ -23,17 +23,21 @@ import {UserActions} from "../../store/actions/user.actions";
   styleUrl: './edit-profile-dialog.component.scss'
 })
 export class EditProfileDialogComponent {
+  private fb = inject(FormBuilder);
+  private dialogRef = inject<MatDialogRef<EditProfileDialogComponent>>(MatDialogRef);
+  private store = inject(Store);
+  private sessionService = inject(SessionManagementService);
+  data = inject<{
+    user: any;
+}>(MAT_DIALOG_DATA);
+
   editProfileForm: FormGroup;
 
   user = this.sessionService.getSession();
 
-  constructor(
-    private fb: FormBuilder,
-    private dialogRef: MatDialogRef<EditProfileDialogComponent>,
-    private store: Store,
-    private sessionService: SessionManagementService,
-    @Inject(MAT_DIALOG_DATA) public data: { user: any }
-  ) {
+  constructor() {
+    const data = this.data;
+
     this.editProfileForm = this.fb.group({
       name: [data.user.name, Validators.required],
       email: [data.user.email, [Validators.required, Validators.email]],

@@ -34,10 +34,6 @@ export class DropdownInputComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
-    // Handle disable state if necessary
-  }
-
   selectOption(value: any) {
     this.selectedValue = value;
     this.onChange(value);

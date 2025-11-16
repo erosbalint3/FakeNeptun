@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -36,12 +36,11 @@ import { CourseActions } from '../../store/actions/courses.actions';
   styleUrl: './courses-actions-dialog.component.scss'
 })
 export class CoursesActionsDialogComponent {
-  constructor(
-    public dialogRef: MatDialogRef<CoursesActionsDialogComponent>,
-    private store: Store,
-    private sessionService: SessionManagementService,
-    @Inject(MAT_DIALOG_DATA) public details: CourseDetailsModel
-  ) {}
+  dialogRef = inject<MatDialogRef<CoursesActionsDialogComponent>>(MatDialogRef);
+  private store = inject(Store);
+  private sessionService = inject(SessionManagementService);
+  details = inject<CourseDetailsModel>(MAT_DIALOG_DATA);
+
 
   onNoClick(): void {
     this.dialogRef.close();

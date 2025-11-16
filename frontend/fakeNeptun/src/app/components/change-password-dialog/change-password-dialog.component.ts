@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogActions, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { InputComponent } from '../../sharedComponents/input/input.component';
@@ -22,16 +22,16 @@ import {UserActions} from "../../store/actions/user.actions";
   styleUrl: './change-password-dialog.component.scss'
 })
 export class ChangePasswordDialogComponent {
+  private fb = inject(FormBuilder);
+  private dialogRef = inject<MatDialogRef<ChangePasswordDialogComponent>>(MatDialogRef);
+  private store = inject(Store);
+  private sessionService = inject(SessionManagementService);
+
   passwordForm: FormGroup;
 
   user = this.sessionService.getSession();
 
-  constructor(
-    private fb: FormBuilder,
-    private dialogRef: MatDialogRef<ChangePasswordDialogComponent>,
-    private store: Store,
-    private sessionService: SessionManagementService
-  ) {
+  constructor() {
     this.passwordForm = this.fb.group({
       currentPassword: ['', Validators.required],
       newPassword: ['', [Validators.required, Validators.minLength(6)]],

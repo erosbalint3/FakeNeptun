@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   MatCard,
@@ -40,9 +40,10 @@ import {SessionManagementService} from "../../services/session-management.servic
   styleUrl: './user-account.component.scss'
 })
 export class UserAccountComponent {
-  user = this.sessionService.getSession();
+  private dialog = inject(MatDialog);
+  private sessionService = inject(SessionManagementService);
 
-  constructor(private dialog: MatDialog, private sessionService: SessionManagementService) {}
+  user = this.sessionService.getSession();
 
   openChangePasswordDialog() {
     this.dialog.open(ChangePasswordDialogComponent, {

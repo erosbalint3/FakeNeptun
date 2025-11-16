@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoginRequest } from '../../models/Requests/login.request';
@@ -15,14 +15,14 @@ import {SessionManagementService} from "../../services/session-management.servic
   styleUrl: './login-page.component.scss'
 })
 export class LoginPageComponent {
+  private fb = inject(FormBuilder);
+  private store = inject(Store);
+  private router = inject(Router);
+  private sessionService = inject(SessionManagementService);
+
   loginForm: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private store: Store,
-    private router: Router,
-    private sessionService: SessionManagementService
-  ) {
+  constructor() {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]

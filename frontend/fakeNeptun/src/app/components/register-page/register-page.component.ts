@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { UserSaveRequest } from '../../models/Requests/UserSaveRequest';
 import { UserService } from '../../services/user.service';
@@ -14,9 +14,12 @@ import { HttpClient, HttpHandler } from '@angular/common/http';
   providers: [UserService, HttpClient]
 })
 export class RegisterPageComponent {
+  private fb = inject(FormBuilder);
+  private userService = inject(UserService);
+
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor() {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required]],
       username: ['', [Validators.required]],

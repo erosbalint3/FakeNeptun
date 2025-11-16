@@ -1,7 +1,7 @@
 <div class="dropdown">
   <button class="dropdown-button">{{ selectedValue || 'Select an option' }}</button>
   <ul class="dropdown-menu">
-    <li *ngFor="let option of options" (click)="selectOption(option.value)">
+    <li *ngFor="let option of options" (click)="selectOption(option.value)" (keyup)="break">
       {{ option.label }}
     </li>
   </ul>

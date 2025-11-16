@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -40,15 +40,12 @@ import {CourseActions} from "../../store/actions/courses.actions";
   styleUrl: './participations-list.component.scss'
 })
 export class ParticipationsListComponent implements OnInit {
+  private store = inject(Store);
+  details = inject<{
+    courseCode: string;
+    startDate: Date;
+}>(MAT_DIALOG_DATA);
 
-  constructor(
-    private store: Store,
-    @Inject(MAT_DIALOG_DATA) public details: {
-      courseCode: string;
-      startDate: Date;
-    }
-  ) {
-  }
 
   ngOnInit(): void {
     this.courseUsers$.subscribe((u) => {

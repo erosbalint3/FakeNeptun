@@ -20,5 +20,5 @@ export const userReducer: ActionReducer<UserState> = createReducer(
   on(UserActions.userLogin, (_state) => ({ ..._state, isLoading: true })),
   on(UserActions.userLoginSuccess, (_state, { user }) => ({ ..._state, isLoading: false, loggedInUser: user })),
   on(UserActions.userLoginFailed, (_state) => ({ ..._state, isLoading: false })),
-  on(UserActions.clearState, (_state) => ({ isLoading: false, loggedInUser: undefined }))
+  on(UserActions.clearState, () => ({ isLoading: false, loggedInUser: undefined }))
 );

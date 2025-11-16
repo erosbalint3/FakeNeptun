@@ -1,16 +1,15 @@
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {GradeService} from "../../services/grade.service";
-import {Injectable} from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import {GradesActions} from "../actions/grades.actions";
 import {catchError, map, of, switchMap} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 
 @Injectable()
 export class GradesEffects {
-  constructor(
-    private readonly actions$: Actions,
-    private readonly gradesService: GradeService
-  ) {}
+  private readonly actions$ = inject(Actions);
+  private readonly gradesService = inject(GradeService);
+
 
   readonly listGrades$ = createEffect(() =>
     this.actions$.pipe(

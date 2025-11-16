@@ -1,9 +1,9 @@
-import { model, Schema } from "mongoose";
+import { model, Schema } from 'mongoose';
 
 const GradeSchema = new Schema({
-    grade: Number,
-    studentEmail: String,
-    courseCode: String
+  grade: Number,
+  studentEmail: String,
+  courseCode: String,
 });
 
 const Grade = model('grades', GradeSchema);

@@ -1,6 +1,5 @@
 import { Component, forwardRef, Input } from '@angular/core';
-import { ControlValueAccessor, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { InputType } from '../../enums/input-type.enum';
 
 @Component({
@@ -28,7 +27,7 @@ export class InputComponent implements ControlValueAccessor {
   @Input() isDisabled: boolean = false;
   value: any;
 
-  onChange = (value: any) => {};
+  onChange = (_value: any) => {};
   onTouched = () => {};
 
   writeValue(value: any): void {
@@ -41,10 +40,6 @@ export class InputComponent implements ControlValueAccessor {
 
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
-  }
-
-  setDisabledState?(isDisabled: boolean): void {
-    // Handle disable state if necessary
   }
 
   updateValue(event: Event) {

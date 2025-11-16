@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { CourseService } from '../../services/course.service';
 import { CourseActions } from '../actions/courses.actions';
@@ -8,11 +8,10 @@ import {ToastService} from "../../services/toast.service";
 
 @Injectable()
 export class CoursesEffects {
-  constructor(
-    private readonly actions$: Actions,
-    private readonly courseService: CourseService,
-    private readonly toastService: ToastService
-  ) {}
+  private readonly actions$ = inject(Actions);
+  private readonly courseService = inject(CourseService);
+  private readonly toastService = inject(ToastService);
+
 
   readonly listCourses$ = createEffect(() =>
     this.actions$.pipe(

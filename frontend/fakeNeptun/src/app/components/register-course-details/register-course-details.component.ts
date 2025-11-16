@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA, MatDialog,
   MatDialogActions,
@@ -38,13 +38,12 @@ import {ParticipationsListComponent} from "../participations-list/participations
   styleUrl: './register-course-details.component.scss'
 })
 export class RegisterCourseDetailsComponent implements OnInit {
-  constructor(
-    public dialogRef: MatDialogRef<RegisterCourseDetailsComponent>,
-    private store: Store,
-    private sessionService: SessionManagementService,
-    private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public details: CourseDetailsModel
-  ) {}
+  dialogRef = inject<MatDialogRef<RegisterCourseDetailsComponent>>(MatDialogRef);
+  private store = inject(Store);
+  private sessionService = inject(SessionManagementService);
+  private dialog = inject(MatDialog);
+  details = inject<CourseDetailsModel>(MAT_DIALOG_DATA);
+
 
   user: UserModel = this.sessionService.getSession();
   disabled: boolean = false;

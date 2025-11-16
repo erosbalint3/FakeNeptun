@@ -1,7 +1,7 @@
 export interface CourseApproveRequest {
-    courseCode: string;
+  courseCode: string;
 }
 
 export interface CourseRejectRequest {
-    courseCode: string;
+  courseCode: string;
 }

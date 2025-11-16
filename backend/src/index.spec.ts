@@ -12,7 +12,7 @@ describe('Health Check', () => {
         uptime: process.uptime(),
         message: 'OK',
         timestamp: Date.now(),
-        database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
+        database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
       };
       res.status(200).json(healthcheck);
     });
@@ -20,7 +20,7 @@ describe('Health Check', () => {
 
   it('should return 200 and health status', async () => {
     const response = await request(app).get('/health');
-    
+
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('message', 'OK');
     expect(response.body).toHaveProperty('uptime');
@@ -30,7 +30,7 @@ describe('Health Check', () => {
 
   it('should have valid timestamp', async () => {
     const response = await request(app).get('/health');
-    
+
     expect(response.body.timestamp).toBeGreaterThan(0);
     expect(typeof response.body.timestamp).toBe('number');
   });

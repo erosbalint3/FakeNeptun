@@ -1,5 +1,5 @@
 import {HttpClient} from "@angular/common/http";
-import {Injectable} from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import {Observable} from "rxjs";
 import {FinalGrade} from "../models/grade.model";
 
@@ -7,9 +7,8 @@ import {FinalGrade} from "../models/grade.model";
   providedIn: 'root'
 })
 export class GradeService {
-  constructor(
-    private readonly http: HttpClient
-  ) {}
+  private readonly http = inject(HttpClient);
+
 
   listGrades(studentEmail: string, courseCode: string): Observable<number[]> {
     return this.http.get<number[]>('http://localhost:3000/api/grades', { params: { courseCode: courseCode, studentEmail: studentEmail }});
