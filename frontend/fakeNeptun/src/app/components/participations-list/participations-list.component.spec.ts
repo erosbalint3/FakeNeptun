@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { provideMockStore } from '@ngrx/store/testing';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ParticipationsListComponent } from './participations-list.component';
 
 describe('ParticipationsListComponent', () => {
@@ -8,7 +9,13 @@ describe('ParticipationsListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ParticipationsListComponent]
+      imports: [ParticipationsListComponent],
+      providers: [
+        provideMockStore({
+          initialState: { enrollments: { list: [] } }
+        }),
+        { provide: MAT_DIALOG_DATA, useValue: { courseCode: 'TEST123', startDate: new Date() } }
+      ]
     })
     .compileComponents();
 

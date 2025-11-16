@@ -9,7 +9,7 @@ import { UserActions } from './store/actions/user.actions';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  standalone: true
+  standalone: false
 })
 export class AppComponent implements OnInit {
   private readonly sessionService = inject(SessionManagementService);

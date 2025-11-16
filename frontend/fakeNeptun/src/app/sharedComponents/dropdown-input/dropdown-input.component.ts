@@ -1,9 +1,11 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-dropdown-input',
-  imports: [],
+  imports: [CommonModule],
   standalone: true,
   templateUrl: './dropdown-input.component.html',
   styleUrl: './dropdown-input.component.scss',
