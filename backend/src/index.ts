@@ -4,9 +4,21 @@ import userRouter from './routes/users';
 import courseRouter from './routes/courses';
 import gradeRouter from './routes/grades';
 import mongoose from 'mongoose';
+import { metricsMiddleware, updateDatabaseStatus, register } from './metrics';
 var cors = require('cors');
 
-mongoose.connect('mongodb://progr:progr@localhost:27017/fakeNeptun?authSource=admin');
+const mongoUri = process.env.MONGO_URI || 'mongodb://progr:progr@localhost:27017/fakeNeptun?authSource=admin';
+mongoose.connect(mongoUri);
+
+// Update database connection status for metrics
+mongoose.connection.on('connected', () => {
+  updateDatabaseStatus(true);
+  console.log('MongoDB connected');
+});
+mongoose.connection.on('disconnected', () => {
+  updateDatabaseStatus(false);
+  console.log('MongoDB disconnected');
+});
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -25,6 +37,16 @@ app.use(
     extended: true,
   })
 );
+
+// Add metrics middleware
+app.use(metricsMiddleware);
+
+// Metrics endpoint for Prometheus
+app.get('/metrics', async (req: Request, res: Response) => {
+  res.set('Content-Type', register.contentType);
+  res.end(await register.metrics());
+});
+
 app.use('/api', [userRouter, courseRouter, gradeRouter]);
 
 // Health check endpoint

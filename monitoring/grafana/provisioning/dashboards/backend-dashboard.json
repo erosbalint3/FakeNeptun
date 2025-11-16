@@ -1,0 +1,107 @@
+{
+  "dashboard": {
+    "title": "FakeNeptun Backend Metrics",
+    "tags": ["backend", "nodejs", "express"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Request Rate",
+        "type": "graph",
+        "gridPos": { "x": 0, "y": 0, "w": 12, "h": 8 },
+        "targets": [
+          {
+            "expr": "rate(http_requests_total[5m])",
+            "legendFormat": "{{method}} {{route}} - {{status_code}}"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Request Duration (95th percentile)",
+        "type": "graph",
+        "gridPos": { "x": 12, "y": 0, "w": 12, "h": 8 },
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))",
+            "legendFormat": "{{method}} {{route}}"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Active Connections",
+        "type": "graph",
+        "gridPos": { "x": 0, "y": 8, "w": 12, "h": 8 },
+        "targets": [
+          {
+            "expr": "active_connections",
+            "legendFormat": "Active Connections"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Database Connection Status",
+        "type": "stat",
+        "gridPos": { "x": 12, "y": 8, "w": 6, "h": 4 },
+        "targets": [
+          {
+            "expr": "database_connection_status",
+            "legendFormat": "DB Status"
+          }
+        ],
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "textMode": "value_and_name"
+        }
+      },
+      {
+        "id": 5,
+        "title": "Memory Usage",
+        "type": "graph",
+        "gridPos": { "x": 18, "y": 8, "w": 6, "h": 4 },
+        "targets": [
+          {
+            "expr": "process_resident_memory_bytes",
+            "legendFormat": "Memory"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "CPU Usage",
+        "type": "graph",
+        "gridPos": { "x": 12, "y": 12, "w": 12, "h": 8 },
+        "targets": [
+          {
+            "expr": "rate(process_cpu_user_seconds_total[5m])",
+            "legendFormat": "CPU User"
+          },
+          {
+            "expr": "rate(process_cpu_system_seconds_total[5m])",
+            "legendFormat": "CPU System"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "HTTP Status Codes",
+        "type": "piechart",
+        "gridPos": { "x": 0, "y": 16, "w": 12, "h": 8 },
+        "targets": [
+          {
+            "expr": "sum by(status_code) (rate(http_requests_total[5m]))",
+            "legendFormat": "{{status_code}}"
+          }
+        ]
+      }
+    ],
+    "refresh": "5s",
+    "time": {
+      "from": "now-15m",
+      "to": "now"
+    }
+  }
+}
