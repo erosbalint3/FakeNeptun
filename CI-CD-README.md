@@ -162,14 +162,19 @@ docker-compose -f docker-compose.prod.yml up -d
 
 Configure the following secrets in your GitHub repository (`Settings > Secrets and variables > Actions`):
 
+**Secrets:**
 ```
 DOCKERHUB_USERNAME       # Docker Hub username
 DOCKERHUB_TOKEN          # Docker Hub access token
 CODECOV_TOKEN            # Codecov upload token
 SONAR_TOKEN              # SonarCloud authentication token
 SLACK_WEBHOOK            # Slack webhook URL for notifications
-BACKEND_URL              # Production backend URL (optional)
-FRONTEND_URL             # Production frontend URL (optional)
+```
+
+**Variables** (`Settings > Secrets and variables > Actions > Variables tab`):
+```
+BACKEND_URL              # Production backend URL (optional, for health checks)
+FRONTEND_URL             # Production frontend URL (optional, for health checks)
 ```
 
 ### 2. SonarCloud Setup

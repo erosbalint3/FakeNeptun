@@ -52,6 +52,8 @@ Go to: `GitHub Repository → Settings → Secrets and variables → Actions`
 
 Add the following secrets:
 
+**Secrets:**
+
 | Secret Name | Description | Where to Get It |
 |------------|-------------|-----------------|
 | `DOCKERHUB_USERNAME` | Your Docker Hub username | Docker Hub account |
@@ -59,6 +61,13 @@ Add the following secrets:
 | `CODECOV_TOKEN` | Codecov upload token | Codecov → Repository Settings |
 | `SONAR_TOKEN` | SonarCloud token | SonarCloud → Account → Security |
 | `SLACK_WEBHOOK` | Slack webhook URL (optional) | Slack → Apps → Incoming Webhooks |
+
+**Variables** (go to Variables tab):
+
+| Variable Name | Description |
+|--------------|-------------|
+| `BACKEND_URL` | Production backend URL (optional, for monitoring) |
+| `FRONTEND_URL` | Production frontend URL (optional, for monitoring) |
 
 ### C. Update Configuration Files
 

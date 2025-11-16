@@ -27,18 +27,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-          cache-dependency-path: |
-            FakeNeptun/backend/package-lock.json
-            FakeNeptun/frontend/fakeNeptun/package-lock.json
 
       - name: Install Backend Dependencies
         working-directory: FakeNeptun/backend
-        run: npm ci
+        run: npm install
 
       - name: Install Frontend Dependencies
         working-directory: FakeNeptun/frontend/fakeNeptun
-        run: npm ci
+        run: npm install
 
       - name: Run ESLint on Backend
         working-directory: FakeNeptun/backend
@@ -96,14 +92,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-          cache-dependency-path: |
-            FakeNeptun/backend/package-lock.json
-            FakeNeptun/frontend/fakeNeptun/package-lock.json
 
       - name: Install Backend Dependencies
         working-directory: FakeNeptun/backend
-        run: npm ci
+        run: npm install
 
       - name: Build Backend
         working-directory: FakeNeptun/backend
@@ -125,7 +117,7 @@ jobs:
 
       - name: Install Frontend Dependencies
         working-directory: FakeNeptun/frontend/fakeNeptun
-        run: npm ci
+        run: npm install
 
       - name: Build Frontend
         working-directory: FakeNeptun/frontend/fakeNeptun

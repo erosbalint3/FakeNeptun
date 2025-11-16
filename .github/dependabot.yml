@@ -2,13 +2,11 @@ version: 2
 updates:
   # Backend dependencies
   - package-ecosystem: "npm"
-    directory: "/FakeNeptun/backend"
+    directory: "/backend"
     schedule:
       interval: "weekly"
       day: "monday"
     open-pull-requests-limit: 5
-    reviewers:
-      - "erosbalint3"
     labels:
       - "dependencies"
       - "backend"
@@ -18,13 +16,11 @@ updates:
 
   # Frontend dependencies
   - package-ecosystem: "npm"
-    directory: "/FakeNeptun/frontend/fakeNeptun"
+    directory: "/frontend/fakeNeptun"
     schedule:
       interval: "weekly"
       day: "monday"
     open-pull-requests-limit: 5
-    reviewers:
-      - "erosbalint3"
     labels:
       - "dependencies"
       - "frontend"
@@ -34,7 +30,7 @@ updates:
 
   # Docker dependencies
   - package-ecosystem: "docker"
-    directory: "/FakeNeptun/backend"
+    directory: "/backend"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 3

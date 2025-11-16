@@ -15,8 +15,8 @@ jobs:
       - name: Check Backend Health
         id: backend-health
         run: |
-          if [ -n "${{ secrets.BACKEND_URL }}" ]; then
-            RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" ${{ secrets.BACKEND_URL }}/health || echo "000")
+          if [ -n "${{ vars.BACKEND_URL }}" ]; then
+            RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" ${{ vars.BACKEND_URL }}/health || echo "000")
             echo "status=$RESPONSE" >> $GITHUB_OUTPUT
             if [ "$RESPONSE" != "200" ]; then
               echo "Backend health check failed with status: $RESPONSE"
@@ -29,8 +29,8 @@ jobs:
       - name: Check Frontend Health
         id: frontend-health
         run: |
-          if [ -n "${{ secrets.FRONTEND_URL }}" ]; then
-            RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" ${{ secrets.FRONTEND_URL }}/health || echo "000")
+          if [ -n "${{ vars.FRONTEND_URL }}" ]; then
+            RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" ${{ vars.FRONTEND_URL }}/health || echo "000")
             echo "status=$RESPONSE" >> $GITHUB_OUTPUT
             if [ "$RESPONSE" != "200" ]; then
               echo "Frontend health check failed with status: $RESPONSE"
@@ -72,14 +72,14 @@ jobs:
   performance-check:
     name: Performance Monitoring
     runs-on: ubuntu-latest
+    if: ${{ vars.FRONTEND_URL != '' }}
     
     steps:
       - name: Lighthouse CI
-        if: ${{ secrets.FRONTEND_URL }}
         uses: treosh/lighthouse-ci-action@v10
         with:
           urls: |
-            ${{ secrets.FRONTEND_URL }}
+            ${{ vars.FRONTEND_URL }}
           uploadArtifacts: true
           temporaryPublicStorage: true
 
