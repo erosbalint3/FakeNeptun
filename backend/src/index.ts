@@ -25,6 +25,16 @@ app.use(
 );
 app.use("/api", [userRouter, courseRouter, gradeRouter]);
 
+// Health check endpoint
+app.get('/health', (req: Request, res: Response) => {
+  const healthcheck = {
+    uptime: process.uptime(),
+    message: 'OK',
+    timestamp: Date.now(),
+    database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
+  };
+  res.status(200).json(healthcheck);
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

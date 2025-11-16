@@ -1,6 +1,15 @@
 # Fake Neptun
 
+![CI/CD Pipeline](https://github.com/erosbalint3/FakeNeptun/workflows/CI/CD%20Pipeline/badge.svg)
+![Monitoring](https://github.com/erosbalint3/FakeNeptun/workflows/Monitoring%20&%20Health%20Checks/badge.svg)
+![Code Coverage](https://codecov.io/gh/erosbalint3/FakeNeptun/branch/main/graph/badge.svg)
+![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=erosbalint3_FakeNeptun&metric=alert_status)
+![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=erosbalint3_FakeNeptun&metric=security_rating)
+![Maintainability](https://sonarcloud.io/api/project_badges/measure?project=erosbalint3_FakeNeptun&metric=sqale_rating)
+
 This project is a **Fake Neptun** system built with Angular, ExpressJS, and MongoDB.
+
+📖 **For complete CI/CD pipeline documentation, see [CI-CD-README.md](./CI-CD-README.md)**
 
 ## ✨ Technologies
 

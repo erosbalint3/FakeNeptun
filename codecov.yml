@@ -1,0 +1,43 @@
+codecov:
+  require_ci_to_pass: yes
+  notify:
+    wait_for_ci: yes
+
+coverage:
+  precision: 2
+  round: down
+  range: "50...90"
+  status:
+    project:
+      default:
+        target: 50%
+        threshold: 2%
+        if_ci_failed: error
+    patch:
+      default:
+        target: 50%
+        threshold: 5%
+
+comment:
+  layout: "header, diff, flags, components, footer"
+  behavior: default
+  require_changes: no
+  require_base: no
+  require_head: yes
+
+flags:
+  backend:
+    paths:
+      - FakeNeptun/backend/src
+    carryforward: true
+  frontend:
+    paths:
+      - FakeNeptun/frontend/fakeNeptun/src
+    carryforward: true
+
+ignore:
+  - "**/*.spec.ts"
+  - "**/*.test.ts"
+  - "**/node_modules"
+  - "**/dist"
+  - "**/coverage"
