@@ -12,6 +12,9 @@ COPY package*.json ./
 # Install dependencies with legacy peer deps
 RUN npm install --legacy-peer-deps --force
 
+# Fix Angular version mismatches
+RUN npm install @angular/platform-browser@19.2.0 @angular/platform-browser-dynamic@19.2.0 --legacy-peer-deps --force
+
 # Copy source code
 COPY . .
 
