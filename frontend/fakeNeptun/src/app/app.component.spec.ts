@@ -36,8 +36,6 @@ describe('AppComponent', () => {
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    // Don't call detectChanges since template rendering is complex and requires full routing setup
-    // Just verify component exists and has title
     const app = fixture.componentInstance;
     expect(app.title).toBe('fakeNeptun');
   });

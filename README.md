@@ -1,4 +1,4 @@
-# Fake Neptun
+# FakeNeptun - Teljes körű CI/CD Implementáció
 
 ![CI/CD Pipeline](https://github.com/erosbalint3/FakeNeptun/workflows/CI/CD%20Pipeline/badge.svg)
 ![Monitoring](https://github.com/erosbalint3/FakeNeptun/workflows/Monitoring%20&%20Health%20Checks/badge.svg)
@@ -7,27 +7,39 @@
 ![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=erosbalint3_FakeNeptun&metric=security_rating)
 ![Maintainability](https://sonarcloud.io/api/project_badges/measure?project=erosbalint3_FakeNeptun&metric=sqale_rating)
 
-This project is a **Fake Neptun** system built with Angular, ExpressJS, and MongoDB.
+Egy modern hallgatói rendszer, amely egy **teljes CI/CD pipeline-t** mutat be automatizált kódminőség-ellenőrzéssel, teszteléssel, konténerizációval, telepítéssel és monitorozással.
 
-📖 **For complete CI/CD pipeline documentation, see [CI-CD-README.md](./CI-CD-README.md)**
+## 🎯 Projekt Áttekintés
 
-## ✨ Technologies
+**Projektmunka Követelmények:**
+- ✅ Code Quality
+- ✅ Build & Test
+- ✅ Release & Deploy
+- ✅ Monitor & Feedback
+- ✅ Eszközök: 11 használva (minimum 5, Git és Docker nem számít)
+- ✅ README a projekthez
 
-- **Frontend**: Angular `23.9.0`  
-- **Backend**: ExpressJS `^5.0.0`, NodeJS `23.9.0`  
-- **Database**: MongoDB (dockerized with `docker-compose`)
+📖 **Teljes CI/CD pipeline dokumentációért lásd: [CI-CD-README.md](./CI-CD-README.md)**
+
+## ✨ Technológiák
+
+- **Frontend**: Angular `19.2.0` with NgRx State Management
+- **Backend**: Express `4.21.2`, Node.js `20`, TypeScript `5.8.2`
+- **Database**: MongoDB (dockerized)
+- **Infrastructure**: Docker, Prometheus, Grafana
+- **CI/CD**: GitHub Actions, SonarCloud, Codecov, Trivy, Lighthouse CI
 
 ---
 
-## 📦 MongoDB Setup
+## 📦 MongoDB Beállítás
 
-The MongoDB instance is configured using `docker-compose.yml` located in the root directory.
+A MongoDB példány a gyökérkönyvtárban található `docker-compose.yml` fájllal van konfigurálva.
 
-The users for the application, can be found in the users table. The Teachers and Admin have been pre setup.
+Az alkalmazás felhasználói a users táblában találhatók. A tanárok és az adminisztrátor előre be vannak állítva.
 
-### Connection details
+### Kapcsolódási adatok
 
-| Parameter      | Value        |
+| Paraméter     | Érték        |
 |---------------|--------------|
 | Host         | `localhost`  |
 | Port        | `27017`      |
@@ -35,7 +47,7 @@ The users for the application, can be found in the users table. The Teachers and
 | Password     | `progr`      |
 | Database Name| `fakeNeptun` |
 
-You can connect and browse the database using tools like **MongoDB Compass**.
+Csatlakozhat és böngészheti az adatbázist olyan eszközökkel, mint a **MongoDB Compass**.
 
 ---
 
@@ -53,24 +65,203 @@ You can connect and browse the database using tools like **MongoDB Compass**.
 
 ---
 
-## 🚀 Startup Instructions
+## 🚀 Gyors Kezdés
 
-1. **Start MongoDB**  
-   From the project root directory, run:
+### Helyi Fejlesztés
 
+1. **MongoDB Indítása**
+   ```bash
    docker-compose up
+   ```
 
-2. **Start Frontend Application**
-    From the frontend root directory, run:
+2. **Backend Indítása**
+   ```bash
+   cd backend
+   npm install
+   npm run dev
+   ```
 
-    npm install -f
-    
-    npm start
+3. **Frontend Indítása**
+   ```bash
+   cd frontend/fakeNeptun
+   npm install
+   npm start
+   ```
 
-3. **Start Backend Application**
-    From the backend root directory, run:
+4. **Alkalmazás Elérése**
+   - Frontend: http://localhost:4200
+   - Backend API: http://localhost:3000
 
-    npm install -f
+### Éles Telepítés (Docker)
 
-    npm start
+```bash
+docker-compose -f docker-compose.prod.yml up -d
+```
 
+**Szolgáltatások:**
+- Frontend: http://localhost:8080
+- Backend: http://localhost:3000
+- Prometheus: http://localhost:9090
+- Grafana: http://localhost:3001 (admin/admin)
+
+---
+
+## 📊 CI/CD Pipeline
+
+### 1. Kódminőség
+**Eszközök:** ESLint, Prettier, TypeScript Compiler, SonarCloud
+
+**Funkciók:**
+- ✅ Automatikus linting minden push/PR-nál
+- ✅ Kódformázás validáció
+- ✅ TypeScript típusellenőrzés
+- ✅ SonarCloud minőség elemzés
+
+**Parancsok:**
+```bash
+npm run lint
+npm run format:check
+npm run build
+```
+
+### 2. Build & Tesztelés
+**Eszközök:** Jest, Karma, Jasmine, Codecov
+
+**Funkciók:**
+- ✅ Backend egységtesztek (Jest)
+- ✅ Frontend egységtesztek (Karma + Jasmine)
+- ✅ Kódlefedettség riportolás
+- ✅ Lefedettségi küszöbök érvényesítése
+
+**Jelenlegi Lefedettség:**
+- Backend: ✅ 20%+ összes metrika
+- Frontend: ✅ 50% ágak, 51.49% függvények
+
+**Parancsok:**
+```bash
+npm test
+npm run test:coverage
+```
+
+### 3. Kiadás & Telepítés
+**Eszközök:** Docker, Docker Compose, Docker Hub
+
+**Funkciók:**
+- ✅ Többlépcsős Docker build-ek
+- ✅ Automatikus image készítés és feltöltés
+- ✅ Verzió címkézés (Git SHA + latest)
+- ✅ Automatikus telepítés
+
+**Docker Image-ek:**
+- `erosbalint3/fakeneptun-backend:latest`
+- `erosbalint3/fakeneptun-frontend:latest`
+
+### 4. Monitorozás & Visszajelzés
+**Eszközök:** Prometheus, Grafana, Trivy, Lighthouse CI, Slack
+
+**Funkciók:**
+- ✅ Prometheus metrika gyűjtés
+- ✅ Grafana monitoring műszerfalak
+- ✅ Biztonsági sebezhetőség vizsgálat
+- ✅ Teljesítmény monitorozás
+- ✅ Slack értesítések
+
+**Monitorozott Metrikák:**
+- HTTP request duration & rate
+- Active connections
+- Database connection status
+- CPU & memory usage
+- Security vulnerabilities
+- Frontend performance scores
+
+**Access:**
+- Metrics: http://localhost:3000/metrics
+- Prometheus: http://localhost:9090
+- Grafana: http://localhost:3001
+
+---
+
+## 🛠️ Használt Eszközök (11 darab)
+
+1. **ESLint** - Kód linting
+2. **Prettier** - Kód formázás
+3. **Jest** - Backend tesztelés
+4. **Karma/Jasmine** - Frontend tesztelés
+5. **SonarCloud** - Kódminőség
+6. **Codecov** - Lefedettség követés
+7. **Trivy** - Biztonsági vizsgálat
+8. **Lighthouse CI** - Teljesítmény tesztelés
+9. **Prometheus** - Metrika gyűjtés
+10. **Grafana** - Monitoring műszerfalak
+11. **Slack** - CI/CD értesítések
+
+---
+
+## 🧪 Tesztelés
+
+### Backend
+```bash
+cd backend
+npm test
+npm run test:coverage
+```
+
+### Frontend
+```bash
+cd frontend/fakeNeptun
+npm test
+npm run test:coverage
+```
+
+---
+
+## 🐳 Docker
+
+### Image-ek Készítése
+```bash
+docker build -t fakeneptun-backend ./backend
+docker build -t fakeneptun-frontend ./frontend/fakeNeptun
+```
+
+### Éles Stack Futtatása
+```bash
+docker-compose -f docker-compose.prod.yml up -d
+docker-compose -f docker-compose.prod.yml logs -f
+docker-compose -f docker-compose.prod.yml down
+```
+
+---
+
+## 📁 Projekt Struktúra
+
+```
+FakeNeptun/
+├── .github/workflows/       # CI/CD pipeline-ok
+├── backend/                 # Express API
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── services/
+│   │   ├── models/
+│   │   └── metrics.ts       # Prometheus metrikák
+│   └── Dockerfile
+├── frontend/fakeNeptun/     # Angular app
+│   ├── src/app/
+│   │   ├── components/
+│   │   ├── services/
+│   │   └── store/           # NgRx
+│   └── Dockerfile
+├── monitoring/              # Prometheus & Grafana
+├── docker-compose.prod.yml
+└── sonar-project.properties
+```
+
+---
+
+## 🔧 Konfiguráció
+
+### Szükséges GitHub Secrets
+- `SONAR_TOKEN` - SonarCloud hitelesítés
+- `CODECOV_TOKEN` - Codecov feltöltés
+- `DOCKERHUB_USERNAME` - Docker Hub felhasználónév
+- `DOCKERHUB_TOKEN` - Docker Hub hozzáférési token
+- `SLACK_WEBHOOK_URL` - Slack értesítések (opcionális)

@@ -30,7 +30,6 @@ describe('RegisterCourseDetailsComponent', () => {
 
     fixture = TestBed.createComponent(RegisterCourseDetailsComponent);
     component = fixture.componentInstance;
-    // Don't call detectChanges to avoid template errors
   });
 
   it('should create', () => {

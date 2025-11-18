@@ -3,7 +3,6 @@ import Course from '../models/course';
 import { CourseEnrollment } from '../models/course-enrollment';
 import { FrequencyType } from '../enums/frequency-type.enum';
 
-// Mock the models
 jest.mock('../models/course');
 jest.mock('../models/course-enrollment');
 

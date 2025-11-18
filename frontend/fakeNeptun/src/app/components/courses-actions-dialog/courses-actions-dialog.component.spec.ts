@@ -20,7 +20,6 @@ describe('CoursesActionsDialogComponent', () => {
 
     fixture = TestBed.createComponent(CoursesActionsDialogComponent);
     component = fixture.componentInstance;
-    // Don't call detectChanges to avoid template errors
   });
 
   it('should create', () => {

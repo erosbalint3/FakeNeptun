@@ -2,7 +2,6 @@ import { UserService } from './users.service';
 import User from '../models/user';
 import { Role } from '../enums/role.enum';
 
-// Mock the User model
 jest.mock('../models/user');
 
 describe('UserService', () => {

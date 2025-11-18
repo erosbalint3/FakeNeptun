@@ -1,10 +1,7 @@
 ## Description
 
-<!-- Provide a brief description of your changes -->
-
 ## Type of Change
 
-<!-- Mark the relevant option with an "x" -->
 
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)
@@ -16,14 +13,11 @@
 
 ## Related Issues
 
-<!-- Link to related issues using #issue_number -->
 
 Fixes #
 Relates to #
 
 ## Changes Made
-
-<!-- List the main changes -->
 
 - 
 - 
@@ -31,7 +25,6 @@ Relates to #
 
 ## Testing
 
-<!-- Describe the tests you ran -->
 
 - [ ] Unit tests pass locally
 - [ ] Integration tests pass locally
@@ -45,11 +38,9 @@ Relates to #
 
 ## Screenshots (if applicable)
 
-<!-- Add screenshots to help explain your changes -->
 
 ## Checklist
 
-<!-- Mark completed items with an "x" -->
 
 - [ ] My code follows the style guidelines of this project
 - [ ] I have performed a self-review of my own code
@@ -62,4 +53,3 @@ Relates to #
 
 ## Additional Notes
 
-<!-- Add any additional information here -->

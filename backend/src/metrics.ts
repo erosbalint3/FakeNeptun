@@ -1,13 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import client from 'prom-client';
 
-// Create a Registry to register the metrics
 const register = new client.Registry();
 
-// Add default metrics (CPU, memory, etc.)
 client.collectDefaultMetrics({ register });
 
-// Custom metrics
 const httpRequestDuration = new client.Histogram({
   name: 'http_request_duration_seconds',
   help: 'Duration of HTTP requests in seconds',
@@ -31,13 +28,11 @@ const databaseConnectionStatus = new client.Gauge({
   help: 'Database connection status (1 = connected, 0 = disconnected)'
 });
 
-// Register metrics
 register.registerMetric(httpRequestDuration);
 register.registerMetric(httpRequestTotal);
 register.registerMetric(activeConnections);
 register.registerMetric(databaseConnectionStatus);
 
-// Middleware to track metrics
 export const metricsMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const start = Date.now();
   
@@ -64,7 +59,6 @@ export const metricsMiddleware = (req: Request, res: Response, next: NextFunctio
   next();
 };
 
-// Update database connection status
 export const updateDatabaseStatus = (isConnected: boolean) => {
   databaseConnectionStatus.set(isConnected ? 1 : 0);
 };

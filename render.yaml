@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: fakeneptun-backend
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    region: frankfurt
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: MONGO_URI
+        fromDatabase:
+          name: fakeneptun-mongodb
+          property: connectionString
+    healthCheckPath: /health
+
+  - type: web
+    name: fakeneptun-frontend
+    env: docker
+    dockerfilePath: ./frontend/fakeNeptun/Dockerfile
+    dockerContext: ./frontend/fakeNeptun
+    plan: free
+    region: frankfurt
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+databases:
+  - name: fakeneptun-mongodb
+    databaseName: fakeNeptun
+    user: progr
+    plan: free
+    region: frankfurt

@@ -10,7 +10,6 @@ var cors = require('cors');
 const mongoUri = process.env.MONGO_URI || 'mongodb://progr:progr@localhost:27017/fakeNeptun?authSource=admin';
 mongoose.connect(mongoUri);
 
-// Update database connection status for metrics
 mongoose.connection.on('connected', () => {
   updateDatabaseStatus(true);
   console.log('MongoDB connected');
@@ -38,10 +37,8 @@ app.use(
   })
 );
 
-// Add metrics middleware
 app.use(metricsMiddleware);
 
-// Metrics endpoint for Prometheus
 app.get('/metrics', async (req: Request, res: Response) => {
   res.set('Content-Type', register.contentType);
   res.end(await register.metrics());
@@ -49,7 +46,6 @@ app.get('/metrics', async (req: Request, res: Response) => {
 
 app.use('/api', [userRouter, courseRouter, gradeRouter]);
 
-// Health check endpoint
 app.get('/health', (req: Request, res: Response) => {
   const healthcheck = {
     uptime: process.uptime(),

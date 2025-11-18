@@ -2,7 +2,6 @@ import { GradesService } from './grades.service';
 import Grade from '../models/grade';
 import Course from '../models/course';
 
-// Mock the models
 jest.mock('../models/grade');
 jest.mock('../models/course');
 

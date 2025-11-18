@@ -1,6 +1,5 @@
 version: 2
 updates:
-  # Backend dependencies
   - package-ecosystem: "npm"
     directory: "/backend"
     schedule:
@@ -14,7 +13,6 @@ updates:
       prefix: "chore(backend)"
       include: "scope"
 
-  # Frontend dependencies
   - package-ecosystem: "npm"
     directory: "/frontend/fakeNeptun"
     schedule:
@@ -28,7 +26,6 @@ updates:
       prefix: "chore(frontend)"
       include: "scope"
 
-  # Docker dependencies
   - package-ecosystem: "docker"
     directory: "/backend"
     schedule:
@@ -38,7 +35,6 @@ updates:
       - "dependencies"
       - "docker"
 
-  # GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
