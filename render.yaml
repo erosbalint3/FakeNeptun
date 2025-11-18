@@ -30,7 +30,7 @@ services:
 
 databases:
   - name: fakeneptun-mongodb
-    databaseName: fakeNeptun
+    databaseName: fakeneptun
     user: progr
     plan: free
     region: frankfurt
