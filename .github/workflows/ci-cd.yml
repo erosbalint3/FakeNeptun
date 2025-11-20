@@ -97,7 +97,7 @@ jobs:
 
       - name: Install Backend Dependencies
         working-directory: backend
-        run: npm install
+        run: npm install -f
 
       - name: Build Backend
         working-directory: backend
@@ -119,7 +119,7 @@ jobs:
 
       - name: Install Frontend Dependencies
         working-directory: frontend/fakeNeptun
-        run: npm install
+        run: npm install -f
 
       - name: Build Frontend
         working-directory: frontend/fakeNeptun
