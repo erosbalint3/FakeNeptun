@@ -32,11 +32,11 @@ jobs:
 
       - name: Install Backend Dependencies
         working-directory: backend
-        run: npm install
+        run: npm install -f
 
       - name: Install Frontend Dependencies
         working-directory: frontend/fakeNeptun
-        run: npm install
+        run: npm install -f
 
       - name: Run ESLint on Backend
         working-directory: backend
