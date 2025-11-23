@@ -1,33 +1,28 @@
 #!/bin/bash
 
-# FakeNeptun CI/CD Setup Script
-# This script helps you set up the complete CI/CD pipeline
-
 set -e
 
-echo "🚀 FakeNeptun CI/CD Setup"
+echo "FakeNeptun CI/CD Setup"
 echo "========================="
 echo ""
 
-# Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
-# Check if we're in the right directory
 if [ ! -d "backend" ] || [ ! -d "frontend" ]; then
     echo -e "${RED}Error: Please run this script from the FakeNeptun directory${NC}"
     exit 1
 fi
 
-echo "📦 Installing Backend Dependencies..."
+echo "Installing Backend Dependencies..."
 cd backend
 npm install
 echo -e "${GREEN}✓ Backend dependencies installed${NC}"
 echo ""
 
-echo "📦 Installing Frontend Dependencies..."
+echo "Installing Frontend Dependencies..."
 cd ../frontend/fakeNeptun
 npm install
 echo -e "${GREEN}✓ Frontend dependencies installed${NC}"
@@ -35,7 +30,7 @@ echo ""
 
 cd ../..
 
-echo "🔍 Running Code Quality Checks..."
+echo "Running Code Quality Checks..."
 echo ""
 
 echo "Backend Linting..."
@@ -50,7 +45,7 @@ echo ""
 
 cd ../..
 
-echo "🧪 Running Tests..."
+echo "Running Tests..."
 echo ""
 
 echo "Backend Tests..."
@@ -65,7 +60,7 @@ echo ""
 
 cd ../..
 
-echo "🏗️  Building Applications..."
+echo "Building Applications..."
 echo ""
 
 echo "Building Backend..."
@@ -82,10 +77,9 @@ echo ""
 
 cd ../..
 
-echo "🐳 Docker Setup..."
+echo "Docker Setup..."
 echo ""
 
-# Check if Docker is installed
 if ! command -v docker &> /dev/null; then
     echo -e "${YELLOW}⚠ Docker is not installed. Please install Docker to build images.${NC}"
 else
@@ -96,14 +90,14 @@ else
 fi
 
 echo ""
-echo "✨ Setup Complete!"
+echo "Setup Complete!"
 echo ""
-echo "📋 Next Steps:"
+echo "Next Steps:"
 echo "1. Configure GitHub Secrets (see CI-CD-README.md)"
 echo "2. Set up SonarCloud integration"
 echo "3. Set up Codecov integration"
 echo "4. Configure Slack webhooks for notifications"
 echo "5. Push to GitHub to trigger the CI/CD pipeline"
 echo ""
-echo "📖 For detailed documentation, see: CI-CD-README.md"
+echo "For detailed documentation, see: CI-CD-README.md"
 echo ""
