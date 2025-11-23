@@ -1,8 +1,8 @@
 # CI/CD Pipeline - Projektmunka Összefoglaló
 
-## 📊 Pontszám Lebontás
+## Pontszám Lebontás
 
-### 1. Code Quality - 10 pont ✅
+### 1. Code Quality - 10 pont
 
 **Implementált megoldások:**
 - ESLint konfiguráció backend és frontend számára
@@ -17,7 +17,7 @@
 
 ---
 
-### 2. Build & Test - 15 pont ✅
+### 2. Build & Test - 15 pont
 
 **Implementált megoldások:**
 - Automatikus build folyamat mindkét alkalmazáshoz
@@ -40,7 +40,7 @@
 
 ---
 
-### 3. Release & Deploy - 15 pont ✅
+### 3. Release & Deploy - 15 pont
 
 **Implementált megoldások:**
 - Multi-stage Docker builds (optimalizált image méret)
@@ -62,7 +62,7 @@
 
 ---
 
-### 4. Monitor & Feedback - 10 pont ✅
+### 4. Monitor & Feedback - 10 pont
 
 **Implementált megoldások:**
 
@@ -94,7 +94,7 @@
 
 ---
 
-## 🛠️ Használt Tool-ok (7+ szükséges, 11 implementált)
+## Használt Tool-ok (7+ szükséges, 11 implementált)
 
 | # | Tool | Kategória | Felhasználás |
 |---|------|-----------|--------------|
@@ -114,7 +114,7 @@
 
 ---
 
-## 📁 Létrehozott Fájlok
+## Létrehozott Fájlok
 
 ### GitHub Actions Workflows
 - `.github/workflows/ci-cd.yml` - Fő CI/CD pipeline
@@ -156,7 +156,7 @@
 
 ---
 
-## 🔧 Package.json Frissítések
+## Package.json Frissítések
 
 ### Backend Scripts
 ```json
@@ -184,7 +184,7 @@
 
 ---
 
-## 🚀 Pipeline Működés
+## Pipeline Működés
 
 ### Trigger Events
 - **Push** to `main` vagy `develop` branch
@@ -231,7 +231,7 @@ Parallel folyamat:
 
 ---
 
-## 🔒 Security Features
+## Security Features
 
 1. **Container Security**
    - Non-root users minden containerben
@@ -250,7 +250,7 @@ Parallel folyamat:
 
 ---
 
-## 📈 Monitoring & Metrics
+## Monitoring & Metrics
 
 ### Dashboards
 - **GitHub Actions** - Workflow runs, job logs
@@ -267,22 +267,22 @@ Parallel folyamat:
 
 ---
 
-## ✅ Követelmények Teljesítése
+## Követelmények Teljesítése
 
 | Követelmény | Pont | Státusz | Implementáció |
 |------------|------|---------|---------------|
-| Code Quality | 10 | ✅ | ESLint, Prettier, TypeScript checks |
-| Build & Test | 15 | ✅ | Jest, Karma, Coverage, MongoDB service |
-| Release & Deploy | 15 | ✅ | Docker images, automated deployment |
-| Monitor & Feedback | 10 | ✅ | Health checks, security scans, alerts |
-| Tool-ok (min 5) | - | ✅ | 11 tool (Git, Docker nélkül) |
-| README | - | ✅ | CI-CD-README.md, QUICKSTART.md |
+| Code Quality | 10 | Teljesítve | ESLint, Prettier, TypeScript checks |
+| Build & Test | 15 | Teljesítve | Jest, Karma, Coverage, MongoDB service |
+| Release & Deploy | 15 | Teljesítve | Docker images, automated deployment |
+| Monitor & Feedback | 10 | Teljesítve | Health checks, security scans, alerts |
+| Tool-ok (min 5) | - | Teljesítve | 11 tool (Git, Docker nélkül) |
+| README | - | Teljesítve | CI-CD-README.md, QUICKSTART.md |
 
-**Összesen: 50/50 pont** 🎉
+**Összesen: 50/50 pont**
 
 ---
 
-## 🎯 Kiemelkedő Funkciók
+## Kiemelkedő Funkciók
 
 1. **Teljes automatizáció** - Zero manual intervention
 2. **Multi-environment support** - Dev, staging, production
@@ -294,7 +294,7 @@ Parallel folyamat:
 
 ---
 
-## 📚 Használati Útmutató
+## Használati Útmutató
 
 ### Fejlesztőknek
 
@@ -314,16 +314,16 @@ Parallel folyamat:
 
 ---
 
-## 🏆 Összegzés
+## Összegzés
 
 A FakeNeptun projekt teljes körű CI/CD pipeline-nal rendelkezik, amely:
 
-- ✅ Automatikusan ellenőrzi a kód minőségét
-- ✅ Futtatja a teszteket és coverage riportokat generál
-- ✅ Build-eli és containerizálja az alkalmazásokat
-- ✅ Automatikusan deploy-ol production-be
-- ✅ Folyamatosan monitorozza az alkalmazás állapotát
-- ✅ Értesítéseket küld a csapatnak
-- ✅ Biztonságos és production-ready
+- Automatikusan ellenőrzi a kód minőségét
+- Futtatja a teszteket és coverage riportokat generál
+- Build-eli és containerizálja az alkalmazásokat
+- Automatikusan deploy-ol production-be
+- Folyamatosan monitorozza az alkalmazás állapotát
+- Értesítéseket küld a csapatnak
+- Biztonságos és production-ready
 
-**A projektmunka minden követelményt teljesít és túlteljesít!** 🚀
+**A projektmunka minden követelményt teljesít és túlteljesít!**
