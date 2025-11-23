@@ -18,12 +18,12 @@ module.exports = function (config) {
       suppressAll: true
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/fake-neptun'),
+      dir: require('path').join(__dirname, './coverage'),
       subdir: '.',
       reporters: [
         { type: 'html' },
         { type: 'text-summary' },
-        { type: 'lcovonly' }
+        { type: 'lcovonly', file: 'lcov.info' }
       ]
     },
     reporters: ['progress', 'kjhtml'],
