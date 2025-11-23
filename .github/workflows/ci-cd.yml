@@ -130,16 +130,6 @@ jobs:
         working-directory: frontend/fakeNeptun
         run: npm run test:ci
 
-      - name: Upload Frontend Coverage to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./frontend/fakeNeptun/coverage/lcov.info
-          flags: frontend
-          name: frontend-coverage
-          root_dir: ${{ github.workspace }}
-          fail_ci_if_error: false
-
       - name: Upload Backend Build Artifacts
         uses: actions/upload-artifact@v5
         with:
