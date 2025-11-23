@@ -109,15 +109,6 @@ jobs:
         env:
           MONGO_URI: mongodb://progr:progr@localhost:27017/fakeNeptun?authSource=admin
 
-      - name: Upload Backend Coverage to Codecov
-        uses: codecov/codecov-action@v5
-        continue-on-error: true
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./backend/coverage/lcov.info
-          flags: backend
-          name: backend-coverage
-
       - name: Install Frontend Dependencies
         working-directory: frontend/fakeNeptun
         run: npm install -f
@@ -129,15 +120,6 @@ jobs:
       - name: Test Frontend
         working-directory: frontend/fakeNeptun
         run: npm run test:ci
-
-      - name: Upload Frontend Coverage to Codecov
-        uses: codecov/codecov-action@v5
-        continue-on-error: true
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./frontend/fakeNeptun/coverage/lcov.info
-          flags: frontend
-          name: frontend-coverage
 
       - name: Upload Backend Build Artifacts
         uses: actions/upload-artifact@v5
