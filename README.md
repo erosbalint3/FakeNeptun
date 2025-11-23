@@ -9,19 +9,19 @@
 
 Egy modern hallgatói rendszer, amely egy **teljes CI/CD pipeline-t** mutat be automatizált kódminőség-ellenőrzéssel, teszteléssel, konténerizációval, telepítéssel és monitorozással.
 
-## 🎯 Projekt Áttekintés
+## Projekt Áttekintés
 
 **Projektmunka Követelmények:**
-- ✅ Code Quality
-- ✅ Build & Test
-- ✅ Release & Deploy
-- ✅ Monitor & Feedback
-- ✅ Eszközök: 11 használva (minimum 5, Git és Docker nem számít)
-- ✅ README a projekthez
+- Code Quality
+- Build & Test
+- Release & Deploy
+- Monitor & Feedback
+- Eszközök: 11 használva (minimum 5, Git és Docker nem számít)
+- README a projekthez
 
-📖 **Teljes CI/CD pipeline dokumentációért lásd: [CI-CD-README.md](./CI-CD-README.md)**
+**Teljes CI/CD pipeline dokumentációért lásd: [CI-CD-README.md](./CI-CD-README.md)**
 
-## ✨ Technológiák
+## Technológiák
 
 - **Frontend**: Angular `19.2.0` with NgRx State Management
 - **Backend**: Express `4.21.2`, Node.js `20`, TypeScript `5.8.2`
@@ -31,7 +31,7 @@ Egy modern hallgatói rendszer, amely egy **teljes CI/CD pipeline-t** mutat be a
 
 ---
 
-## 📦 MongoDB Beállítás
+## MongoDB Beállítás
 
 A MongoDB példány a gyökérkönyvtárban található `docker-compose.yml` fájllal van konfigurálva.
 
@@ -51,21 +51,21 @@ Csatlakozhat és böngészheti az adatbázist olyan eszközökkel, mint a **Mong
 
 ---
 
-## 🌍 Frontend
+## Frontend
 
 - **Host**: `localhost`  
 - **Port**: `4200`
 
 ---
 
-## 🔧 Backend
+## Backend
 
 - **Host**: `localhost`  
 - **Port**: `3000`
 
 ---
 
-## 🚀 Gyors Kezdés
+## Gyors Kezdés
 
 ### Helyi Fejlesztés
 
@@ -111,7 +111,7 @@ Részletes telepítési útmutató: [RENDER-DEPLOYMENT.md](./RENDER-DEPLOYMENT.m
 
 ---
 
-## 📊 CI/CD Pipeline
+## CI/CD Pipeline
 
 A projekt teljes CI/CD pipeline-t implementál GitHub Actions segítségével, amely tartalmazza a kódminőség ellenőrzést, tesztelést, Docker image építést, automatikus telepítést és folyamatos monitorozást.
 
@@ -119,11 +119,11 @@ A projekt teljes CI/CD pipeline-t implementál GitHub Actions segítségével, a
 **Eszközök:** ESLint, Prettier, TypeScript Compiler, SonarCloud
 
 **Funkciók:**
-- ✅ Automatikus linting minden push/PR-nál
-- ✅ Kódformázás validáció
-- ✅ TypeScript típusellenőrzés
-- ✅ SonarCloud minőség elemzés
-- ✅ Automatikus pull request kommentek
+- Automatikus linting minden push/PR-nál
+- Kódformázás validáció
+- TypeScript típusellenőrzés
+- SonarCloud minőség elemzés
+- Automatikus pull request kommentek
 
 **Parancsok:**
 ```bash
@@ -136,14 +136,14 @@ npm run build
 **Eszközök:** Jest, Karma, Jasmine, Codecov
 
 **Funkciók:**
-- ✅ Backend egységtesztek (Jest)
-- ✅ Frontend egységtesztek (Karma + Jasmine)
-- ✅ Kódlefedettség riportolás
-- ✅ Lefedettségi küszöbök érvényesítése
+- Backend egységtesztek (Jest)
+- Frontend egységtesztek (Karma + Jasmine)
+- Kódlefedettség riportolás
+- Lefedettségi küszöbök érvényesítése
 
 **Jelenlegi Lefedettség:**
-- Backend: ✅ 20%+ összes metrika
-- Frontend: ✅ 50% ágak, 51.49% függvények
+- Backend: 20%+ összes metrika
+- Frontend: 50% ágak, 51.49% függvények
 
 **Parancsok:**
 ```bash
@@ -155,11 +155,11 @@ npm run test:coverage
 **Eszközök:** Docker, Docker Compose, Docker Hub, Render.com
 
 **Funkciók:**
-- ✅ Többlépcsős Docker build-ek
-- ✅ Automatikus image készítés és feltöltés
-- ✅ Verzió címkézés (Git SHA + latest)
-- ✅ Automatikus telepítés Render.com-ra
-- ✅ Ingyenes hosting (backend, frontend, MongoDB)
+- Többlépcsős Docker build-ek
+- Automatikus image készítés és feltöltés
+- Verzió címkézés (Git SHA + latest)
+- Automatikus telepítés Render.com-ra
+- Ingyenes hosting (backend, frontend, MongoDB)
 
 **Docker Image-ek:**
 - `erosbalint3/fakeneptun-backend:latest`
@@ -169,19 +169,19 @@ npm run test:coverage
 - Frontend: https://fakeneptun-frontend.onrender.com
 - Backend: https://fakeneptun-backend.onrender.com
 
-📖 **Telepítési útmutató: [RENDER-DEPLOYMENT.md](./RENDER-DEPLOYMENT.md)**
+**Telepítési útmutató: [RENDER-DEPLOYMENT.md](./RENDER-DEPLOYMENT.md)**
 
 ### 4. Monitorozás & Visszajelzés
 **Eszközök:** Prometheus, Grafana, Trivy, Lighthouse CI, Slack
 
 **Funkciók:**
-- ✅ Prometheus metrika gyűjtés
-- ✅ Grafana monitoring műszerfalak
-- ✅ Biztonsági sebezhetőség vizsgálat (Docker image-ek)
-- ✅ Teljesítmény monitorozás (Lighthouse CI)
-- ✅ Automatikus health check-ek (4 óránként)
-- ✅ Slack értesítések hibák esetén
-- ✅ Nyilvános Lighthouse riportok
+- Prometheus metrika gyűjtés
+- Grafana monitoring műszerfalak
+- Biztonsági sebezhetőség vizsgálat (Docker image-ek)
+- Teljesítmény monitorozás (Lighthouse CI)
+- Automatikus health check-ek (4 óránként)
+- Slack értesítések hibák esetén
+- Nyilvános Lighthouse riportok
 
 **Monitorozott Metrikák:**
 - HTTP request duration & rate
@@ -199,7 +199,7 @@ npm run test:coverage
 
 ---
 
-## 🛠️ Használt Eszközök (11 darab)
+## Használt Eszközök (11 darab)
 
 1. **ESLint** - Kód linting
 2. **Prettier** - Kód formázás
@@ -215,7 +215,7 @@ npm run test:coverage
 
 ---
 
-## 🧪 Tesztelés
+## Tesztelés
 
 ### Backend
 ```bash
@@ -233,7 +233,7 @@ npm run test:coverage
 
 ---
 
-## 🐳 Docker
+## Docker
 
 ### Image-ek Készítése
 ```bash
@@ -250,7 +250,7 @@ docker-compose -f docker-compose.prod.yml down
 
 ---
 
-## 📁 Projekt Struktúra
+## Projekt Struktúra
 
 ```
 FakeNeptun/
@@ -275,7 +275,7 @@ FakeNeptun/
 
 ---
 
-## 🔧 Konfiguráció
+## Konfiguráció
 
 ### Szükséges GitHub Secrets
 - `SONAR_TOKEN` - SonarCloud hitelesítés
