@@ -2,22 +2,22 @@
 
 Ez az útmutató bemutatja, hogyan telepítheted a FakeNeptun alkalmazást **ingyen** a Render.com platformra.
 
-## 🎯 Miért Render.com?
+## Miért Render.com?
 
-- ✅ **Teljesen ingyenes** - backend, frontend és MongoDB
-- ✅ **Automatikus HTTPS** - SSL certificate ingyen
-- ✅ **Automatikus deploy** - GitHub integráció
-- ✅ **Docker támogatás** - használja a meglévő Docker image-eket
-- ✅ **Ingyenes MongoDB** - 256MB tárhely
-- ✅ **Nincs alvó mód** - a free tier szolgáltatások automatikusan leállnak inaktivitás után, de gyorsan újraindulnak
+- **Teljesen ingyenes** - backend, frontend és MongoDB
+- **Automatikus HTTPS** - SSL certificate ingyen
+- **Automatikus deploy** - GitHub integráció
+- **Docker támogatás** - használja a meglévő Docker image-eket
+- **Ingyenes MongoDB** - 256MB tárhely
+- **Nincs alvó mód** - a free tier szolgáltatások automatikusan leállnak inaktivitás után, de gyorsan újraindulnak
 
-## 📋 Előfeltételek
+## Előfeltételek
 
 1. GitHub fiók (már megvan)
 2. [Render.com](https://render.com) fiók - ingyenes regisztráció
 3. Forkolva/birtokolva ez a repository
 
-## 🚀 Telepítési Lépések
+## Telepítési Lépések
 
 ### 1. Render Fiók Létrehozása
 
@@ -127,7 +127,7 @@ git commit -m "Update production API URL for Render deployment"
 git push origin main
 ```
 
-## ✅ Ellenőrzés
+## Ellenőrzés
 
 1. **Backend Health Check**:
    ```bash
@@ -140,7 +140,7 @@ git push origin main
 3. **MongoDB Connection**:
    - Ellenőrizd a backend logokat a Render Dashboard-on
 
-## 🔄 Automatikus Deployment
+## Automatikus Deployment
 
 Most már minden push a `main` branch-re automatikusan:
 1. Build-eli a kódot
@@ -149,7 +149,7 @@ Most már minden push a `main` branch-re automatikusan:
 4. Triggerel Render deployment-et (ha be van állítva a Deploy Hook)
 5. Ellenőrzi a deployment sikerességét
 
-## 💡 Tippek
+## Tippek
 
 ### Ingyenes Tier Limitációk
 
@@ -173,7 +173,7 @@ Most már minden push a `main` branch-re automatikusan:
    - Render Dashboard mutatja a metrikákat
    - Prometheus/Grafana sajnos nem futtatható ingyenesen
 
-## 🆘 Hibaelhárítás
+## Hibaelhárítás
 
 ### Build Fails
 
@@ -210,7 +210,7 @@ app.use(cors({
 - Használd az **Internal Connection String**-et a Render MongoDB-ből
 - Format: `mongodb://user:password@host:port/database`
 
-## 🌐 Alternatív Ingyenes Platformok
+## Alternatív Ingyenes Platformok
 
 Ha a Render nem működik:
 
@@ -220,7 +220,7 @@ Ha a Render nem működik:
 4. **Netlify** (csak frontend) + **MongoDB Atlas** (512MB ingyen)
 5. **Heroku** - korlátozottabb ingyenes tier
 
-## 📚 További Információk
+## További Információk
 
 - [Render Documentation](https://render.com/docs)
 - [Render Docker Deployment](https://render.com/docs/deploy-docker)
@@ -229,4 +229,4 @@ Ha a Render nem működik:
 
 ---
 
-**Sikeres deployment után az alkalmazás elérhető lesz publikus URL-eken! 🎉**
+**Sikeres deployment után az alkalmazás elérhető lesz publikus URL-eken!**
