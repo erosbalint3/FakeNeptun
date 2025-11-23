@@ -98,6 +98,11 @@ Csatlakozhat és böngészheti az adatbázist olyan eszközökkel, mint a **Mong
 docker-compose -f docker-compose.prod.yml up -d
 ```
 
+### Felhő Telepítés (Render.com)
+
+Az alkalmazás automatikusan telepítésre kerül Render.com-ra minden main branch push után.
+Részletes telepítési útmutató: [RENDER-DEPLOYMENT.md](./RENDER-DEPLOYMENT.md)
+
 **Szolgáltatások:**
 - Frontend: http://localhost:8080
 - Backend: http://localhost:3000
@@ -108,6 +113,8 @@ docker-compose -f docker-compose.prod.yml up -d
 
 ## 📊 CI/CD Pipeline
 
+A projekt teljes CI/CD pipeline-t implementál GitHub Actions segítségével, amely tartalmazza a kódminőség ellenőrzést, tesztelést, Docker image építést, automatikus telepítést és folyamatos monitorozást.
+
 ### 1. Kódminőség
 **Eszközök:** ESLint, Prettier, TypeScript Compiler, SonarCloud
 
@@ -116,6 +123,7 @@ docker-compose -f docker-compose.prod.yml up -d
 - ✅ Kódformázás validáció
 - ✅ TypeScript típusellenőrzés
 - ✅ SonarCloud minőség elemzés
+- ✅ Automatikus pull request kommentek
 
 **Parancsok:**
 ```bash
@@ -144,17 +152,24 @@ npm run test:coverage
 ```
 
 ### 3. Kiadás & Telepítés
-**Eszközök:** Docker, Docker Compose, Docker Hub
+**Eszközök:** Docker, Docker Compose, Docker Hub, Render.com
 
 **Funkciók:**
 - ✅ Többlépcsős Docker build-ek
 - ✅ Automatikus image készítés és feltöltés
 - ✅ Verzió címkézés (Git SHA + latest)
-- ✅ Automatikus telepítés
+- ✅ Automatikus telepítés Render.com-ra
+- ✅ Ingyenes hosting (backend, frontend, MongoDB)
 
 **Docker Image-ek:**
 - `erosbalint3/fakeneptun-backend:latest`
 - `erosbalint3/fakeneptun-frontend:latest`
+
+**Éles Alkalmazás:**
+- Frontend: https://fakeneptun-frontend.onrender.com
+- Backend: https://fakeneptun-backend.onrender.com
+
+📖 **Telepítési útmutató: [RENDER-DEPLOYMENT.md](./RENDER-DEPLOYMENT.md)**
 
 ### 4. Monitorozás & Visszajelzés
 **Eszközök:** Prometheus, Grafana, Trivy, Lighthouse CI, Slack
@@ -162,9 +177,11 @@ npm run test:coverage
 **Funkciók:**
 - ✅ Prometheus metrika gyűjtés
 - ✅ Grafana monitoring műszerfalak
-- ✅ Biztonsági sebezhetőség vizsgálat
-- ✅ Teljesítmény monitorozás
-- ✅ Slack értesítések
+- ✅ Biztonsági sebezhetőség vizsgálat (Docker image-ek)
+- ✅ Teljesítmény monitorozás (Lighthouse CI)
+- ✅ Automatikus health check-ek (4 óránként)
+- ✅ Slack értesítések hibák esetén
+- ✅ Nyilvános Lighthouse riportok
 
 **Monitorozott Metrikák:**
 - HTTP request duration & rate
@@ -172,12 +189,13 @@ npm run test:coverage
 - Database connection status
 - CPU & memory usage
 - Security vulnerabilities
-- Frontend performance scores
+- Frontend performance scores (SEO, Accessibility, Best Practices, Performance)
 
-**Access:**
-- Metrics: http://localhost:3000/metrics
-- Prometheus: http://localhost:9090
-- Grafana: http://localhost:3001
+**Hozzáférés:**
+- Metrics: http://localhost:3000/metrics (helyi)
+- Prometheus: http://localhost:9090 (helyi)
+- Grafana: http://localhost:3001 (helyi)
+- Lighthouse Reports: Automatikusan generálva minden workflow futáskor
 
 ---
 
@@ -264,4 +282,10 @@ FakeNeptun/
 - `CODECOV_TOKEN` - Codecov feltöltés
 - `DOCKERHUB_USERNAME` - Docker Hub felhasználónév
 - `DOCKERHUB_TOKEN` - Docker Hub hozzáférési token
+- `RENDER_BACKEND_DEPLOY_HOOK` - Render backend deploy webhook
+- `RENDER_FRONTEND_DEPLOY_HOOK` - Render frontend deploy webhook
 - `SLACK_WEBHOOK_URL` - Slack értesítések (opcionális)
+
+### GitHub Variables
+- `BACKEND_URL` - Backend URL (pl. https://fakeneptun-backend.onrender.com)
+- `FRONTEND_URL` - Frontend URL (pl. https://fakeneptun-frontend.onrender.com)
