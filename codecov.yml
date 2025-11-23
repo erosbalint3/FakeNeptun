@@ -29,11 +29,11 @@ comment:
 flags:
   backend:
     paths:
-      - FakeNeptun/backend/src
+      - backend/src
     carryforward: true
   frontend:
     paths:
-      - FakeNeptun/frontend/fakeNeptun/src
+      - frontend/fakeNeptun/src
     carryforward: true
 
 ignore:
