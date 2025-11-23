@@ -116,6 +116,7 @@ jobs:
           files: ./backend/coverage/lcov.info
           flags: backend
           name: backend-coverage
+          root_dir: ${{ github.workspace }}
 
       - name: Install Frontend Dependencies
         working-directory: frontend/fakeNeptun
@@ -136,6 +137,7 @@ jobs:
           files: ./frontend/fakeNeptun/coverage/lcov.info
           flags: frontend
           name: frontend-coverage
+          root_dir: ${{ github.workspace }}
 
       - name: Upload Backend Build Artifacts
         uses: actions/upload-artifact@v5
