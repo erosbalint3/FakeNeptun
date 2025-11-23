@@ -111,6 +111,7 @@ jobs:
 
       - name: Upload Backend Coverage to Codecov
         uses: codecov/codecov-action@v5
+        continue-on-error: true
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./backend/coverage/lcov.info
@@ -131,6 +132,7 @@ jobs:
 
       - name: Upload Frontend Coverage to Codecov
         uses: codecov/codecov-action@v5
+        continue-on-error: true
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./frontend/fakeNeptun/coverage/lcov.info
