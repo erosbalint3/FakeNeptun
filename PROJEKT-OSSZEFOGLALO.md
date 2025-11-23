@@ -94,29 +94,29 @@
 
 ---
 
-## Használt Tool-ok (7+ szükséges, 11 implementált)
+## Használt Eszközök (7+ szükséges, 11 implementált)
 
-| # | Tool | Kategória | Felhasználás |
+| # | Eszköz | Kategória | Felhasználás |
 |---|------|-----------|--------------|
-| 1 | **GitHub Actions** | CI/CD Platform | Workflow orchestration |
-| 2 | **ESLint** | Code Quality | Static code analysis |
-| 3 | **Prettier** | Code Quality | Code formatting |
-| 4 | **Jest** | Testing | Backend unit tests |
-| 5 | **Karma/Jasmine** | Testing | Frontend unit tests |
-| 6 | **Codecov** | Testing | Coverage reporting |
-| 7 | **SonarCloud** | Code Quality | Code quality & security analysis |
-| 8 | **Dependabot** | Security | Dependency updates |
-| 9 | **Trivy** | Security | Vulnerability scanning |
-| 10 | **Lighthouse CI** | Performance | Frontend performance monitoring |
-| 11 | **Slack** | Notifications | Team communication |
+| 1 | **GitHub Actions** | CI/CD Platform | Munkafolyamat vezérlés |
+| 2 | **ESLint** | Kódminőség | Statikus kódelemzés |
+| 3 | **Prettier** | Kódminőség | Kódformázás |
+| 4 | **Jest** | Tesztelés | Backend egységtesztek |
+| 5 | **Karma/Jasmine** | Tesztelés | Frontend egységtesztek |
+| 6 | **Codecov** | Tesztelés | Lefedettség riportolás |
+| 7 | **SonarCloud** | Kódminőség | Kódminőség és biztonsági elemzés |
+| 8 | **Dependabot** | Biztonság | Függőség frissítések |
+| 9 | **Trivy** | Biztonság | Sebezhetőség vizsgálat |
+| 10 | **Lighthouse CI** | Teljesítmény | Frontend teljesítmény figyelés |
+| 11 | **Slack** | Értesítések | Csapatkommunikáció |
 
-**Git és Docker nem számítanak bele a 7-be, így összesen 11 tool került implementálásra.**
+**Git és Docker nem számítanak bele a 7-be, így összesen 11 eszköz került implementálásra.**
 
 ---
 
 ## Létrehozott Fájlok
 
-### GitHub Actions Workflows
+### GitHub Actions Munkafolyamatok
 - `.github/workflows/ci-cd.yml` - Fő CI/CD pipeline
 - `.github/workflows/monitoring.yml` - Monitoring és health checks
 - `.github/dependabot.yml` - Automated dependency updates
@@ -124,41 +124,41 @@
 ### Backend Konfigurációk
 - `backend/.eslintrc.js` - ESLint szabályok
 - `backend/.prettierrc` - Prettier konfiguráció
-- `backend/.prettierignore` - Prettier ignore patterns
-- `backend/jest.config.js` - Jest test konfiguráció
-- `backend/Dockerfile` - Production Docker image
-- `backend/.dockerignore` - Docker build exclusions
-- `backend/.env.example` - Environment variables template
-- `backend/src/index.spec.ts` - Health check unit test
+- `backend/.prettierignore` - Prettier kihagyási minták
+- `backend/jest.config.js` - Jest teszt konfiguráció
+- `backend/Dockerfile` - Éles Docker image
+- `backend/.dockerignore` - Docker build kizárások
+- `backend/.env.example` - Környezeti változók sablon
+- `backend/src/index.spec.ts` - Health check egységteszt
 
 ### Frontend Konfigurációk
 - `frontend/fakeNeptun/.eslintrc.json` - ESLint szabályok
 - `frontend/fakeNeptun/.prettierrc` - Prettier konfiguráció
-- `frontend/fakeNeptun/.prettierignore` - Prettier ignore patterns
-- `frontend/fakeNeptun/karma.conf.js` - Karma test konfiguráció
-- `frontend/fakeNeptun/Dockerfile` - Production Docker image (Nginx)
-- `frontend/fakeNeptun/nginx.conf` - Nginx webserver konfiguráció
-- `frontend/fakeNeptun/.dockerignore` - Docker build exclusions
+- `frontend/fakeNeptun/.prettierignore` - Prettier kihagyási minták
+- `frontend/fakeNeptun/karma.conf.js` - Karma teszt konfiguráció
+- `frontend/fakeNeptun/Dockerfile` - Éles Docker image (Nginx)
+- `frontend/fakeNeptun/nginx.conf` - Nginx webszerver konfiguráció
+- `frontend/fakeNeptun/.dockerignore` - Docker build kizárások
 
 ### Projekt Szintű Konfigurációk
 - `sonar-project.properties` - SonarCloud konfiguráció
 - `codecov.yml` - Codecov konfiguráció
-- `docker-compose.prod.yml` - Production Docker Compose
-- `.github/ISSUE_TEMPLATE/bug_report.yml` - Bug report template
-- `.github/ISSUE_TEMPLATE/feature_request.yml` - Feature request template
-- `.github/pull_request_template.md` - PR template
+- `docker-compose.prod.yml` - Éles Docker Compose
+- `.github/ISSUE_TEMPLATE/bug_report.yml` - Hibajelentés sablon
+- `.github/ISSUE_TEMPLATE/feature_request.yml` - Funkcióigénylés sablon
+- `.github/pull_request_template.md` - PR sablon
 
 ### Dokumentáció
 - `CI-CD-README.md` - Teljes CI/CD dokumentáció
 - `QUICKSTART.md` - Gyors kezdési útmutató
-- `setup-cicd.sh` - Automatikus setup script
+- `setup-cicd.sh` - Automatikus telepítő script
 - `README.md` - Frissítve CI/CD badge-ekkel
 
 ---
 
 ## Package.json Frissítések
 
-### Backend Scripts
+### Backend Parancsok
 ```json
 "test": "jest"
 "test:watch": "jest --watch"
@@ -171,7 +171,7 @@
 "type-check": "tsc --noEmit"
 ```
 
-### Frontend Scripts
+### Frontend Parancsok
 ```json
 "test:ci": "ng test --no-watch --code-coverage --browsers=ChromeHeadless"
 "test:coverage": "ng test --no-watch --code-coverage"
@@ -186,13 +186,13 @@
 
 ## Pipeline Működés
 
-### Trigger Events
+### Trigger Események
 - **Push** to `main` vagy `develop` branch
 - **Pull Request** to `main` vagy `develop` branch
 - **Schedule** (monitoring - 4 óránként)
 - **Manual** (workflow_dispatch)
 
-### Job Flow
+### Feladat Folyamat
 
 ```
 ┌──────────────────┐
@@ -220,7 +220,7 @@
 │  + Notification  │
 └──────────────────┘
 
-Parallel folyamat:
+Párhuzamos folyamat:
 ┌──────────────────┐
 │  Monitoring      │ ← 4 óránként
 │  - Health checks │
@@ -233,33 +233,33 @@ Parallel folyamat:
 
 ## Security Features
 
-1. **Container Security**
-   - Non-root users minden containerben
-   - Multi-stage builds (minimális attack surface)
-   - Health checks
+1. **Konténer Biztonság**
+   - Nem-root felhasználók minden konténerben
+   - Többlépcsős build-ek (minimális támadási felület)
+   - Állapot ellenőrzések
 
-2. **Code Security**
-   - SonarCloud security hotspot detection
-   - Trivy vulnerability scanning
-   - Dependabot security updates
+2. **Kód Biztonság**
+   - SonarCloud biztonsági hotspot észlelés
+   - Trivy sebezhetőség vizsgálat
+   - Dependabot biztonsági frissítések
 
-3. **Secrets Management**
+3. **Titkos Adatok Kezelése**
    - GitHub Secrets használata
    - Környezeti változók
-   - Nincs hardcoded sensitive data
+   - Nincs kódba égetett érzékeny adat
 
 ---
 
 ## Monitoring & Metrics
 
-### Dashboards
+### Műszerfalak
 - **GitHub Actions** - Workflow runs, job logs
 - **Codecov** - Coverage trends, diff coverage
 - **SonarCloud** - Quality gate, code smells, bugs, vulnerabilities
 - **Docker Hub** - Image stats, download counts
 - **Lighthouse CI** - Performance scores
 
-### Alerts
+### Riasztások
 - Slack notifications deployment-kor
 - GitHub notifications workflow failure esetén
 - Email alerts Dependabot PR-ekre
@@ -271,11 +271,11 @@ Parallel folyamat:
 
 | Követelmény | Pont | Státusz | Implementáció |
 |------------|------|---------|---------------|
-| Code Quality | 10 | Teljesítve | ESLint, Prettier, TypeScript checks |
-| Build & Test | 15 | Teljesítve | Jest, Karma, Coverage, MongoDB service |
-| Release & Deploy | 15 | Teljesítve | Docker images, automated deployment |
-| Monitor & Feedback | 10 | Teljesítve | Health checks, security scans, alerts |
-| Tool-ok (min 5) | - | Teljesítve | 11 tool (Git, Docker nélkül) |
+| Kódminőség | 10 | Teljesítve | ESLint, Prettier, TypeScript ellenőrzések |
+| Build és Tesztelés | 15 | Teljesítve | Jest, Karma, Lefedettség, MongoDB szolgáltatás |
+| Kiadás és Telepítés | 15 | Teljesítve | Docker image-ek, automatikus telepítés |
+| Monitorozás és Visszajelzés | 10 | Teljesítve | Állapot ellenőrzések, biztonsági vizsgálatok, riasztások |
+| Eszközök (min 5) | - | Teljesítve | 11 eszköz (Git, Docker nélkül) |
 | README | - | Teljesítve | CI-CD-README.md, QUICKSTART.md |
 
 **Összesen: 50/50 pont**
@@ -284,13 +284,13 @@ Parallel folyamat:
 
 ## Kiemelkedő Funkciók
 
-1. **Teljes automatizáció** - Zero manual intervention
-2. **Multi-environment support** - Dev, staging, production
-3. **Comprehensive testing** - Unit, integration, e2e ready
-4. **Security-first approach** - Multiple security layers
-5. **Performance monitoring** - Lighthouse CI integration
-6. **Developer experience** - Templates, scripts, documentation
-7. **Production-ready** - Health checks, monitoring, rollback capability
+1. **Teljes automatizáció** - Nulla kézi beavatkozás
+2. **Több környezet támogatás** - Dev, staging, production
+3. **Átfogó tesztelés** - Egység, integrációs, e2e kész
+4. **Biztonság-első megközelítés** - Többszintű biztonsági rétegek
+5. **Teljesítmény monitorozás** - Lighthouse CI integráció
+6. **Fejlesztői élmény** - Sablonok, scriptek, dokumentáció
+7. **Éles-kész** - Állapot ellenőrzések, monitorozás, visszaállítási képesség
 
 ---
 
@@ -298,12 +298,12 @@ Parallel folyamat:
 
 ### Fejlesztőknek
 
-1. Clone repository
+1. Klónozd a repository-t
 2. Futtasd: `./setup-cicd.sh`
 3. Commitolj és push-olj
 4. A pipeline automatikusan fut
 
-### DevOps/Admin
+### DevOps/Adminisztrátor
 
 1. Állítsd be a GitHub Secrets-et
 2. Konfiguráld a SonarCloud-ot
